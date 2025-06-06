@@ -385,8 +385,10 @@
     </footer>
 
     <script>
-        // --- Elemen DOM ---
+                // --- Elemen DOM ---
         const baseIdeaEl = document.getElementById('baseIdea');
+        const aiModelSelectEl = document.getElementById('aiModelSelect'); // Diabaikan karena kita langsung ke Gemini
+        
         const pakemSettingEl = document.getElementById('pakemSetting');
         const pakemPakaianEl = document.getElementById('pakemPakaian');
         const pakemAksiPoseEl = document.getElementById('pakemAksiPose');
@@ -395,6 +397,7 @@
         const pakemKomposisiEl = document.getElementById('pakemKomposisi');
         const pakemParameterAREl = document.getElementById('pakemParameterAR');
         const pakemParameterLainEl = document.getElementById('pakemParameterLain');
+
         const generateAiPromptBtn = document.getElementById('generateAiPromptBtn');
         const aiGeneratedPromptEl = document.getElementById('aiGeneratedPrompt');
         const aiOutputArea = document.getElementById('aiOutputArea');
@@ -436,7 +439,7 @@
                     baseIdeaEl.focus();
                     return;
                 }
-
+                
                 // Membangun template dari pilihan dropdown
                 let constructedOutputTemplate = "";
                 const pakemElements = [
@@ -469,66 +472,36 @@
 
                 if(loadingIndicator) loadingIndicator.style.display = 'block';
                 if(aiOutputArea) aiOutputArea.style.display = 'none';
-                if(copyAiGeneratedPromptBtn) copyAiGeneratedPromptBtn.style.display = 'none';
                 if(generateAiPromptBtn) generateAiPromptBtn.disabled = true;
-                if(aiGeneratorMessage) aiGeneratorMessage.style.display = 'none';
-                
-                // Instruksi baru yang lebih detail untuk AI
-                const promptForApi = `
-                    You are a world-class prompt engineer for AI image generators. Your task is to take a user's 'Base Idea' and expand it into a detailed, structured prompt in ENGLISH.
 
-                    **Core Instructions:**
-                    1.  **Analyze Base Idea:** Analyze the core concepts in: "${baseIdea}".
-                    2.  **Follow Template Strictly:** Your entire response MUST strictly follow the structure provided in the 'Output Structure Template'. Do not add, remove, or reorder any categories/labels.
-                    3.  **Expand and Detail in ENGLISH:** For each line in the template, fill the corresponding [PLACEHOLDER] with vivid and specific details based on the user's idea and the context of the placeholder's label (e.g., "(based on user selection: ...)"). Be creative and descriptive.
-                    4.  **Language:** The entire final output must be in ENGLISH.
-                    5.  **Format:** Your response should ONLY be the filled-in template. Do not include any extra text, preambles, or explanations.
+                const dataUntukBackend = {
+                    baseIdea: baseIdea,
+                    constructedOutputTemplate: constructedOutputTemplate.trim(),
+                    // Kita tidak perlu mengirim model, karena backend sudah tahu akan menggunakan Gemini
+                };
 
-                    **Output Structure Template to Follow:**
-                    ---
-                    ${constructedOutputTemplate.trim()}
-                    ---
-
-                    Structured Prompt Output (English only):
-                `;
-                
-                console.log("Prompt dikirim ke API:", promptForApi); 
+                // URL ke Vercel Serverless Function Anda
+                const backendProxyUrl = "/api/generateAIPrompt";
 
                 try {
-                    // --- Menggunakan Google Gemini API ---
-                    let chatHistory = [];
-                    chatHistory.push({ role: "user", parts: [{ text: promptForApi }] });
-                    const payload = { contents: chatHistory };
-                    const apiKey = ""; // Dibiarkan kosong, akan di-handle oleh environment Canvas
-                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-                    
-                    const response = await fetch(apiUrl, {
+                    const response = await fetch(backendProxyUrl, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
+                        body: JSON.stringify(dataUntukBackend)
                     });
 
-                    if (!response.ok) {
-                        const errorData = await response.json();
-                        console.error('Error dari Gemini API:', errorData);
-                        throw new Error(`Gagal menghubungi Google AI. Status: ${response.status}. ${errorData?.error?.message || ''}`);
-                    }
-
                     const result = await response.json();
-                    
-                    let generatedText = "Tidak ada respons teks dari AI.";
-                    if (result.candidates && result.candidates.length > 0 &&
-                        result.candidates[0].content && result.candidates[0].content.parts &&
-                        result.candidates[0].content.parts.length > 0) {
-                        generatedText = result.candidates[0].content.parts[0].text;
+
+                    if (!response.ok) {
+                        throw new Error(result.error || `Gagal menghubungi server. Status: ${response.status}`);
                     }
                     
-                    const cleanText = generatedText.replace(/^Structured Prompt Output:\s*/im, '').trim();
+                    const cleanText = result.generatedPrompt.replace(/^Structured Prompt Output:\s*/im, '').trim();
 
                     if(aiGeneratedPromptEl) aiGeneratedPromptEl.value = cleanText;
                     if(aiOutputArea) aiOutputArea.style.display = 'block';
                     if(copyAiGeneratedPromptBtn) copyAiGeneratedPromptBtn.style.display = 'inline-block';
-                    showMessage('Prompt berhasil digenerate dengan Google Gemini!', 'success');
+                    showMessage('Prompt berhasil digenerate oleh AI!', 'success');
 
                 } catch (error) {
                     console.error('Error saat generate prompt:', error);
@@ -541,7 +514,8 @@
                 }
             });
         }
-
+        
+        // Kode untuk copy button tetap sama
         if (copyAiGeneratedPromptBtn) {
             copyAiGeneratedPromptBtn.addEventListener('click', () => {
                 if(!aiGeneratedPromptEl) return;
