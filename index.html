@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IMAJINASI LOKAL - Wujudkan Imajinasimu</title>
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Tautan ke File CSS Eksternal Anda -->
+    <link rel="stylesheet" href="css/style.css"> 
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="index.html#home" class="logo">
+                <!-- GANTI DENGAN LOGO ANDA -->
+                <img src="images/logo-placeholder.png" alt="Logo IMAJINASI LOKAL" class="logo-image" onerror="this.onerror=null;this.src='https://placehold.co/150x40/3498db/ffffff?text=LOGO';this.style.height='40px';"> 
+                <span class="logo-text">IMAJINASI LOKAL</span>
+            </a>
+            <div class="mobile-menu"> <i class="fas fa-bars"></i> </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Beranda</a></li>
+                    <li><a href="#ai-tools">AI Tools</a></li>
+                    <li><a href="galeri-halaman.html">Galeri</a></li>
+                    <li><a href="toko.html">Produk</a></li>
+                    <li><a href="#contact">Kontak</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Buat imajinasimu menjadi Sesuatu Yang Nyata</h1>
+            <p>Berbagai Tools dan Referensi Tersedia untuk anda</p>
+            <div class="hero-btns">
+                <a href="galeri-halaman.html" class="btn">LIHAT GALERI</a> 
+                <a href="#ai-tools" class="btn btn-accent">PROMPT TOOLS</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Tools Section -->
+    <section class="section" id="ai-tools">
+        <div class="container">
+            <div class="section-title">
+                <h2>AI Tools Unggulan</h2> 
+                <p>Temukan alat AI yang akan memicu kreativitas dan mewujudkan ide-ide Anda.</p> 
+            </div>
+            
+            <div class="ai-tools-grid"> 
+                <div class="ai-tool-item">
+                    <h3>Prompt Fashion Generator (Wanita)</h3>
+                    <p>Ciptakan konsep busana wanita yang elegan dan trendi. Pilih dari beragam gaya, siluet, dan detail yang telah disiapkan untuk memicu inspirasi fashion Anda!</p>
+                    <a href="#" class="btn protected-link" data-target-page="prompt-fashion-wanita.html">Mulai Kreasi (Wanita)</a>
+                </div>
+
+                <div class="ai-tool-item">
+                    <h3>Prompt Fashion Generator (Pria)</h3>
+                    <p>Rancang gaya busana pria yang modern dan berkarakter. Gunakan template prompt kami untuk menjelajahi berbagai pilihan pakaian, aksesoris, dan tema fashion pria.</p>
+                    <a href="#" class="btn protected-link" data-target-page="prompt-fashion-pria.html">Mulai Kreasi (Pria)</a>
+                </div>
+                
+                <div class="ai-tool-item">
+                    <h3>AI Prompt Generator (Template Dropdown)</h3>
+                    <p>Susun struktur prompt AI Anda dengan memilih elemen pakem, dan biarkan AI mengisi detailnya berdasarkan ide Anda!</p>
+                    <a href="#" class="btn protected-link" data-target-page="ai-prompt-generator-template.html">Coba AI Generator Ini</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Galeri Konten Section (Cuplikan) -->
+    <section class="section galeri" id="galeri-cuplikan"> 
+        <div class="container">
+            <div class="section-title">
+                <h2>Cuplikan Galeri</h2> 
+                <p>Beberapa contoh kreasi. Kunjungi halaman Galeri kami untuk lebih banyak inspirasi!</p>
+            </div>
+            <div class="galeri-grid">
+                <div class="galeri-item-card" data-prompt="Sebuah lukisan surealis kucing oranye dengan topi penyihir, duduk di atas bulan sabit, dengan latar belakang galaksi nebula berwarna-warni, gaya Van Gogh. --ar 16:9 --style raw">
+                    <img src="images/galeri/kucing-surealis-placeholder.jpg" alt="Kucing Penyihir Surealis" onerror="this.onerror=null;this.src='https://placehold.co/300x200/3498db/ffffff?text=Surealis+Kucing';">
+                    <h3>Kucing Penyihir Surealis</h3>
+                </div>
+                <div class="galeri-item-card" data-prompt="Desain interior ruang tamu gaya Japandi, palet warna netral (putih, krem, abu-abu muda, aksen kayu oak terang), furnitur minimalis, pencahayaan alami melimpah, tanaman hias indoor, tekstur lembut. --ar 4:3 --v 5.2">
+                     <img src="images/galeri/ruang-tamu-japandi-placeholder.jpg" alt="Ruang Tamu Japandi" onerror="this.onerror=null;this.src='https://placehold.co/300x200/2ecc71/ffffff?text=Ruang+Tamu+Japandi';">
+                    <h3>Ruang Tamu Japandi</h3>
+                </div>
+                <div class="galeri-item-card" data-prompt="Pola geometris abstrak berwarna emas dan biru tua, terinspirasi dari motif Art Deco, dengan efek kilau metalik, untuk wallpaper mewah. --tile --ar 1:1">
+                    <img src="images/galeri/pola-art-deco-placeholder.jpg" alt="Pola Abstrak Art Deco" onerror="this.onerror=null;this.src='https://placehold.co/300x200/e74c3c/ffffff?text=Pola+Art+Deco';">
+                    <h3>Pola Abstrak Art Deco</h3>
+                </div>
+            </div>
+             <div style="text-align: center; margin-top: 30px;">
+                <a href="galeri-halaman.html" class="btn btn-accent">Lihat Semua Galeri</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Produk Section (Cuplikan di halaman utama) -->
+    <section class="section" id="produk"> 
+        <div class="container">
+            <div class="section-title">
+                <h2>Produk Unggulan Kami</h2> 
+                <p>Temukan produk-produk digital inovatif dari IMAJINASI LOKAL yang siap membantu Anda.</p>
+            </div>
+            <div class="produk-grid">
+                <div class="produk-item-card">
+                    <a href="LINK_TOKO_PRODUK_1_ANDA" target="_blank" rel="noopener noreferrer">
+                        <img src="images/produk/produk-a-placeholder.jpg" alt="Paket Template Prompt Eksklusif" onerror="this.onerror=null;this.src='https://placehold.co/280x180/f39c12/ffffff?text=Produk+A';">
+                        <h3>Paket Template Prompt Eksklusif</h3>
+                        <p>Kumpulan template prompt premium untuk berbagai kebutuhan kreatif Anda.</p>
+                        <span class="btn-lihat-produk">Lihat di Toko</span>
+                    </a>
+                </div>
+                <div class="produk-item-card">
+                     <a href="LINK_TOKO_PRODUK_2_ANDA" target="_blank" rel="noopener noreferrer">
+                        <img src="images/produk/produk-b-placeholder.jpg" alt="Panduan Master AI Art" onerror="this.onerror=null;this.src='https://placehold.co/280x180/9b59b6/ffffff?text=Produk+B';">
+                        <h3>Panduan Master AI Art</h3>
+                        <p>Ebook lengkap untuk menguasai seni menghasilkan gambar dengan AI.</p>
+                         <span class="btn-lihat-produk">Lihat di Toko</span>
+                    </a>
+                </div>
+                <div class="produk-item-card">
+                    <a href="LINK_TOKO_PRODUK_3_ANDA" target="_blank" rel="noopener noreferrer">
+                        <img src="images/produk/produk-c-placeholder.jpg" alt="Konsultasi Kreasi AI" onerror="this.onerror=null;this.src='https://placehold.co/280x180/1abc9c/ffffff?text=Produk+C';">
+                        <h3>Konsultasi Kreasi AI</h3>
+                        <p>Sesi konsultasi personal untuk proyek kreatif berbasis AI Anda.</p>
+                        <span class="btn-lihat-produk">Lihat di Toko</span>
+                    </a>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 30px;">
+                <a href="toko.html" class="btn">Kunjungi Toko Lengkap Kami</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Modal untuk Prompt -->
+    <div id="promptModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" id="modalCloseButton">&times;</span>
+            <h3>Prompt Detail</h3>
+            <div id="modalPromptText" class="modal-prompt-text"></div>
+            <button id="copyPromptButton" class="modal-copy-button">Salin Prompt</button>
+            <span id="copy-feedback"></span>
+        </div>
+    </div>
+    
+    <!-- Modal untuk Password -->
+    <div id="passwordModal" class="modal">
+        <div class="modal-content" style="max-width: 400px; text-align: center;">
+            <span class="modal-close" id="passwordModalCloseButton">&times;</span>
+            <h3>Masukkan Password</h3>
+            <p id="passwordModalMessage" style="margin-bottom: 15px; color: #555;">Fitur ini dilindungi. Masukkan password untuk melanjutkan.</p>
+            <input type="password" id="passwordInput" placeholder="Password..." style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 5px; border: 1px solid #ccc;">
+            <p id="passwordError" style="color: red; display: none; margin-bottom: 10px;"></p>
+            <button id="submitPasswordButton" class="btn">Submit</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="contact"> 
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>Tentang Kami</h3>
+                    <p>Di IMAJINASI LOKAL, kami percaya setiap gagasan 'LOKAL' memiliki potensi global. Kami hadir untuk membekali Anda dengan alat dan inspirasi, mengubah percikan imajinasi menjadi karya nyata yang tak terbatas.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Tautan Navigasi</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Beranda</a></li>
+                        <li><a href="#ai-tools">AI Tools</a></li>
+                        <li><a href="galeri-halaman.html">Galeri</a></li> 
+                        <li><a href="toko.html">Produk</a></li> 
+                        <li><a href="#">Blog</a></li> 
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Jelajahi</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Kebijakan Privasi</a></li>
+                        <li><a href="#">Syarat & Ketentuan</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Media Sosial</h3> 
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/profile.php?id=61574077473784&locale=id_ID" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.threads.net/@imajinasi.lokal?hl=en" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-threads"></i></a>
+                        <a href="https://www.instagram.com/imajinasi.lokal/" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                        <a href="https://t.me/imajinasilokal" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-telegram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; <span id="currentYear"></span> IMAJINASI LOKAL. Hak Cipta Dilindungi. Dirancang dengan <i class="fas fa-heart" style="color: var(--accent);"></i></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

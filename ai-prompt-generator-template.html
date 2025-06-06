@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Prompt Generator (Gemini) - IMAJINASI LOKAL</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* CSS Spesifik untuk Halaman Generator AI ini (tidak ada perubahan signifikan dari sebelumnya) */
+        .generator-container {
+            max-width: 900px;
+            width: 100%; 
+            margin: 40px auto; 
+            background: rgba(255, 255, 255, 0.98); 
+            padding: 30px 35px; 
+            border-radius: 15px; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1); 
+        }
+        .generator-container h1 { 
+            text-align: center; 
+            color: var(--secondary); 
+            font-size: 2.2em; 
+            margin-bottom: 15px;
+        }
+        .generator-container p.description {
+            text-align: center;
+            color: var(--text);
+            margin-bottom: 30px;
+            font-size: 1.05em;
+            line-height: 1.6;
+        }
+        .generator-container label { 
+            display: block; 
+            margin-top: 20px; 
+            font-weight: 600;
+            color: var(--text); 
+            font-size: 1.1em; 
+            margin-bottom: 8px; 
+        }
+        .generator-container textarea,
+        .generator-container select {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #bdc3c7;
+            border-radius: 8px;
+            font-size: 0.95em;
+            background: white;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+        }
+        .generator-container textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        .generator-container select {
+             cursor: pointer;
+        }
+
+        .generator-container textarea:focus,
+        .generator-container select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.15);
+        }
+        
+        .template-pakem-group {
+            border: 1px solid #e0e0e0;
+            padding: 15px 20px 20px 20px;
+            margin-top: 20px;
+            border-radius: 8px;
+            background-color: #fdfdfd;
+        }
+        .template-pakem-group h3 {
+            font-size: 1.2em;
+            color: var(--secondary);
+            margin-top: 0;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        .template-pakem-item {
+            margin-bottom: 15px;
+        }
+        .template-pakem-item label {
+            font-size: 1em;
+            margin-top: 0;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .generator-container button#generateAiPromptBtn { 
+            margin-top: 30px; 
+            padding: 14px 30px; 
+            font-weight: bold; 
+            cursor: pointer;
+            background: var(--accent); 
+            color: white;
+            border: none;
+            border-radius: 25px; 
+            font-size: 1.05em; 
+            transition: all 0.3s ease;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            min-width: 220px; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .generator-container button#generateAiPromptBtn:hover {
+            background: #c0392b; 
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(231, 76, 60, 0.3); 
+        }
+        .generator-container .output-section { 
+            margin-top: 30px; 
+            background: #f8f9fa; 
+            padding: 20px 25px; 
+            border-radius: 10px; 
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.05); 
+            border: 1px solid #e9ecef;
+        }
+        .generator-container .output-section label {
+            margin-top: 0;
+        }
+        .generator-container .copyBtn { 
+            margin-top: 10px; 
+            padding: 9px 20px; 
+            cursor: pointer;
+            background: #27ae60; 
+            color: white;
+            border: none;
+            border-radius: 6px; 
+            font-size: 0.85em;
+            font-weight: 500; 
+            transition: all 0.3s ease;
+        }
+        .generator-container .copyBtn:hover {
+            background: #229954; 
+            transform: translateY(-1px);
+        }
+        .generator-container .message-area {
+            padding: 10px 15px;
+            border-radius: 6px;
+            margin-top: 15px;
+            text-align: center; 
+            display: none; 
+            font-size: 0.9em;
+        }
+        .generator-container .success-message {
+            background: #d1fae5; color: #065f46; border: 1px solid #a7f3d0; 
+        }
+        .generator-container .error-message {
+            background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; 
+        }
+        .generator-container .loading-indicator {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+            font-style: italic;
+            color: var(--primary);
+        }
+
+        .generator-header {
+            background-color: var(--secondary);
+            padding: 15px 0;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+        }
+        .generator-header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .generator-header .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        .generator-header .logo .logo-text {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .back-to-main-home {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1em;
+            padding: 8px 15px;
+            border: 2px solid var(--primary);
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+        .back-to-main-home:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+         @media (max-width: 768px) {
+            .generator-container { margin: 20px 10px; padding: 20px; }
+            .generator-container h1 { font-size: 1.8em; }
+            .generator-container button#generateAiPromptBtn { width: 100%; }
+            .generator-header .logo img { height: 35px; }
+            .generator-header .logo .logo-text { font-size: 1.4rem; }
+            .back-to-main-home { font-size: 0.9em; padding: 6px 12px;}
+        }
+    </style>
+</head>
+<body>
+    <header class="generator-header">
+        <div class="container">
+            <a href="index.html#home" class="logo">
+                <img src="images/logo-placeholder.png" alt="Logo IMAJINASI LOKAL" onerror="this.onerror=null;this.src='https://placehold.co/150x40/3498db/ffffff?text=LOGO';this.style.height='40px';"> 
+                <span class="logo-text">IMAJINASI LOKAL</span>
+            </a>
+            <a href="index.html" class="back-to-main-home">
+                <i class="fas fa-arrow-left"></i> Kembali ke Beranda
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <section class="section" style="padding-top: 30px; padding-bottom: 30px;">
+            <div class="generator-container">
+                <h1>AI Prompt Generator (Google Gemini)</h1>
+                <p class="description">Masukkan ide dasar Anda, lalu pilih elemen-elemen "pakem" untuk menyusun struktur prompt. AI akan mengisi detailnya dalam Bahasa Inggris!</p>
+
+                <form id="aiPromptForm">
+                    <div>
+                        <label for="baseIdea">1. Ide Dasar Prompt Anda (Wajib Diisi):</label>
+                        <textarea id="baseIdea" name="baseIdea" rows="3" placeholder="Contoh: Seekor naga emas terbang di atas gunung berapi, gaya fantasi epik"></textarea>
+                    </div>
+
+                    <div class="template-pakem-group">
+                        <h3>2. Susun Struktur Prompt dengan Pilihan Pakem (Opsional):</h3>
+                        
+                        <div class="template-pakem-item">
+                            <label for="pakemSetting">Setting/Lokasi:</label>
+                            <select id="pakemSetting" name="pakemSetting">
+                                <option value="">-- Kosong --</option>
+                                <option value="Outdoor Sunny Daylight">Outdoor Sunny Daylight</option>
+                                <option value="Outdoor Starry Night">Outdoor Starry Night</option>
+                                <option value="Indoor Natural Light">Indoor Natural Light</option>
+                                <option value="Indoor Artificial Light">Indoor Artificial Light</option>
+                                <option value="Plain Background Studio Shot">Plain Background Studio Shot</option>
+                                <option value="Modern Cityscape">Modern Cityscape</option>
+                                <option value="Natural Landscape (Forest/Mountain/Beach)">Natural Landscape (Forest/Mountain/Beach)</option>
+                                <option value="Fantasy/Surreal Background">Fantasy/Surreal Background</option>
+                                <option value="Historical/Vintage Setting">Historical/Vintage Setting</option>
+                                <option value="Sci-Fi/Futuristic Environment">Sci-Fi/Futuristic Environment</option>
+                            </select>
+                        </div>
+
+                        <div class="template-pakem-item">
+                            <label for="pakemPakaian">Pakaian/Busana Subjek:</label>
+                            <select id="pakemPakaian" name="pakemPakaian">
+                                <option value="">-- Kosong --</option>
+                                <option value="Casual Everyday Wear">Casual Everyday Wear</option>
+                                <option value="Formal Attire (Suit/Gown)">Formal Attire (Suit/Gown)</option>
+                                <option value="Traditional/Cultural Outfit">Traditional/Cultural Outfit</option>
+                                <option value="Fantasy/Character Costume">Fantasy/Character Costume</option>
+                                <option value="Sportswear/Athletic Gear">Sportswear/Athletic Gear</option>
+                                <option value="Professional Workwear">Professional Workwear</option>
+                                <option value="Specific Uniform">Specific Uniform</option>
+                            </select>
+                        </div>
+
+                        <div class="template-pakem-item">
+                            <label for="pakemAksiPose">Aksi/Pose Subjek:</label>
+                            <select id="pakemAksiPose" name="pakemAksiPose">
+                                <option value="">-- Kosong --</option>
+                                <option value="Standing Tall and Confident">Standing Tall and Confident</option>
+                                <option value="Sitting Relaxed and Contemplative">Sitting Relaxed and Contemplative</option>
+                                <option value="Walking with Purpose">Walking with Purpose</option>
+                                <option value="Jumping or Dynamic Movement">Jumping or Dynamic Movement</option>
+                                <option value="Facial Close-Up with Specific Expression">Facial Close-Up (Specific Expression)</option>
+                                <option value="Half-Body Portrait">Half-Body Portrait</option>
+                                <option value="Interacting with an Object">Interacting with an Object</option>
+                            </select>
+                        </div>
+
+                        <div class="template-pakem-item">
+                            <label for="pakemGayaVisual">Gaya Visual/Artistk:</label>
+                            <select id="pakemGayaVisual" name="pakemGayaVisual">
+                                <option value="">-- Kosong --</option>
+                                <option value="Hyperrealistic Photography">Hyperrealistic Photography</option>
+                                <option value="Detailed Digital Painting">Detailed Digital Painting</option>
+                                <option value="Classic Anime/Manga Style">Classic Anime/Manga Style</option>
+                                <option value="Modern Anime/Manga Style">Modern Anime/Manga Style</option>
+                                <option value="Expressive Abstract Art">Expressive Abstract Art</option>
+                                <option value="Dramatic Black and White Photography">Dramatic Black and White Photography</option>
+                                <option value="Cinematic Lighting Style">Cinematic Lighting Style</option>
+                                <option value="Classic Oil Painting Style">Classic Oil Painting Style</option>
+                                <option value="Retro Pixel Art">Retro Pixel Art</option>
+                                <option value="Children's Book Illustration Style">Children's Book Illustration Style</option>
+                                <option value="Watercolor Painting Style">Watercolor Painting Style</option>
+                                <option value="Steampunk Aesthetics">Steampunk Aesthetics</option>
+                                <option value="Cyberpunk Neon Glow">Cyberpunk Neon Glow</option>
+                            </select>
+                        </div>
+
+                        <div class="template-pakem-item">
+                            <label for="pakemPencahayaan">Pencahayaan:</label>
+                            <select id="pakemPencahayaan" name="pakemPencahayaan">
+                                <option value="">-- Kosong --</option>
+                                <option value="Bright Natural Daylight">Bright Natural Daylight</option>
+                                <option value="Golden Hour (Sunrise/Sunset)">Golden Hour (Sunrise/Sunset)</option>
+                                <option value="Blue Hour (Twilight)">Blue Hour (Twilight)</option>
+                                <option value="Soft Studio Lighting (Softbox)">Soft Studio Lighting (Softbox)</option>
+                                <option value="Dramatic Lighting with Strong Shadows">Dramatic Lighting (Strong Shadows)</option>
+                                <option value="Colorful Neon Lights">Colorful Neon Lights</option>
+                                <option value="Low Key Lighting">Low Key Lighting</option>
+                                <option value="High Key Lighting">High Key Lighting</option>
+                                <option value="Moonlight at Night">Moonlight at Night</option>
+                            </select>
+                        </div>
+                        
+                        <div class="template-pakem-item">
+                            <label for="pakemKomposisi">Komposisi/Shot Kamera:</label>
+                            <select id="pakemKomposisi" name="pakemKomposisi">
+                                <option value="">-- Kosong --</option>
+                                <option value="Close-Up Shot">Close-Up Shot</option>
+                                <option value="Medium Shot">Medium Shot</option>
+                                <option value="Full Body Shot">Full Body Shot</option>
+                                <option value="Wide Angle Shot">Wide Angle Shot</option>
+                                <option value="Low Angle Shot">Low Angle Shot</option>
+                                <option value="High Angle Shot">High Angle Shot</option>
+                                <option value="Dutch Angle">Dutch Angle</option>
+                                <option value="Bokeh Background">Bokeh Background</option>
+                            </select>
+                        </div>
+
+                        <div class="template-pakem-item">
+                            <label for="pakemParameterAR">Parameter: Aspek Rasio (Opsional)</label>
+                            <select id="pakemParameterAR" name="pakemParameterAR">
+                                <option value="">-- Kosong --</option>
+                                <option value="--ar 16:9">16:9 (Landscape)</option>
+                                <option value="--ar 9:16">9:16 (Portrait)</option>
+                                <option value="--ar 1:1">1:1 (Square)</option>
+                                <option value="--ar 4:3">4:3 (Classic)</option>
+                                <option value="--ar 3:2">3:2 (Photo)</option>
+                                <option value="--ar 21:9">21:9 (Cinematic Widescreen)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="template-pakem-item">
+                            <label for="pakemParameterLain">Parameter: Tambahan Lain (Opsional)</label>
+                            <select id="pakemParameterLain" name="pakemParameterLain">
+                                <option value="">-- Kosong --</option>
+                                <option value="--style raw">--style raw (More Realistic/Photographic)</option>
+                                <option value="--v 6.0">--v 6.0 (Example Model Version)</option>
+                                <option value="--v 5.2">--v 5.2 (Example Model Version)</option>
+                                <option value="--niji 5">--niji 5 (Anime Style)</option>
+                                <option value="4K resolution">4K resolution</option>
+                                <option value="highly detailed">highly detailed</option>
+                                <option value="masterpiece quality">masterpiece quality</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button type="button" id="generateAiPromptBtn">
+                        <i class="fas fa-cogs" style="margin-right: 8px;"></i>Generate Prompt dengan AI
+                    </button>
+                </form>
+                
+                <div class="loading-indicator" id="loadingIndicator">
+                    <i class="fas fa-spinner fa-spin"></i> Sedang memproses permintaan Anda...
+                </div>
+
+                <div class="message-area" id="aiGeneratorMessage"></div>
+
+                <div class="output-section" id="aiOutputArea" style="display:none;"> 
+                    <label for="aiGeneratedPrompt">Hasil Prompt dari AI (Sesuai Template Anda):</label>
+                    <textarea id="aiGeneratedPrompt" readonly rows="10"></textarea>
+                    <button type="button" class="copyBtn" id="copyAiGeneratedPromptBtn" style="display:none;">
+                        <i class="fas fa-copy" style="margin-right: 5px;"></i>Salin Prompt
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer style="background: var(--secondary); color: rgba(255,255,255,0.8); text-align: center; padding: 30px 0; margin-top: 40px;">
+        <div class="container">
+            <p class="copyright" style="border-top: none; padding-top:0;">&copy; 2024 IMAJINASI LOKAL. Hak Cipta Dilindungi.</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- Elemen DOM ---
+        const baseIdeaEl = document.getElementById('baseIdea');
+        const pakemSettingEl = document.getElementById('pakemSetting');
+        const pakemPakaianEl = document.getElementById('pakemPakaian');
+        const pakemAksiPoseEl = document.getElementById('pakemAksiPose');
+        const pakemGayaVisualEl = document.getElementById('pakemGayaVisual');
+        const pakemPencahayaanEl = document.getElementById('pakemPencahayaan');
+        const pakemKomposisiEl = document.getElementById('pakemKomposisi');
+        const pakemParameterAREl = document.getElementById('pakemParameterAR');
+        const pakemParameterLainEl = document.getElementById('pakemParameterLain');
+        const generateAiPromptBtn = document.getElementById('generateAiPromptBtn');
+        const aiGeneratedPromptEl = document.getElementById('aiGeneratedPrompt');
+        const aiOutputArea = document.getElementById('aiOutputArea');
+        const copyAiGeneratedPromptBtn = document.getElementById('copyAiGeneratedPromptBtn');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        const aiGeneratorMessage = document.getElementById('aiGeneratorMessage');
+
+        // --- Fungsi Bantuan ---
+        function showMessage(message, type = 'success') {
+            if (!aiGeneratorMessage) return;
+            aiGeneratorMessage.textContent = message;
+            aiGeneratorMessage.className = 'message-area'; 
+            if (type === 'success') {
+                aiGeneratorMessage.classList.add('success-message');
+            } else if (type === 'error') {
+                aiGeneratorMessage.classList.add('error-message');
+            } else { 
+                aiGeneratorMessage.style.background = '#e0f2fe'; 
+                aiGeneratorMessage.style.color = '#0c5464';    
+                aiGeneratorMessage.style.border = '1px solid #bee0f0';
+            }
+            aiGeneratorMessage.style.display = 'block';
+            setTimeout(() => {
+                if(aiGeneratorMessage) aiGeneratorMessage.style.display = 'none';
+            }, 6000); 
+        }
+
+        // --- Event Listener Utama ---
+        if (generateAiPromptBtn) {
+            generateAiPromptBtn.addEventListener('click', async () => {
+                if (!baseIdeaEl) {
+                    console.error("Elemen baseIdea tidak ditemukan");
+                    return;
+                }
+                const baseIdea = baseIdeaEl.value.trim();
+
+                if (!baseIdea) {
+                    showMessage('Mohon masukkan ide dasar prompt Anda.', 'error');
+                    baseIdeaEl.focus();
+                    return;
+                }
+
+                // Membangun template dari pilihan dropdown
+                let constructedOutputTemplate = "";
+                const pakemElements = [
+                    { el: pakemSettingEl, label: "Setting/Location", placeholder: "[DETAILED_SETTING_LOCATION]" },
+                    { el: pakemPakaianEl, label: "Subject's Clothing/Attire", placeholder: "[DETAILED_CLOTHING_ATTIRE]" },
+                    { el: pakemAksiPoseEl, label: "Subject's Action/Pose", placeholder: "[DETAILED_ACTION_POSE]" },
+                    { el: pakemGayaVisualEl, label: "Visual/Artistic Style", placeholder: "[DETAILED_VISUAL_STYLE]" },
+                    { el: pakemPencahayaanEl, label: "Lighting", placeholder: "[DETAILED_LIGHTING_DESCRIPTION]" },
+                    { el: pakemKomposisiEl, label: "Composition/Camera Shot", placeholder: "[DETAILED_COMPOSITION_SHOT]" }
+                ];
+                let hasSelectedPakem = false;
+                pakemElements.forEach(item => {
+                    if (item.el && item.el.value) { 
+                        constructedOutputTemplate += `${item.label}: ${item.placeholder} (based on user selection: ${item.el.value})\n`;
+                        hasSelectedPakem = true;
+                    }
+                });
+                
+                let parameterString = "";
+                if (pakemParameterAREl && pakemParameterAREl.value) parameterString += `${pakemParameterAREl.value} `;
+                if (pakemParameterLainEl && pakemParameterLainEl.value) parameterString += `${pakemParameterLainEl.value} `;
+                if (parameterString.trim()) {
+                     constructedOutputTemplate += `Parameters: ${parameterString.trim()}\n`;
+                     hasSelectedPakem = true;
+                }
+
+                if (!hasSelectedPakem) {
+                     constructedOutputTemplate = "Image Description: [A comprehensive, detailed, and vivid description generated from the user's base idea]\n";
+                }
+
+                if(loadingIndicator) loadingIndicator.style.display = 'block';
+                if(aiOutputArea) aiOutputArea.style.display = 'none';
+                if(copyAiGeneratedPromptBtn) copyAiGeneratedPromptBtn.style.display = 'none';
+                if(generateAiPromptBtn) generateAiPromptBtn.disabled = true;
+                if(aiGeneratorMessage) aiGeneratorMessage.style.display = 'none';
+                
+                // Instruksi baru yang lebih detail untuk AI
+                const promptForApi = `
+                    You are a world-class prompt engineer for AI image generators. Your task is to take a user's 'Base Idea' and expand it into a detailed, structured prompt in ENGLISH.
+
+                    **Core Instructions:**
+                    1.  **Analyze Base Idea:** Analyze the core concepts in: "${baseIdea}".
+                    2.  **Follow Template Strictly:** Your entire response MUST strictly follow the structure provided in the 'Output Structure Template'. Do not add, remove, or reorder any categories/labels.
+                    3.  **Expand and Detail in ENGLISH:** For each line in the template, fill the corresponding [PLACEHOLDER] with vivid and specific details based on the user's idea and the context of the placeholder's label (e.g., "(based on user selection: ...)"). Be creative and descriptive.
+                    4.  **Language:** The entire final output must be in ENGLISH.
+                    5.  **Format:** Your response should ONLY be the filled-in template. Do not include any extra text, preambles, or explanations.
+
+                    **Output Structure Template to Follow:**
+                    ---
+                    ${constructedOutputTemplate.trim()}
+                    ---
+
+                    Structured Prompt Output (English only):
+                `;
+                
+                console.log("Prompt dikirim ke API:", promptForApi); 
+
+                try {
+                    // --- Menggunakan Google Gemini API ---
+                    let chatHistory = [];
+                    chatHistory.push({ role: "user", parts: [{ text: promptForApi }] });
+                    const payload = { contents: chatHistory };
+                    const apiKey = ""; // Dibiarkan kosong, akan di-handle oleh environment Canvas
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+                    
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        console.error('Error dari Gemini API:', errorData);
+                        throw new Error(`Gagal menghubungi Google AI. Status: ${response.status}. ${errorData?.error?.message || ''}`);
+                    }
+
+                    const result = await response.json();
+                    
+                    let generatedText = "Tidak ada respons teks dari AI.";
+                    if (result.candidates && result.candidates.length > 0 &&
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+                        result.candidates[0].content.parts.length > 0) {
+                        generatedText = result.candidates[0].content.parts[0].text;
+                    }
+                    
+                    const cleanText = generatedText.replace(/^Structured Prompt Output:\s*/im, '').trim();
+
+                    if(aiGeneratedPromptEl) aiGeneratedPromptEl.value = cleanText;
+                    if(aiOutputArea) aiOutputArea.style.display = 'block';
+                    if(copyAiGeneratedPromptBtn) copyAiGeneratedPromptBtn.style.display = 'inline-block';
+                    showMessage('Prompt berhasil digenerate dengan Google Gemini!', 'success');
+
+                } catch (error) {
+                    console.error('Error saat generate prompt:', error);
+                    showMessage(`Terjadi kesalahan: ${error.message}`, 'error');
+                    if(aiGeneratedPromptEl) aiGeneratedPromptEl.value = "Gagal menghasilkan prompt. Silakan coba lagi.";
+                    if(aiOutputArea) aiOutputArea.style.display = 'block';
+                } finally {
+                    if(loadingIndicator) loadingIndicator.style.display = 'none';
+                    if(generateAiPromptBtn) generateAiPromptBtn.disabled = false;
+                }
+            });
+        }
+
+        if (copyAiGeneratedPromptBtn) {
+            copyAiGeneratedPromptBtn.addEventListener('click', () => {
+                if(!aiGeneratedPromptEl) return;
+                const textToCopy = aiGeneratedPromptEl.value;
+                if (!textToCopy) {
+                    showMessage('Tidak ada prompt untuk disalin.', 'error');
+                    return;
+                }
+                try {
+                    const textArea = document.createElement("textarea");
+                    textArea.value = textToCopy;
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textArea);
+                    showMessage('Prompt berhasil disalin ke clipboard!', 'success');
+                } catch (err) {
+                    console.error('Gagal menyalin:', err);
+                    showMessage('Gagal menyalin prompt. Coba salin manual.', 'error');
+                }
+            });
+        }
+    </script>
+</body>
+</html>

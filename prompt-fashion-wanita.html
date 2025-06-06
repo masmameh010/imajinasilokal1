@@ -1,0 +1,1356 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Generator Prompt Fashion Wanita - IMAJINASI LOKAL</title>
+    <!-- Font Awesome CSS (dari CDN) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Tautan ke File CSS Utama -->
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* CSS Spesifik untuk Halaman Generator Wanita */
+        
+        .generator-container {
+            max-width: 900px;
+            width: 100%; 
+            margin: 40px auto; 
+            background: rgba(255, 255, 255, 0.98); 
+            padding: 30px 35px; 
+            border-radius: 15px; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1); 
+        }
+
+        .social-media-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px; 
+            margin-bottom: 25px; 
+            padding-top: 5px;
+        }
+
+        .social-media-buttons a {
+            display: inline-flex; 
+            align-items: center;
+            justify-content: center;
+            padding: 9px; 
+            border-radius: 50%; 
+            background-color: rgba(44, 62, 80, 0.1); 
+            color: var(--secondary); 
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .social-media-buttons a:hover {
+            background-color: rgba(44, 62, 80, 0.2);
+            transform: translateY(-2px); 
+            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+        }
+
+        .social-media-buttons svg {
+            width: 20px; 
+            height: 20px;
+            fill: currentColor; 
+        }
+        
+        .generator-container h1 { 
+            text-align: center; 
+            color: var(--secondary); 
+            font-size: 2.2em; 
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05); 
+        }
+        
+        .generator-container label { 
+            display: block; 
+            margin-top: 15px; 
+            font-weight: 600;
+            color: var(--text); 
+            font-size: 1.1em; 
+            margin-bottom: 7px; 
+        }
+        
+        .generator-container select, 
+        .generator-container input[type=radio], 
+        .generator-container input[type=text] { 
+            margin-top: 4px; 
+            transition: all 0.3s ease;
+        }
+        
+        .generator-container select, 
+        .generator-container input[type=text] {
+            width: 100%;
+            padding: 12px 14px; 
+            border: 1px solid #bdc3c7; 
+            border-radius: 8px; 
+            font-size: 0.95em; 
+            background: white;
+            cursor: pointer;
+            box-sizing: border-box; 
+        }
+        
+        .generator-container select:focus, 
+        .generator-container input[type=text]:focus {
+            outline: none;
+            border-color: var(--primary); 
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.15); 
+        }
+        
+        .generator-container select:hover, 
+        .generator-container input[type=text]:hover {
+            border-color: #95a5a6; 
+        }
+            
+        .generator-container input[type=radio] {
+            margin-right: 8px; 
+            transform: scale(1.2); 
+            accent-color: var(--primary); 
+        }
+        
+        .generator-container button#generatePromptBtn { 
+            margin-top: 30px; 
+            padding: 14px 30px; 
+            font-weight: bold; 
+            cursor: pointer;
+            background: var(--accent); 
+            color: white;
+            border: none;
+            border-radius: 25px; 
+            font-size: 1.05em; 
+            transition: all 0.3s ease;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            min-width: 200px; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .generator-container button#generatePromptBtn:hover {
+            background: #c0392b; 
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(231, 76, 60, 0.3); 
+        }
+                
+        .generator-container .output-section { 
+            margin-top: 25px; 
+            background: #f8f9fa; 
+            padding: 20px 25px; 
+            border-radius: 10px; 
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.05); 
+            border: 1px solid #e9ecef;
+        }
+        
+        .generator-container textarea { 
+            width: 100%; 
+            min-height: 150px; 
+            margin-top: 8px; 
+            font-family: 'SF Mono', 'Courier New', monospace; 
+            font-size: 0.9em; 
+            resize: vertical;
+            padding: 12px;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            box-sizing: border-box; 
+            background-color: #fff;
+        }
+        
+        .generator-container textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+        
+        .generator-container .copyBtn { 
+            margin-top: 10px; 
+            padding: 9px 20px; 
+            cursor: pointer;
+            background: #27ae60; 
+            color: white;
+            border: none;
+            border-radius: 6px; 
+            font-size: 0.85em;
+            font-weight: 500; 
+            transition: all 0.3s ease;
+        }
+        
+        .generator-container .copyBtn:hover {
+            background: #229954; 
+            transform: translateY(-1px);
+        }
+        
+        .generator-container .section-form {
+            margin-bottom: 25px; 
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9); 
+            border-radius: 10px;
+            border-left: 4px solid var(--primary); 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+                
+        .generator-container .radio-group {
+            display: flex;
+            gap: 18px; 
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .generator-container .radio-option {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px; 
+            background: white;
+            border: 1px solid #ced4da;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        
+        .generator-container .radio-option:hover {
+            border-color: #8e9eab;
+            background: #f8f9fa;
+        }
+        
+        .generator-container .radio-option input[type=radio]:checked + span {
+            color: var(--primary); 
+            font-weight: 600;
+        }
+        .generator-container .radio-option input[type=radio]:checked {
+             border-color: var(--primary); 
+        }
+         .generator-container .radio-option input[type=radio]:checked ~ .radio-option { 
+            border-color: var(--primary) !important;
+            background: rgba(52, 152, 219, 0.05) !important;
+          }
+
+        .generator-container .success-message, 
+        .generator-container .error-message { 
+            padding: 10px 15px;
+            border-radius: 6px;
+            margin-top: 12px;
+            text-align: center; 
+            display: none; 
+            font-size: 0.9em;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .generator-container .success-message {
+            background: #d1fae5; 
+            color: #065f46; 
+            border: 1px solid #a7f3d0; 
+        }
+
+        .generator-container .error-message {
+            background: #fee2e2; 
+            color: #991b1b; 
+            border: 1px solid #fecaca; 
+        }
+
+        .generator-container .hidden-field {
+            display: none;
+            margin-top: 12px;
+        }
+
+        .generator-header {
+            background-color: var(--secondary); 
+            padding: 15px 0;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px; 
+        }
+        .generator-header .container { 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .generator-header .logo { 
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary); 
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+         .generator-header .logo i {
+            margin-right: 10px;
+            color: var(--accent);
+        }
+        .back-to-home {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1em;
+            padding: 8px 15px;
+            border: 2px solid var(--primary);
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+        .back-to-home:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        @media (max-width: 768px) {
+            .generator-container { margin: 20px 10px; padding: 20px; }
+            .generator-container h1 { font-size: 1.8em; }
+            .generator-container .radio-group { flex-direction: column; gap: 10px; }
+            .generator-container button#generatePromptBtn { width: 100%; padding: 12px 20px; font-size: 1em; }
+            .generator-header .logo { font-size: 1.5rem;}
+            .back-to-home { font-size: 0.9em; padding: 6px 12px;}
+        }
+    </style>
+</head>
+<body>
+
+    <header class="generator-header">
+        <div class="container">
+            <a href="index.html#home" class="logo">
+                <i class="fas fa-lightbulb"></i>
+                IMAJINASI LOKAL
+            </a>
+            <a href="index.html" class="back-to-home">
+                <i class="fas fa-arrow-left"></i> Kembali ke Beranda
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <section class="section" style="padding-top: 30px; padding-bottom: 30px;">
+            <div class="generator-container">
+                <div class="social-media-buttons">
+                    <a href="https://www.instagram.com/imajinasi.lokal/" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919C8.416 2.175 8.796 2.163 12 2.163m0-1.623C8.734.54 8.317.552 7.053.612c-3.558.162-6.13 2.721-6.292 6.292C.698 8.66.687 9.076.687 12s.011 3.34.07 4.604c.162 3.571 2.735 6.131 6.292 6.292 1.267.06 1.683.071 4.95.071s3.683-.011 4.95-.071c3.557-.162 6.13-2.721 6.291-6.292.06-1.266.071-1.683.071-4.95s-.011-3.683-.071-4.95C21.313 2.721 18.74 1.161 15.183 1c-1.267-.06-1.683-.071-4.95-.071C10.266.929 9.85.94 8.587.999H7.053C5.16 1.059 3.47.649 2.091 2.091c-1.232 1.232-1.735 2.885-1.903 4.953C.129 8.317.118 8.734.118 12s.011 3.683.07 4.95c.168 2.067.67 3.72 1.903 4.95 1.378 1.442 3.07 1.851 4.953 1.903 1.266.061 1.683.072 4.95.072 3.267 0 3.683-.011 4.95-.072 2.067-.168 3.72-.67 4.95-1.903 1.443-1.378 1.851-3.07 1.903-4.953.061-1.266.072-1.683.072-4.95s-.011-3.683-.072-4.95c-.168-2.067-.67-3.72-1.903-4.95-1.232-1.232-2.885-1.735-4.953-1.903C15.683.552 15.266.54 12 .54zM12 6.801c-2.828 0-5.123 2.295-5.123 5.123S9.172 17.047 12 17.047s5.123-2.295 5.123-5.123S14.828 6.801 12 6.801zm0 8.446c-1.865 0-3.376-1.511-3.376-3.376S10.135 8.495 12 8.495s3.376 1.511 3.376 3.376S13.865 15.247 12 15.247zM17.532 6.182a1.248 1.248 0 110-2.495 1.248 1.248 0 010 2.495z"/></svg>
+                    </a>
+                    <a href="https://www.facebook.com/profile.php?id=61574077473784" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.675 0H1.325C.593 0 0 .593 0 1.325v21.351C0 23.407.593 24 1.325 24H12.82v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116c.732 0 1.325-.593 1.325-1.325V1.325C24 .593 23.407 0 22.675 0z"/></svg>
+                    </a>
+                     <a href="https://www.threads.net/@imajinasi.lokal" aria-label="Threads" target="_blank" rel="noopener noreferrer"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24px" height="24px">
+                        <path d="M8.211,9.29A1.125,1.125,0,1,0,9.336,8.165,1.125,1.125,0,0,0,8.211,9.29ZM12,1.6A10.4,10.4,0,1,0,22.4,12,10.412,10.412,0,0,0,12,1.6Zm0,19.2A8.8,8.8,0,1,1,20.8,12,8.81,8.81,0,0,1,12,20.8ZM14.063,14.71a1.125,1.125,0,1,0,1.125,1.125A1.125,1.125,0,0,0,14.063,14.71ZM12,11.25a2.75,2.75,0,0,0-2.75,2.75v.5a.75.75,0,0,0,1.5,0v-.5a1.25,1.25,0,0,1,2.5,0v.5a.75.75,0,0,0,1.5,0v-.5A2.75,2.75,0,0,0,12,11.25Zm-2.75-1a2.75,2.75,0,1,0,2.75-2.75A2.75,2.75,0,0,0,9.25,10.25Zm1.5,0A1.25,1.25,0,1,1,12,11.5,1.25,1.25,0,0,1,10.75,10.25Zm6-1a2.75,2.75,0,1,0-2.75,2.75A2.75,2.75,0,0,0,16.75,9.25Zm-1.5,0A1.25,1.25,0,1,1,14,10.5,1.25,1.25,0,0,1,15.25,9.25Z"/>
+                    </svg>
+                    </a>
+                </div>
+                <h1>LOCAL IMAGINATION FASHION - Generator Prompt Wanita V3</h1>
+                <form id="promptForm">
+                    <!-- Form sections from your original prompt-fashion-wanita.html.html go here -->
+                    <!-- Section: Clothing Style -->
+                    <div class="section-form">
+                        <label for="clothingStyleSelect">Gaya Pakaian (Pilih gaya):</label>
+                        <select id="clothingStyleSelect" name="clothingStyleSelect" required>
+                            <option value="">-- Pilih Gaya Pakaian --</option>
+                            <option value="direct">Satu Set Pakaian</option>
+                            <option value="separate">Atasan & Bawahan Terpisah</option>
+                        </select>
+                        <div id="directOutfitDiv" class="hidden-field">
+                            <label for="directOutfitSelect">Pilih Satu Set Pakaian:</label>
+                            <select id="directOutfitSelect" name="directOutfitSelect">
+                                <option value="">-- Pilih Pakaian --</option>
+                                <option value="Maxi Dress">Maxi Dress</option>
+                                <option value="Tight Gamis">Gamis Ketat</option>
+                                <option value="Bodycon Dress">Bodycon Dress</option>
+                                <option value="Sundress">Sundress</option>
+                                <option value="Jumpsuit">Jumpsuit</option>
+                                <option value="Romper">Romper</option>
+                                <option value="Kaftan">Kaftan</option>
+                                <option value="Abaya">Abaya</option>
+                                <option value="Shift Dress">Shift Dress</option>
+                                <option value="Wrap Dress">Wrap Dress</option>
+                                <option value="Slip Dress">Slip Dress</option>
+                                <option value="Shirt Dress">Shirt Dress</option>
+                                <option value="Overall Dress">Overall Dress</option>
+                                <option value="Evening Gown">Gaun Malam</option>
+                                <option value="Cocktail Dress">Gaun Koktail</option>
+                                <option value="Midi Dress">Midi Dress</option>
+                                <option value="Mini Dress">Mini Dress</option>
+                                <option value="Peplum Dress">Peplum Dress</option>
+                                <option value="Tunic Dress">Tunic Dress</option>
+                                <option value="Sweater Dress">Sweater Dress</option>
+                                <option value="Bohemian Dress">Gaun Bohemian</option>
+                                <option value="Vintage Tea Dress">Gaun Teh Vintage</option>
+                                <option value="Modern Cheongsam">Cheongsam Modern</option>
+                                <option value="Kebaya Modern">Kebaya Modern</option>
+                                <option value="Two-piece Suit (Skirt Suit)">Setelan Dua Potong (Rok)</option>
+                                <option value="Two-piece Suit (Pant Suit)">Setelan Dua Potong (Celana)</option>
+                                <option value="Playsuit">Playsuit</option>
+                                <option value="Sarong Dress">Gaun Sarung</option>
+                            </select>
+                        </div>
+                        <div id="separateOutfitDiv" class="hidden-field">
+                            <label for="topSelect">Pilih Atasan:</label>
+                            <select id="topSelect" name="topSelect">
+                                <option value="">-- Pilih Atasan --</option>
+                                <option value="Crop Top Blouse">Blus Crop Top</option>
+                                <option value="T-shirt">Kaos</option>
+                                <option value="Tank Top">Tank Top</option>
+                                <option value="Formal Blouse">Blus Formal</option>
+                                <option value="Warm Sweater">Sweater Hangat</option>
+                                <option value="Casual Hoodie">Hoodie Kasual</option>
+                                <option value="Off-shoulder Top">Atasan Off-shoulder</option>
+                                <option value="Button-down Shirt">Kemeja Kancing</option>
+                                <option value="Knit Top">Atasan Rajut</option>
+                                <option value="Camisole">Kamisol</option>
+                                <option value="Halter Neck Top">Atasan Halter Neck</option>
+                                <option value="Sexy Tube Top">Tube Top Seksi</option>
+                                <option value="Long-sleeve Shirt">Kemeja Lengan Panjang</option>
+                                <option value="Peplum Top">Atasan Peplum</option>
+                                <option value="Fitted Bodysuit">Bodysuit Pas Badan</option>
+                                <option value="Corset Top">Atasan Korset</option>
+                                <option value="Kimono Top">Atasan Kimono</option>
+                                <option value="Polo Shirt">Kaus Polo</option>
+                                <option value="Turtleneck Top">Atasan Turtleneck</option>
+                                <option value="Bell Sleeve Top">Atasan Lengan Lonceng</option>
+                                <option value="Ruffle Blouse">Blus Ruffle</option>
+                                <option value="Graphic Tee">Kaos Grafis</option>
+                                <option value="Sheer Blouse">Blus Transparan</option>
+                                <option value="Vest">Rompi</option>
+                                <option value="Cardigan">Kardigan</option>
+                                <option value="Bolero">Bolero</option>
+                                <option value="Bralette Top">Atasan Bralette</option>
+                            </select>
+                            <label for="bottomSelect" style="margin-top:15px;">Pilih Bawahan:</label>
+                            <select id="bottomSelect" name="bottomSelect">
+                                <option value="">-- Pilih Bawahan --</option>
+                                <option value="Mini Skirt">Rok Mini</option>
+                                <option value="Midi Skirt">Rok Midi</option>
+                                <option value="Maxi Skirt">Rok Maxi</option>
+                                <option value="Jeans">Jeans</option>
+                                <option value="stretch fabric Tight Leggings">Legging Ketat (Stretch)</option>
+                                <option value="Shorts">Celana Pendek</option>
+                                <option value="Formal Trousers">Celana Formal</option>
+                                <option value="Culottes">Kulot</option>
+                                <option value="Wide Palazzo Pants">Celana Palazzo Lebar</option>
+                                <option value="Skinny Pants">Celana Skinny</option>
+                                <option value="Flare Pants">Celana Flare</option>
+                                <option value="Cargo Pants">Celana Kargo</option>
+                                <option value="Pencil Skirt">Rok Pensil</option>
+                                <option value="A-line Skirt">Rok A-line</option>
+                                <option value="Biker Shorts">Celana Pendek Biker</option>
+                                <option value="Capri Pants">Celana Capri</option>
+                                <option value="Skort">Skort (Rok Celana)</option>
+                                <option value="Jogger Pants">Celana Jogger</option>
+                                <option value="Pleated Skirt">Rok Lipit</option>
+                                <option value="High-waisted Trousers">Celana Pinggang Tinggi</option>
+                                <option value="Denim Shorts">Celana Pendek Denim</option>
+                                <option value="Leather Skirt">Rok Kulit</option>
+                                <option value="Satin Skirt">Rok Satin</option>
+                                <option value="Wrap Skirt">Rok Lilit</option>
+                                <option value="Bermuda Shorts">Celana Bermuda</option>
+                                <option value="Gaucho Pants">Celana Gaucho</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="section-form">
+                        <label>Warna Pakaian:</label>
+                        <div id="singleColorDiv">
+                            <label for="colorSelect" class="sub-label">Warna Pakaian (Pilih satu):</label>
+                            <select id="colorSelect" name="colorSelect">
+                                <option value="">-- Pilih Warna --</option>
+                            </select>
+                        </div>
+                        <div id="separateColorsDiv" class="hidden-field">
+                            <label for="topColorSelect" class="sub-label">Warna Atasan:</label>
+                            <select id="topColorSelect" name="topColorSelect">
+                                <option value="">-- Pilih Warna Atasan --</option>
+                            </select>
+                            <label for="bottomColorSelect" class="sub-label" style="margin-top:15px;">Warna Bawahan:</label>
+                            <select id="bottomColorSelect" name="bottomColorSelect">
+                                <option value="">-- Pilih Warna Bawahan --</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="section-form">
+                        <label>Bahan/Kain Pakaian:</label>
+                        <div id="singleFabricDiv" class="hidden-field">
+                            <label for="singleFabricSelect" class="sub-label">Bahan Pakaian (Pilih satu, sesuai jenis pakaian):</label>
+                            <select id="singleFabricSelect" name="singleFabricSelect">
+                                <option value="">-- Pilih Bahan --</option>
+                            </select>
+                        </div>
+                        <div id="separateFabricsDiv" class="hidden-field">
+                            <label for="topFabricSelect" class="sub-label">Bahan Atasan (Sesuai jenis atasan):</label>
+                            <select id="topFabricSelect" name="topFabricSelect">
+                                <option value="">-- Pilih Bahan Atasan --</option>
+                            </select>
+                            <label for="bottomFabricSelect" class="sub-label" style="margin-top:15px;">Bahan Bawahan (Sesuai jenis bawahan):</label>
+                            <select id="bottomFabricSelect" name="bottomFabricSelect">
+                                <option value="">-- Pilih Bahan Bawahan --</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="section-form">
+                        <label>Pilihan Motif:</label>
+                        <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="motifChoice" value="no" id="motif-no" required checked>
+                            <span>Tidak Ada Motif</span>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="motifChoice" value="yes" id="motif-yes" required>
+                            <span>Bermotif</span>
+                        </div>
+                        </div>
+                        <div id="singleMotifDiv" class="hidden-field">
+                        <label for="singleMotifSelect" class="sub-label">Pola Pakaian (Pilih satu):</label>
+                        <select id="singleMotifSelect" name="singleMotifSelect">
+                            <option value="">-- Pilih Pola --</option>
+                        </select>
+                        </div>
+                        <div id="separateMotifsDiv" class="hidden-field">
+                            <label for="topMotifSelect" class="sub-label">Pola Atasan (Opsional):</label>
+                            <select id="topMotifSelect" name="topMotifSelect">
+                                <option value="">-- Pilih Pola Atasan --</option>
+                            </select>
+                            <label for="bottomMotifSelect" class="sub-label" style="margin-top:15px;">Pola Bawahan (Opsional):</label>
+                            <select id="bottomMotifSelect" name="bottomMotifSelect">
+                                <option value="">-- Pilih Pola Bawahan --</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="section-form">
+                        <label>Aksen/Detail Pakaian (Opsional):</label>
+                        <div id="singleAccentDiv">
+                            <label for="accentSelect" class="sub-label">Aksen Pakaian:</label>
+                            <select id="accentSelect" name="accentSelect">
+                            <option value="">-- Pilih Aksen --</option>
+                            </select>
+                        </div>
+                        <div id="separateAccentsDiv" class="hidden-field">
+                            <label for="topAccentSelect" class="sub-label">Aksen Atasan:</label>
+                            <select id="topAccentSelect" name="topAccentSelect">
+                                <option value="">-- Pilih Aksen Atasan --</option>
+                            </select>
+                            <label for="bottomAccentSelect" class="sub-label" style="margin-top:15px;">Aksen Bawahan:</label>
+                            <select id="bottomAccentSelect" name="bottomAccentSelect">
+                                <option value="">-- Pilih Aksen Bawahan --</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="section-form">
+                        <label>Pilihan Hijab:</label>
+                        <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="hijab" value="wearing a Hijab" id="hijab-yes" required>
+                            <span>Hijab</span>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="hijab" value="with [hairstyle]" id="hijab-no" required checked>
+                            <span>Non Hijab</span>
+                        </div>
+                        </div>
+                        <div id="hairstyleDiv" class="hidden-field" style="margin-top: 15px;">
+                            <label for="hairstyleSelect" class="sub-label">Gaya Rambut (Jika Non Hijab):</label>
+                            <select id="hairstyleSelect" name="hairstyleSelect">
+                                <option value="long, wavy black hair">Rambut Hitam Panjang Bergelombang</option>
+                                <option value="sleek straight black hair">Rambut Hitam Lurus Rapi</option>
+                                <option value="chic black bob cut">Potongan Bob Hitam Chic</option>
+                                <option value="playful black pixie cut">Potongan Pixie Hitam Ceria</option>
+                                <option value="elegant black hair updo">Sanggul Hitam Elegan</option>
+                                <option value="messy black hair bun">Cepol Hitam Berantakan</option>
+                                <option value="black braided hairstyle">Gaya Rambut Kepang Hitam</option>
+                                <option value="curly black hair">Rambut Hitam Keriting</option>
+                                <option value="short spiky black hair">Rambut Pendek Berduri Hitam</option>
+                                <option value="black ponytail">Kuncir Kuda Hitam</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="section-form">
+                        <label for="bodyShapeSelect">Bentuk Tubuh Model (Pilih satu):</label>
+                        <select id="bodyShapeSelect" name="bodyShapeSelect" required>
+                            <option value="">-- Pilih Bentuk Tubuh --</option>
+                            <option value="slim and naturally curvy, confident">Langsing dan berlekuk alami, percaya diri</option>
+                            <option value="curvy and chubby, confident">Berlekuk dan berisi, percaya diri</option>
+                            <option value="athletic and toned, confident">Atletis dan Kencang, percaya diri</option>
+                            <option value="petite and delicate, confident">Mungil dan Halus, percaya diri</option>
+                            <option value="tall and statuesque, confident">Tinggi dan Tegap, percaya diri</option>
+                            <option value="plus-size and confident">Plus-size dan Percaya Diri</option>
+                            <option value="voluptuous and confident">Montok dan percaya diri</option>
+                            <option value="hourglass figure, confident">Bentuk Tubuh Jam Pasir, percaya diri</option>
+                            <option value="pear-shaped, confident">Bentuk Tubuh Pir, percaya diri</option>
+                            <option value="apple-shaped, confident">Bentuk Tubuh Apel, percaya diri</option>
+                            <option value="rectangle-shaped, confident">Bentuk Tubuh Persegi Panjang, percaya diri</option>
+                            <option value="average build, confident">Bentuk tubuh rata-rata, percaya diri</option>
+                            <option value="very slim, high fashion model type">Sangat langsing, tipe model fesyen papan atas</option>
+                            <option value="lean and athletic, confident">Ramping dan atletis, percaya diri</option>
+                            <option value="softly rounded, confident">Bentuk tubuh bulat lembut, percaya diri</option>
+                        </select>
+                    </div>
+
+                    <div class="section-form">
+                        <label for="poseSetSelect">Set Pose (Pilih satu):</label>
+                        <select id="poseSetSelect" name="poseSetSelect" required>
+                            <option value="">-- Pilih Set Pose --</option>
+                            <option value="full body front view, three-quarter view looking away, close-up profile shot">Pose Set A: Pandangan Depan Tubuh Penuh, Pandangan 3/4 Membelakangi, Close-up Profil</option>
+                            <option value="standing confidently hands on hips, walking gracefully mid-stride, sitting elegantly on a bench">Pose Set B: Berdiri Percaya Diri Tangan di Pinggul, Berjalan Anggun, Duduk Anggun di Bangku</option>
+                            <option value="leaning casually against a wall, looking over shoulder with a smile, dynamic twirling motion">Pose Set C: Bersandar Santai di Dinding, Menoleh ke Belakang Sambil Tersenyum, Gerakan Berputar Dinamis</option>
+                            <option value="playful wink direct to camera, soft gaze looking downwards, candid laughing shot">Pose Set D: Kedipan Main-main ke Kamera, Tatapan Lembut ke Bawah, Foto Tertawa Candid</option>
+                            <option value="arms crossed with a serious expression, profile view showing outfit details, back view walking away slowly">Pose Set E: Lengan Disilangkan Ekspresi Serius, Pandangan Profil Detail Pakaian, Pandangan Belakang Berjalan Perlahan</option>
+                            <option value="energetic jumping pose, action shot as if running, relaxed stretching pose">Pose Set F: Pose Melompat Energik, Aksi Seperti Berlari, Pose Meregangkan Badan Santai</option>
+                            <option value="seated on stairs looking thoughtful, close-up on accessory details, full body shot from a low angle">Pose Set G: Duduk di Tangga Terlihat Berpikir, Close-up Detail Aksesori, Foto Seluruh Badan dari Sudut Rendah</option>
+                            <option value="dramatic high fashion pose with strong lines, ethereal dreamy look towards the sky, interacting with an object (e.g., holding a flower)">Pose Set H: Pose High Fashion Dramatis, Tatapan Melamun ke Langit, Berinteraksi dengan Objek (mis. Memegang Bunga)</option>
+                            <option value="confident power stance, mid-walk shot capturing movement, sitting on floor legs tucked to side">Pose Set I: Sikap Kuat Percaya Diri, Foto Saat Berjalan Menangkap Gerakan, Duduk di Lantai Kaki ke Samping</option>
+                            <option value="subtle side glance, hands casually in pockets, captured in a moment of reflection">Pose Set J: Lirikan Halus ke Samping, Tangan Santai di Saku, Tertangkap Momen Refleksi</option>
+                            <option value="hand gently touching face or hair, looking directly at camera with soft smile, three-quarter back view showing silhouette">Pose Set K: Tangan Menyentuh Wajah/Rambut, Tatapan Langsung ke Kamera Senyum Lembut, Pandangan 3/4 Belakang Siluet</option>
+                            <option value="adjusting an item of clothing (e.g., collar, sleeve), looking off into the distance, silhouette against a bright background">Pose Set L: Memperbaiki Pakaian (Kerah, Lengan), Melihat Jauh ke Depan, Siluet Latar Terang</option>
+                            <option value="holding a prop (handbag, book, coffee cup), interacting with the environment (e.g., touching a plant), candid shot looking away">Pose Set M: Memegang Properti (Tas, Buku, Kopi), Berinteraksi dengan Lingkungan (Menyentuh Tanaman), Candid Memalingkan Muka</option>
+                            <option value="dynamic pose with fabric flowing, close-up of textured fabric, model partially obscured by an element in foreground">Pose Set N: Pose Dinamis Kain Melambai, Close-up Tekstur Kain, Model Sebagian Tertutup Elemen Depan</option>
+                            <option value="series of micro-expressions (slight smile, thoughtful frown, neutral), hand gestures emphasizing outfit, full body from slight distance">Pose Set O: Seri Ekspresi Mikro, Gestur Tangan Menekankan Pakaian, Seluruh Badan dari Jarak Dekat</option>
+                        </select>
+                    </div>
+
+                    <div class="section-form">
+                        <label for="locationSetSelect">Set Lokasi (Pilih satu, 3 sub-lokasi tematik):</label>
+                        <select id="locationSetSelect" name="locationSetSelect" required>
+                            <option value="">-- Pilih Set Lokasi --</option>
+                            <option value="a bustling city street corner, a quiet alleyway with graffiti art, and a modern skyscraper rooftop at sunset">Urban Explorer: Sudut Jalan Kota Ramai, Gang Sepi Grafiti, Atap Pencakar Langit Modern Saat Senja</option>
+                            <option value="a sun-drenched sandy beach, a shaded palm tree grove nearby, and a rustic wooden pier over the water">Coastal Serenity: Pantai Pasir Cerah, Rimbunan Pohon Palem Teduh, Dermaga Kayu Pedesaan di Atas Air</option>
+                            <option value="a grand library interior with tall bookshelves, a cozy reading nook by a window, and the library's ornate entrance steps">Literary Escape: Interior Perpustakaan Megah, Sudut Baca Nyaman Dekat Jendela, Tangga Masuk Perpustakaan Berornamen</option>
+                            <option value="a lush botanical garden pathway, inside a humid greenhouse with exotic plants, and a tranquil Japanese rock garden section">Garden Oasis: Jalur Kebun Raya Rimbun, Dalam Rumah Kaca Lembab Tanaman Eksotis, Bagian Taman Batu Jepang Tenang</option>
+                            <option value="a vibrant traditional market stall area, a narrow cobblestone street within the market, and a nearby historic town square">Market Charm: Area Kios Pasar Tradisional Cerah, Jalan Batu Sempit di Pasar, Alun-alun Kota Bersejarah Terdekat</option>
+                            <option value="a chic modern art gallery white room, a sculpture garden outside the gallery, and a minimalist gallery cafe">Artistic Spaces: Ruang Putih Galeri Seni Modern Chic, Taman Patung Luar Galeri, Kafe Galeri Minimalis</option>
+                            <option value="a luxurious hotel lobby with a grand chandelier, an elegant hotel bar, and a suite balcony overlooking the city">Hotel Elegance: Lobi Hotel Mewah Lampu Gantung, Bar Hotel Elegan, Balkon Suite Pemandangan Kota</option>
+                            <option value="a scenic mountain viewpoint at dawn, a winding forest trail, and a rustic wooden cabin exterior amidst trees">Mountain Retreat: Pemandangan Gunung Indah Saat Fajar, Jalur Hutan Berliku, Eksterior Kabin Kayu Pedesaan di Tengah Pepohonan</option>
+                            <option value="an old industrial warehouse with exposed brick, a converted loft apartment space within, and a gritty urban overpass nearby">Industrial Chic: Gudang Industri Tua Bata Terbuka, Ruang Apartemen Loteng Konversi, Jembatan Layang Perkotaan Kusam Terdekat</option>
+                            <option value="a university campus green with old buildings, a modern campus library interior, and a lively student union courtyard">Campus Life: Lapangan Hijau Kampus Bangunan Tua, Interior Perpustakaan Kampus Modern, Halaman Serikat Mahasiswa Ramai</option>
+                            <option value="a neon-lit street in a futuristic city, an observation deck overlooking the sprawling metropolis, and a sleek monorail station">Futuristic Cityscape: Jalan Neon Kota Futuristik, Dek Observasi Pemandangan Metopolis, Stasiun Monorel Ramping</option>
+                            <option value="a cozy coffee shop interior with warm lighting, an outdoor cafe seating area on a quaint street, and a close-up of a latte art">Cafe Culture: Interior Kedai Kopi Nyaman, Area Duduk Kafe Luar Ruangan Jalan Unik, Close-up Latte Art</option>
+                            <option value="a desert landscape with rolling dunes, a hidden oasis with a small pool of water, and a dramatic rock formation at sunset">Desert Mirage: Lanskap Gurun Pasir Bergelombang, Oasis Tersembunyi Kolam Kecil, Formasi Batu Dramatis Saat Senja</option>
+                            <option value="a historic train station platform, inside a vintage train carriage, and looking out the window of a moving train">Railway Journey: Peron Stasiun Kereta Bersejarah, Dalam Gerbong Kereta Vintage, Melihat Keluar Jendela Kereta Bergerak</option>
+                            <option value="a serene park bench under a large tree, a flower garden in full bloom within the park, and a reflective pond with ducks">Park Tranquility: Bangku Taman Tenang di Bawah Pohon Besar, Taman Bunga Mekar di Taman, Kolam Reflektif dengan Bebek</option>
+                            <option value="a rooftop party setting with city lights, a quiet corner of the rooftop with a view, and a close-up of a cocktail glass">Rooftop Soiree: Pesta Atap Pemandangan Lampu Kota, Sudut Tenang Atap dengan Pemandangan, Close-up Gelas Koktail</option>
+                            <option value="a minimalist photography studio with white seamless background, a studio setup with professional lighting, and a backstage makeup area">Studio Session: Studio Foto Minimalis Latar Putih, Pengaturan Studio Lampu Profesional, Area Rias Belakang Panggung</option>
+                            <option value="a countryside road with fields on either side, a rustic barn exterior, and a fence line stretching into the distance">Rural Landscapes: Jalan Pedesaan Dikelilingi Ladang, Eksterior Lumbung Pedesaan, Pagar Membentang Jauh</option>
+                            <option value="an ancient temple ruin site, corridors within the ruins, and a viewpoint overlooking the entire ruin complex">Ancient Ruins: Situs Reruntuhan Kuil Kuno, Koridor Dalam Reruntuhan, Pemandangan Seluruh Kompleks Reruntuhan</option>
+                            <option value="a snowy landscape with pine trees, a cozy fireplace inside a cabin, and a view from a frosted window">Winter Wonderland: Lanskap Bersalju Pohon Pinus, Perapian Nyaman Dalam Kabin, Pemandangan dari Jendela Beku</option>
+                        </select>
+                    </div>
+
+                    <div class="section-form">
+                        <label for="styleSelect">Gaya Fotografi (Pilih satu):</label>
+                        <select id="styleSelect" name="styleSelect" required>
+                            <option value="">-- Pilih Gaya Fotografi --</option>
+                            <option value="Ultra-Realistic Portrait Photography">Ultra-Realistic Portrait</option>
+                            <option value="Cinematic Fashion Photography">Cinematic Fashion</option>
+                            <option value="Natural Light Lifestyle Photography">Natural Light Lifestyle</option>
+                            <option value="Studio Fashion Shot">Studio Fashion Shot</option>
+                            <option value="Candid Street Style Photography">Candid Street Style</option>
+                            <option value="Editorial Fashion Spread">Editorial Fashion Spread</option>
+                            <option value="High-Detail Commercial Photography">High-Detail Commercial</option>
+                            <option value="Soft Focus Glamour Shot">Soft Focus Glamour</option>
+                            <option value="Dynamic Action Fashion Shot">Dynamic Action Fashion</option>
+                            <option value="Minimalist Background Portrait">Minimalist Background Portrait</option>
+                            <option value="Vintage Film Photography">Fotografi Film Vintage</option>
+                            <option value="Black and White Artistic Photography">Fotografi Artistik Hitam Putih</option>
+                            <option value="High-Speed Flash Photography">Fotografi Flash Kecepatan Tinggi</option>
+                            <option value="Dreamy Bokeh Photography">Fotografi Bokeh Melamun</option>
+                            <option value="Surreal Conceptual Photography">Fotografi Konseptual Surealis</option>
+                            <option value="Golden Hour Portraiture">Potret Golden Hour</option>
+                            <option value="Blue Hour Cityscape Fashion">Fashion Cityscape Blue Hour</option>
+                            <option value="Documentary Style Fashion">Fashion Gaya Dokumenter</option>
+                            <option value="Low Key Dramatic Portrait">Potret Dramatis Low Key</option>
+                            <option value="High Key Bright Portrait">Potret Cerah High Key</option>
+                        </select>
+                    </div>
+
+                    <button type="button" id="generatePromptBtn">笨ｨ Buat Prompt</button>
+                    <div class="error-message" id="errorMessage"></div> 
+                    <div class="output-section hidden-field" id="outputArea"> 
+                        <label for="promptOutput">Prompt Gabungan yang Dihasilkan:</label>
+                        <textarea id="promptOutput" readonly placeholder="Prompt gabungan Anda akan muncul di sini..."></textarea>
+                        <button type="button" class="copyBtn" id="copyBtn" style="display:none;">搭 Salin Prompt Gabungan</button>
+                    </div>
+                    <div class="success-message" id="successMessage"></div>
+                    <div class="output-section hidden-field" id="separatePromptsAreaContainer" style="margin-top: 20px;">
+                        <label style="font-size: 1.2em; font-weight: bold; color: #333; margin-bottom:15px; display:block;">Prompt Terpisah per Scene:</label>
+                        <div id="separatePromptsArea"></div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer style="background: var(--secondary); color: rgba(255,255,255,0.8); text-align: center; padding: 30px 0; margin-top: 40px;">
+        <div class="container">
+            <p class="copyright" style="border-top: none; padding-top:0;">&copy; 2024 IMAJINASI LOKAL. Hak Cipta Dilindungi.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Original JavaScript from prompt-fashion-wanita.html.html
+        const clothingStyleSelect = document.getElementById('clothingStyleSelect');
+        const directOutfitDiv = document.getElementById('directOutfitDiv');
+        const separateOutfitDiv = document.getElementById('separateOutfitDiv');
+        const directOutfitSelect = document.getElementById('directOutfitSelect');
+        const topSelect = document.getElementById('topSelect'); 
+        const bottomSelect = document.getElementById('bottomSelect');
+        
+        const singleColorDiv = document.getElementById('singleColorDiv');
+        const colorSelect = document.getElementById('colorSelect'); 
+        const separateColorsDiv = document.getElementById('separateColorsDiv');
+        const topColorSelect = document.getElementById('topColorSelect');
+        const bottomColorSelect = document.getElementById('bottomColorSelect');
+
+        const singleFabricDiv = document.getElementById('singleFabricDiv');
+        const singleFabricSelect = document.getElementById('singleFabricSelect');
+        const separateFabricsDiv = document.getElementById('separateFabricsDiv');
+        const topFabricSelect = document.getElementById('topFabricSelect');
+        const bottomFabricSelect = document.getElementById('bottomFabricSelect');
+
+        const motifChoiceRadios = document.getElementsByName('motifChoice');
+        const singleMotifDiv = document.getElementById('singleMotifDiv'); 
+        const singleMotifSelect = document.getElementById('singleMotifSelect'); 
+        const separateMotifsDiv = document.getElementById('separateMotifsDiv'); 
+        const topMotifSelect = document.getElementById('topMotifSelect'); 
+        const bottomMotifSelect = document.getElementById('bottomMotifSelect'); 
+        
+        const singleAccentDiv = document.getElementById('singleAccentDiv'); 
+        const accentSelect = document.getElementById('accentSelect'); 
+        const separateAccentsDiv = document.getElementById('separateAccentsDiv'); 
+        const topAccentSelect = document.getElementById('topAccentSelect'); 
+        const bottomAccentSelect = document.getElementById('bottomAccentSelect'); 
+        
+        const hijabRadios = document.getElementsByName('hijab');
+        const hairstyleDiv = document.getElementById('hairstyleDiv');
+        const hairstyleSelect = document.getElementById('hairstyleSelect');
+
+        const bodyShapeSelect = document.getElementById('bodyShapeSelect'); 
+        const poseSetSelect = document.getElementById('poseSetSelect');
+        const locationSetSelect = document.getElementById('locationSetSelect');
+        const styleSelect = document.getElementById('styleSelect');
+        
+        const promptOutput = document.getElementById('promptOutput'); 
+        const generatePromptBtn = document.getElementById('generatePromptBtn');
+        const copyBtn = document.getElementById('copyBtn'); 
+        const successMessage = document.getElementById('successMessage'); 
+        const errorMessage = document.getElementById('errorMessage'); 
+        const outputArea = document.getElementById('outputArea'); 
+        const separatePromptsAreaContainer = document.getElementById('separatePromptsAreaContainer'); 
+        const separatePromptsArea = document.getElementById('separatePromptsArea'); 
+
+        const colorOptions = [
+            { value: "classic black", text: "Hitam Klasik" }, { value: "pure white", text: "Putih Murni" },
+            { value: "ivory white", text: "Putih Gading" }, { value: "cream", text: "Krem" },
+            { value: "soft grey", text: "Abu-abu Lembut" }, { value: "charcoal grey", text: "Abu-abu Arang" },
+            { value: "dark grey", text: "Abu-abu Tua" }, { value: "light grey", text: "Abu-abu Muda" },
+            { value: "warm beige", text: "Beige Hangat" }, { value: "camel brown", text: "Cokelat Camel" },
+            { value: "dark brown", text: "Cokelat Tua" }, { value: "chocolate brown", text: "Cokelat Chocolate" },
+            { value: "bright red", text: "Merah Terang" }, { value: "burgundy red", text: "Merah Burgundy" },
+            { value: "maroon", text: "Marun" }, { value: "scarlet red", text: "Merah Scarlet" },
+            { value: "soft pastel pink", text: "Pink Pastel Lembut" }, { value: "fuchsia pink", text: "Pink Fuchsia" },
+            { value: "rose pink", text: "Pink Mawar" }, { value: "dusty rose", text: "Dusty Rose" },
+            { value: "coral orange", text: "Oranye Koral" }, { value: "peach", text: "Peach" },
+            { value: "burnt orange", text: "Oranye Bakar" }, { value: "terracotta", text: "Terracotta" },
+            { value: "sunshine yellow", text: "Kuning Cerah" }, { value: "mustard yellow", text: "Kuning Mustard" },
+            { value: "lemon yellow", text: "Kuning Lemon" }, { value: "gold metallic", text: "Emas Metalik" },
+            { value: "forest green", text: "Hijau Hutan" }, { value: "olive green", text: "Hijau Zaitun" },
+            { value: "mint green", text: "Hijau Mint" }, { value: "emerald green", text: "Hijau Zamrud" },
+            { value: "sage green", text: "Hijau Sage" }, { value: "khaki green", text: "Hijau Khaki" },
+            { value: "deep navy blue", text: "Biru Dongker Tua" }, { value: "electric blue", text: "Biru Elektrik" },
+            { value: "sky blue", text: "Biru Langit" }, { value: "baby blue", text: "Biru Muda (Baby Blue)" },
+            { value: "turquoise blue", text: "Biru Toska" }, { value: "teal blue", text: "Biru Teal" },
+            { value: "royal blue", text: "Biru Royal" }, { value: "lavender purple", text: "Ungu Lavender" },
+            { value: "lilac", text: "Lilac" }, { value: "deep purple", text: "Ungu Tua" },
+            { value: "plum purple", text: "Ungu Plum" }, { value: "silver metallic", text: "Perak Metalik" },
+            { value: "bronze metallic", text: "Perunggu Metalik" }, { value: "rose gold", text: "Rose Gold (Metalik)" },
+        ];
+
+        const motifOptions = [
+            { value: "solid color (no pattern)", text: "Warna Polos (Tanpa Motif)" },
+            { value: "subtle texture pattern", text: "Pola Tekstur Halus" },
+            { value: "small floral print", text: "Motif Bunga Kecil (Floral Print)" },
+            { value: "large bold floral pattern", text: "Motif Bunga Besar Mencolok" },
+            { value: "tropical leaf pattern", text: "Motif Daun Tropis" },
+            { value: "geometric shapes pattern", text: "Pola Bentuk Geometris (Lingkaran, Segitiga, Kotak)" },
+            { value: "abstract lines pattern", text: "Pola Garis Abstrak" },
+            { value: "classic stripes pattern (vertical)", text: "Pola Garis Klasik (Vertikal)" },
+            { value: "classic stripes pattern (horizontal)", text: "Pola Garis Klasik (Horizontal)" },
+            { value: "pinstripes pattern", text: "Pola Pinstripe (Garis Halus)" },
+            { value: "chevron pattern", text: "Pola Chevron (V-shape)" },
+            { value: "polka dots pattern (small)", text: "Pola Polkadot (Kecil)" },
+            { value: "polka dots pattern (large)", text: "Pola Polkadot (Besar)" },
+            { value: "animal print (leopard)", text: "Motif Animal Print (Macan Tutul)" },
+            { value: "animal print (zebra)", text: "Motif Animal Print (Zebra)" },
+            { value: "animal print (snake)", text: "Motif Animal Print (Ular)" },
+            { value: "tie-dye pattern", text: "Pola Tie-Dye (Ikat Celup)" },
+            { value: "ikat pattern", text: "Pola Ikat Tradisional" },
+            { value: "batik pattern (classic)", text: "Pola Batik Klasik" },
+            { value: "batik pattern (modern)", text: "Pola Batik Modern" },
+            { value: "paisley pattern", text: "Pola Paisley" },
+            { value: "plaid pattern (tartan)", text: "Pola Kotak-kotak (Tartan/Plaid)" },
+            { value: "gingham check pattern", text: "Pola Kotak Gingham" },
+            { value: "houndstooth pattern", text: "Pola Houndstooth" },
+            { value: "argyle pattern", text: "Pola Argyle (Belah Ketupat)" },
+            { value: "damask pattern", text: "Pola Damask Klasik" },
+            { value: "brocade pattern", text: "Pola Brokat Mewah" },
+            { value: "emoticon pattern", text: "Pola Emotikon Ceria" },
+            { value: "graphic text pattern", text: "Pola Teks Grafis/Tipografi" },
+            { value: "camouflage pattern", text: "Pola Kamuflase (Army)" },
+            { value: "star pattern", text: "Pola Bintang" },
+            { value: "heart pattern", text: "Pola Hati" },
+            { value: "ombre gradient pattern", text: "Pola Gradasi Ombre" },
+            { value: "watercolor splash pattern", text: "Pola Cipratan Cat Air" },
+            { value: "ethnic tribal pattern", text: "Pola Etnik Tribal" },
+        ];
+
+        const accentOptions = [
+            { value: "", text: "Tanpa Aksen Spesifik" },
+            { value: "lace details (trim, panels)", text: "Detail Renda (Trim, Panel)" },
+            { value: "embroidery details (floral, geometric)", text: "Detail Bordir (Bunga, Geometris)" },
+            { value: "sequin embellishments (all-over, scattered)", text: "Hiasan Payet (Seluruh, Tersebar)" },
+            { value: "beaded details (pearls, crystals)", text: "Detail Manik-manik (Mutiara, Kristal)" },
+            { value: "ribbon details (bows, lacing)", text: "Detail Pita (Simpul, Tali)" },
+            { value: "ruffle details (neckline, sleeves, hem)", text: "Detail Ruffle/Kerutan (Leher, Lengan, Ujung)" },
+            { value: "frill details", text: "Detail Frill (Lipatan Kecil)" },
+            { value: "pleat details (knife pleats, box pleats)", text: "Detail Lipit (Pleats)" },
+            { value: "tassel details", text: "Detail Tasel/Rumbai Kecil" },
+            { value: "fringe details (hem, sleeves)", text: "Detail Rumbai Panjang (Fringe)" },
+            { value: "stud details (metal, pearl)", text: "Detail Stud/Paku Keling (Logam, Mutiara)" },
+            { value: "zipper details (exposed, decorative)", text: "Detail Ritsleting (Terlihat, Dekoratif)" },
+            { value: "button details (oversized, contrasting)", text: "Detail Kancing (Besar, Kontras)" },
+            { value: "cutout details (shoulder, waist, back)", text: "Detail Cut-out (Bahu, Pinggang, Punggung)" },
+            { value: "mesh panel details", text: "Detail Panel Jaring Transparan" },
+            { value: "sheer fabric inserts", text: "Sisipan Kain Transparan (Sheer)" },
+            { value: "belted waist (matching fabric, contrasting)", text: "Pinggang Berikat (Kain Sama, Kontras)" },
+            { value: "drawstring details (waist, cuffs)", text: "Detail Serut (Pinggang, Manset)" },
+            { value: "patchwork details", text: "Detail Tambal Sulam (Patchwork)" },
+            { value: "applique details", text: "Detail Aplikasi Kain" },
+            { value: "pockets (utility, decorative)", text: "Saku (Utility, Dekoratif)" },
+            { value: "contrasting piping", text: "Piping Kontras (Lis)" },
+            { value: "smocking details", text: "Detail Smock (Kerutan Elastis)" },
+            { value: "feather details", text: "Detail Bulu" },
+            { value: "chain details", text: "Detail Rantai Logam" },
+            { value: "metallic hardware (buckles, eyelets)", text: "Perangkat Keras Logam (Gesper, Mata Ayam)" },
+            { value: "distressed details (for denim, casual wear)", text: "Detail Robek/Usang (Distressed)" },
+            { value: "asymmetrical hemline", text: "Garis Bawah Asimetris" },
+            { value: "draping details", text: "Detail Drapping Kain" },
+        ];
+
+        const fabricMappings = {
+            "Maxi Dress": ["chiffon", "rayon challis", "cotton voile", "silk crepe de chine", "jersey knit (lightweight)", "linen blend", "viscose", "satin"],
+            "Tight Gamis": ["stretch cotton jersey", "scuba knit", "ponte de roma", "spandex blend", "velvet (stretch)", "rayon spandex"],
+            "Bodycon Dress": ["scuba knit", "ponte de roma", "stretch velvet", "bandage fabric", "sequin fabric (stretch)", "metallic spandex", "power mesh"],
+            "Sundress": ["cotton poplin", "linen", "rayon", "chambray", "eyelet cotton", "gingham", "seersucker"],
+            "Jumpsuit": ["crepe", "tencel", "denim (lightweight)", "linen blend", "satin back crepe", "jersey knit", "silk noil"],
+            "Romper": ["cotton lawn", "rayon", "chambray", "linen", "terry cloth", "jersey knit"],
+            "Kaftan": ["silk chiffon", "cotton gauze", "viscose crepe", "satin", "printed rayon", "georgette"],
+            "Abaya": ["nada fabric", "lexus fabric", "crepe (high quality)", "silk", "linen (luxury)"],
+            "Shift Dress": ["cotton twill", "ponte de roma", "wool crepe", "linen", "brocade", "jacquard"],
+            "Wrap Dress": ["jersey knit (matte or silk)", "rayon challis", "silk charmeuse", "cotton sateen", "crepe"],
+            "Slip Dress": ["silk satin", "charmeuse", "viscose satin", "velvet (bias cut)", "lace trim satin"],
+            "Shirt Dress": ["cotton poplin", "chambray", "tencel", "linen", "silk shirting", "corduroy (fine wale)"],
+            "Overall Dress": ["denim", "corduroy", "cotton twill", "canvas", "wool blend"],
+            "Evening Gown": ["silk chiffon", "satin duchesse", "velvet", "organza", "tulle", "lace (chantilly, alencon)", "beaded silk", "sequined fabric"],
+            "Cocktail Dress": ["lace", "taffeta", "brocade", "sequined fabric", "silk shantung", "crepe back satin", "velvet"],
+            "Midi Dress": ["cotton sateen", "rayon crepe", "knit (ribbed, jersey)", "linen blend", "tencel", "wool suiting (lightweight)"],
+            "Mini Dress": ["cotton spandex", "denim (stretch)", "faux leather", "sequin fabric", "velvet", "ponte knit"],
+            "Peplum Dress": ["scuba knit", "ponte de roma", "structured cotton", "jacquard", "brocade"],
+            "Tunic Dress": ["linen", "cotton gauze", "rayon challis", "jersey knit", "silk crepe"],
+            "Sweater Dress": ["merino wool knit", "cashmere knit", "cotton cable knit", "chenille", "boucle knit", "angora blend"],
+            "Bohemian Dress": ["cotton gauze", "crochet lace", "printed rayon", "embroidered cotton", "cheesecloth", "viscose crinkle"],
+            "Vintage Tea Dress": ["cotton print (floral, polka dot)", "rayon crepe", "silk shantung", "eyelet lace"],
+            "Modern Cheongsam": ["silk brocade", "jacquard", "stretch satin", "velvet with embroidery", "lace overlay"],
+            "Kebaya Modern": ["brocade (french, semi)", "tulle (embroidered, beaded)", "organza silk", "lace (cornelli, prada)", "chiffon silk"],
+            "Two-piece Suit (Skirt Suit)": ["wool suiting", "tweed", "boucle", "crepe (heavyweight)", "linen blend (structured)"],
+            "Two-piece Suit (Pant Suit)": ["wool suiting", "gabardine", "crepe", "velvet (for evening)", "satin (for evening)", "linen (summer)"],
+            "Playsuit": ["cotton poplin", "rayon", "chambray", "terry cloth", "jersey knit", "linen blend"],
+            "Sarong Dress": ["rayon batik", "silk chiffon", "cotton voile", "printed viscose"],
+            "Crop Top Blouse": ["cotton poplin", "silk crepe", "lace", "satin", "knit (ribbed)", "smocked cotton"],
+            "T-shirt": ["cotton jersey (combed, pima)", "modal", "bamboo jersey", "linen knit", "polyester blend (performance)"],
+            "Tank Top": ["ribbed cotton knit", "jersey knit", "silk camisole fabric", "spandex blend", "modal"],
+            "Formal Blouse": ["silk charmeuse", "crepe de chine", "polyester satin", "cotton sateen", "georgette", "chiffon (lined)"],
+            "Warm Sweater": ["merino wool", "cashmere", "lambswool", "alpaca blend", "cotton cable knit", "fleece lined knit"],
+            "Casual Hoodie": ["cotton fleece", "french terry", "polyester fleece", "sherpa lined", "jersey knit (heavyweight)"],
+            "Off-shoulder Top": ["smocked cotton", "jersey knit (stretch)", "chiffon", "lace", "poplin with elastic"],
+            "Button-down Shirt": ["cotton poplin", "oxford cloth", "chambray", "linen", "silk shirting", "flannel (casual)"],
+            "Knit Top": ["cotton knit", "wool knit", "viscose knit", "cashmere blend", "rib knit", "pointelle knit"],
+            "Camisole": ["silk satin", "lace", "cotton jersey (thin)", "modal", "microfiber"],
+            "Halter Neck Top": ["satin", "jersey knit (stretch)", "sequined fabric", "crepe", "silk"],
+            "Sexy Tube Top": ["stretch cotton jersey", "spandex blend", "ruched fabric", "sequin stretch fabric", "power mesh"],
+            "Long-sleeve Shirt": ["cotton poplin", "flannel", "jersey knit", "tencel", "linen blend", "silk"],
+            "Peplum Top": ["scuba knit", "ponte de roma", "structured cotton", "jacquard", "taffeta"],
+            "Fitted Bodysuit": ["stretch cotton jersey", "modal spandex", "power mesh (sheer)", "lace (stretch)", "velvet (stretch)"],
+            "Corset Top": ["satin brocade", "coutil", "leather/faux leather", "denim (structured)", "lace overlay"],
+            "Kimono Top": ["silk", "rayon print", "chiffon", "satin jacquard", "cotton lawn"],
+            "Polo Shirt": ["cotton pique", "jersey knit", "performance polyester"],
+            "Turtleneck Top": ["merino wool (fine gauge)", "cotton rib knit", "modal jersey", "cashmere", "stretch velvet"],
+            "Bell Sleeve Top": ["chiffon", "crepe", "lace", "cotton voile", "jersey knit"],
+            "Ruffle Blouse": ["cotton poplin", "silk georgette", "chiffon", "organza", "voile"],
+            "Graphic Tee": ["cotton jersey", "polyester blend (for sublimation)", "tri-blend jersey"],
+            "Sheer Blouse": ["chiffon", "organza", "georgette", "tulle (fine)", "lace (all over)"],
+            "Vest": ["wool suiting (for formal)", "tweed", "denim", "quilted nylon", "faux fur", "knit (sweater vest)"],
+            "Cardigan": ["merino wool", "cashmere blend", "cotton knit", "mohair blend", "chenille", "pointelle knit"],
+            "Bolero": ["lace", "satin", "taffeta", "faux fur (evening)", "knit (fine gauge)"],
+            "Bralette Top": ["lace", "satin", "velvet", "stretch cotton", "sequined fabric"],
+            "Mini Skirt": ["denim", "leather/faux leather", "corduroy", "tweed", "cotton twill", "sequin fabric", "scuba knit"],
+            "Midi Skirt": ["pleated polyester", "satin", "crepe", "wool blend", "cotton poplin", "tencel", "knit (ribbed)"],
+            "Maxi Skirt": ["rayon challis", "cotton voile", "chiffon (lined)", "jersey knit", "linen blend", "tiered cotton"],
+            "Jeans": ["denim (rigid, stretch, selvedge)", "colored denim", "coated denim"],
+            "stretch fabric Tight Leggings": ["cotton spandex jersey", "nylon spandex (athletic)", "ponte knit (thick)", "faux leather (stretch)", "velvet (stretch)"],
+            "Shorts": ["denim", "cotton twill (chino)", "linen", "chambray", "terry cloth", "performance athletic fabric"],
+            "Formal Trousers": ["wool suiting", "gabardine", "crepe (heavyweight)", "satin back crepe", "tweed", "velvet (evening)"],
+            "Culottes": ["tencel", "crepe", "linen blend", "cotton poplin", "wide wale corduroy", "pleated georgette"],
+            "Wide Palazzo Pants": ["silk chiffon", "rayon challis", "linen", "crepe de chine", "satin", "jersey knit (flowy)"],
+            "Skinny Pants": ["stretch cotton twill", "ponte de roma", "coated stretch denim", "faux leather (stretch)", "bengaline"],
+            "Flare Pants": ["denim (stretch)", "corduroy", "velvet", "crepe (structured)", "ponte knit"],
+            "Cargo Pants": ["cotton ripstop", "twill", "canvas", "nylon blend", "sateen (utility)"],
+            "Pencil Skirt": ["wool suiting", "ponte de roma", "stretch cotton sateen", "leather/faux leather", "tweed", "jacquard"],
+            "A-line Skirt": ["cotton poplin", "denim", "corduroy", "wool flannel", "tencel", "linen"],
+            "Biker Shorts": ["nylon spandex", "cotton lycra", "ribbed knit (stretch)", "performance fabric"],
+            "Capri Pants": ["stretch cotton twill", "linen", "ponte knit", "denim (stretch)"],
+            "Skort": ["performance athletic fabric", "cotton twill (stretch)", "ponte knit", "chambray"],
+            "Jogger Pants": ["french terry", "fleece", "tencel (soft)", "satin (athleisure)", "nylon (track pant style)"],
+            "Pleated Skirt": ["polyester georgette/chiffon", "satin", "metallic fabric", "faux leather (pleated)", "wool blend (fine pleats)"],
+            "High-waisted Trousers": ["wool blend", "crepe", "tencel", "cotton sateen", "corduroy", "linen"],
+            "Denim Shorts": ["denim (various washes)", "stretch denim"],
+            "Leather Skirt": ["genuine leather (lambskin, cowhide)", "faux leather (PU, PVC)"],
+            "Satin Skirt": ["silk satin", "polyester satin", "charmeuse", "crepe back satin"],
+            "Wrap Skirt": ["rayon print", "cotton lawn", "linen", "silk crepe", "jersey knit"],
+            "Bermuda Shorts": ["cotton twill", "linen", "denim", "seersucker", "wool suiting (tailored)"],
+            "Gaucho Pants": ["wool flannel", "heavy crepe", "corduroy", "denim (wide leg)", "ponte knit (structured)"],
+            "Default": ["cotton", "polyester", "rayon", "linen", "silk", "wool", "denim", "jersey knit", "satin", "chiffon", "crepe", "lace", "velvet", "corduroy", "fleece", "twill", "poplin", "spandex blend"]
+        };
+
+        const commonFabrics = [
+            { value: "cotton", text: "Katun" }, { value: "linen", text: "Linen" }, { value: "silk", text: "Sutra (Silk)" },
+            { value: "wool", text: "Wol" }, { value: "polyester", text: "Poliester" }, { value: "rayon", text: "Rayon" },
+            { value: "nylon", text: "Nilon" }, { value: "spandex blend", text: "Campuran Spandex" }, { value: "velvet", text: "Beludru (Velvet)" },
+            { value: "satin", text: "Satin" }, { value: "denim", text: "Denim" }, { value: "corduroy", text: "Corduroy" },
+            { value: "flannel", text: "Flanel" }, { value: "jersey knit", text: "Rajut Jersey" }, { value: "rib knit", text: "Rajut Rib" },
+            { value: "fleece", text: "Fleece" }, { value: "lace", text: "Renda (Lace)" }, { value: "chiffon", text: "Sifon (Chiffon)" },
+            { value: "organza", text: "Organza" }, { value: "tulle", text: "Tulle" }, { value: "georgette", text: "Georgette" },
+            { value: "crepe", text: "Crepe" }, { value: "tweed", text: "Tweed" }, { value: "brocade", text: "Brokat" },
+            { value: "sequin fabric", text: "Kain Payet" }, { value: "faux fur", text: "Bulu Imitasi" }, { value: "faux leather", text: "Kulit Imitasi" },
+            { value: "scuba knit", text: "Rajut Scuba" }, { value: "ponte de roma", text: "Ponte de Roma" }, { value: "tencel", text: "Tencel" },
+            { value: "modal", text: "Modal" }, { value: "bamboo fabric", text: "Kain Bambu" }, { value: "chambray", text: "Chambray" },
+            { value: "poplin", text: "Poplin" }, { value: "voile", text: "Voile" }, { value: "gauze", text: "Kain Kasa (Gauze)" },
+            { value: "jacquard", text: "Jacquard" }, { value: "gabardine", text: "Gabardin" }
+        ];
+
+        function populateSelect(selectElement, optionsArray, defaultOptionText = "-- Pilih --") {
+            if (!selectElement) return; // Guard clause
+            selectElement.innerHTML = `<option value="">${defaultOptionText}</option>`;
+            optionsArray.forEach(option => {
+                const opt = document.createElement('option');
+                opt.value = option.value;
+                opt.textContent = option.text;
+                selectElement.appendChild(opt);
+            });
+        }
+
+        function populateFabricOptions(clothingTypeKey, fabricSelectElement) {
+            if (!fabricSelectElement) return; // Guard clause
+            const specificFabrics = fabricMappings[clothingTypeKey] || fabricMappings["Default"] || [];
+            const fabricOptionsForSelect = specificFabrics.map(fabricValue => {
+                const commonFabric = commonFabrics.find(cf => cf.value.toLowerCase() === fabricValue.toLowerCase() || cf.text.toLowerCase().includes(fabricValue.toLowerCase().split('(')[0].trim()));
+                return { value: fabricValue, text: commonFabric ? commonFabric.text : fabricValue.charAt(0).toUpperCase() + fabricValue.slice(1) };
+            });
+            populateSelect(fabricSelectElement, fabricOptionsForSelect, `-- Pilih Bahan ${clothingTypeKey ? '('+clothingTypeKey+')' : ''} --`);
+        }
+        
+        function updateHairstyleVisibility() {
+            if (!hijabRadios || !hairstyleDiv || !hairstyleSelect) return; // Guard clause
+            const selectedHijabRadio = document.querySelector('input[name="hijab"]:checked');
+            if (selectedHijabRadio && selectedHijabRadio.id === 'hijab-no') {
+                hairstyleDiv.style.display = 'block';
+                hairstyleSelect.required = true;
+            } else {
+                hairstyleDiv.style.display = 'none';
+                hairstyleSelect.required = false;
+            }
+        }
+
+        function initializeFormDisplay() {
+            if (!clothingStyleSelect || !motifChoiceRadios) return; // Guard clause
+
+            const selectedClothingStyle = clothingStyleSelect.value;
+            const selectedMotifChoiceRadio = document.querySelector('input[name="motifChoice"]:checked');
+            const selectedMotifChoice = selectedMotifChoiceRadio ? selectedMotifChoiceRadio.value : 'no';
+
+
+            if(directOutfitDiv) directOutfitDiv.style.display = selectedClothingStyle === 'direct' ? 'block' : 'none';
+            if(separateOutfitDiv) separateOutfitDiv.style.display = selectedClothingStyle === 'separate' ? 'block' : 'none';
+            if(singleColorDiv) singleColorDiv.style.display = selectedClothingStyle === 'direct' || !selectedClothingStyle ? 'block' : 'none';
+            if(separateColorsDiv) separateColorsDiv.style.display = selectedClothingStyle === 'separate' ? 'block' : 'none';
+            if(singleAccentDiv) singleAccentDiv.style.display = selectedClothingStyle === 'direct' || !selectedClothingStyle ? 'block' : 'none';
+            if(separateAccentsDiv) separateAccentsDiv.style.display = selectedClothingStyle === 'separate' ? 'block' : 'none';
+            
+            if(singleFabricDiv) singleFabricDiv.style.display = selectedClothingStyle === 'direct' ? 'block' : 'none';
+            if(separateFabricsDiv) separateFabricsDiv.style.display = selectedClothingStyle === 'separate' ? 'block' : 'none';
+
+            if(directOutfitSelect) directOutfitSelect.required = selectedClothingStyle === 'direct';
+            if(topSelect) topSelect.required = selectedClothingStyle === 'separate';
+            if(bottomSelect) bottomSelect.required = selectedClothingStyle === 'separate';
+            if(colorSelect) colorSelect.required = selectedClothingStyle === 'direct'; // Adjusted logic
+            if(topColorSelect) topColorSelect.required = selectedClothingStyle === 'separate';
+            if(bottomColorSelect) bottomColorSelect.required = selectedClothingStyle === 'separate';
+            
+            if(singleFabricSelect) singleFabricSelect.required = false; 
+            if(topFabricSelect) topFabricSelect.required = false; 
+            if(bottomFabricSelect) bottomFabricSelect.required = false; 
+
+            if(singleMotifDiv) singleMotifDiv.style.display = 'none';
+            if(separateMotifsDiv) separateMotifsDiv.style.display = 'none';
+            if(singleMotifSelect) singleMotifSelect.required = false;
+            if(topMotifSelect) topMotifSelect.required = false;
+            if(bottomMotifSelect) bottomMotifSelect.required = false;
+
+            if (selectedMotifChoice === 'yes') {
+                if (selectedClothingStyle === 'direct' && singleMotifDiv) {
+                    singleMotifDiv.style.display = 'block';
+                    if(singleMotifSelect) singleMotifSelect.required = true; 
+                } else if (selectedClothingStyle === 'separate' && separateMotifsDiv) {
+                    separateMotifsDiv.style.display = 'block';
+                }
+            }
+            updateHairstyleVisibility(); 
+            if (selectedClothingStyle === 'direct' && directOutfitSelect) {
+                populateFabricOptions(directOutfitSelect.value, singleFabricSelect);
+            } else if (selectedClothingStyle === 'separate' && topSelect && bottomSelect) {
+                populateFabricOptions(topSelect.value, topFabricSelect);
+                populateFabricOptions(bottomSelect.value, bottomFabricSelect);
+            } else {
+                 populateFabricOptions("", singleFabricSelect); 
+                 populateFabricOptions("", topFabricSelect);
+                 populateFabricOptions("", bottomFabricSelect);
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            populateSelect(colorSelect, colorOptions, "-- Pilih Warna Pakaian --");
+            populateSelect(topColorSelect, colorOptions, "-- Pilih Warna Atasan --");
+            populateSelect(bottomColorSelect, colorOptions, "-- Pilih Warna Bawahan --");
+            populateSelect(singleMotifSelect, motifOptions, "-- Pilih Pola Pakaian --");
+            populateSelect(topMotifSelect, motifOptions, "-- Pilih Pola Atasan (Opsional) --");
+            populateSelect(bottomMotifSelect, motifOptions, "-- Pilih Pola Bawahan (Opsional) --");
+            populateSelect(accentSelect, accentOptions, "-- Pilih Aksen Pakaian (Opsional) --");
+            populateSelect(topAccentSelect, accentOptions, "-- Pilih Aksen Atasan (Opsional) --");
+            populateSelect(bottomAccentSelect, accentOptions, "-- Pilih Aksen Bawahan (Opsional) --");
+            initializeFormDisplay(); 
+        });
+
+        if(clothingStyleSelect) clothingStyleSelect.addEventListener('change', initializeFormDisplay);
+        if(motifChoiceRadios) motifChoiceRadios.forEach(radio => radio.addEventListener('change', initializeFormDisplay));
+        if(hijabRadios) hijabRadios.forEach(radio => radio.addEventListener('change', updateHairstyleVisibility));
+        if(directOutfitSelect) directOutfitSelect.addEventListener('change', () => populateFabricOptions(directOutfitSelect.value, singleFabricSelect));
+        if(topSelect) topSelect.addEventListener('change', () => populateFabricOptions(topSelect.value, topFabricSelect));
+        if(bottomSelect) bottomSelect.addEventListener('change', () => populateFabricOptions(bottomSelect.value, bottomFabricSelect));
+
+        document.querySelectorAll('.radio-option input[type=radio]').forEach(radioInput => {
+            radioInput.addEventListener('change', function() {
+                document.querySelectorAll(`input[name="${this.name}"]`).forEach(r => {
+                    const parentOption = r.closest('.radio-option');
+                    if (parentOption) {
+                        parentOption.style.borderColor = r.checked ? 'var(--primary)' : '#ced4da';
+                        parentOption.style.background = r.checked ? 'rgba(52, 152, 219, 0.05)' : 'white';
+                    }
+                });
+            });
+            const parentOption = radioInput.closest('.radio-option');
+            if (parentOption && radioInput.checked) {
+                 parentOption.style.borderColor = 'var(--primary)';
+                 parentOption.style.background = 'rgba(52, 152, 219, 0.05)';
+            }
+        });
+
+        function getSelectedHijabOrHairstyle() {
+            if (!hijabRadios) return { text: "with well-groomed hair", isHijab: false, hairDescription: "Her hair flows naturally" }; // Default if no radios
+            const selectedHijabRadio = document.querySelector('input[name="hijab"]:checked');
+            if (selectedHijabRadio && selectedHijabRadio.id === 'hijab-yes') {
+                return { text: "wearing a Hijab", isHijab: true, hairDescription: "Her Hijab modestly covers her hair" };
+            } else {
+                const selectedHairstyleValue = hairstyleSelect ? hairstyleSelect.value : "long, wavy black hair"; 
+                return { text: `with ${selectedHairstyleValue}`, isHijab: false, hairDescription: `Her ${selectedHairstyleValue.toLowerCase()} flows naturally` };
+            }
+        }
+        
+        function validateForm() {
+            let isValid = true;
+            let firstInvalidField = null;
+            if(errorMessage) {
+                errorMessage.style.display = 'none'; 
+                errorMessage.innerHTML = ''; 
+            }
+            const markInvalid = (field, message) => {
+                if (field) { 
+                    field.style.borderColor = 'red'; 
+                    if (!firstInvalidField) firstInvalidField = field; 
+                }
+                isValid = false;
+                if(errorMessage){
+                    const li = document.createElement('li');
+                    li.textContent = message;
+                    let ulError = errorMessage.querySelector('ul');
+                    if (!ulError) {
+                        ulError = document.createElement('ul');
+                        errorMessage.appendChild(ulError);
+                    }
+                    ulError.appendChild(li);
+                }
+            };
+            const resetValidationStyle = (field) => { if (field) field.style.borderColor = '#ced4da'; };
+            const allFieldsToReset = [
+                clothingStyleSelect, directOutfitSelect, topSelect, bottomSelect, 
+                colorSelect, topColorSelect, bottomColorSelect,
+                singleFabricSelect, topFabricSelect, bottomFabricSelect,
+                singleMotifSelect, hairstyleSelect,
+                bodyShapeSelect, poseSetSelect, 
+                locationSetSelect, styleSelect
+            ];
+            allFieldsToReset.forEach(resetValidationStyle);
+            if (errorMessage && !errorMessage.querySelector('ul')) {
+                const ul = document.createElement('ul');
+                errorMessage.appendChild(ul);
+            }
+            if (!clothingStyleSelect || !clothingStyleSelect.value) {
+                markInvalid(clothingStyleSelect, 'Gaya Pakaian harus dipilih.');
+            } else {
+                if (clothingStyleSelect.value === 'direct') {
+                    if (!directOutfitSelect || !directOutfitSelect.value) markInvalid(directOutfitSelect, 'Pakaian Tunggal harus dipilih.');
+                    if (!colorSelect || !colorSelect.value) markInvalid(colorSelect, 'Warna Pakaian Tunggal harus dipilih.');
+                } else if (clothingStyleSelect.value === 'separate') {
+                    if (!topSelect || !topSelect.value) markInvalid(topSelect, 'Atasan harus dipilih.');
+                    if (!bottomSelect || !bottomSelect.value) markInvalid(bottomSelect, 'Bawahan harus dipilih.');
+                    if (!topColorSelect || !topColorSelect.value) markInvalid(topColorSelect, 'Warna Atasan harus dipilih.');
+                    if (!bottomColorSelect || !bottomColorSelect.value) markInvalid(bottomColorSelect, 'Warna Bawahan harus dipilih.');
+                }
+            }
+            const motifChoiceRadio = document.querySelector('input[name="motifChoice"]:checked');
+            const motifChoiceValue = motifChoiceRadio ? motifChoiceRadio.value : null;
+            if (motifChoiceValue === 'yes') {
+                if (clothingStyleSelect && clothingStyleSelect.value === 'direct' && (!singleMotifSelect || !singleMotifSelect.value)) {
+                    markInvalid(singleMotifSelect, 'Pola Pakaian harus dipilih jika "Bermotif".');
+                }
+            }
+            const selectedHijabRadio = document.querySelector('input[name="hijab"]:checked');
+            if (!selectedHijabRadio) { 
+                const hijabLabel = Array.from(document.querySelectorAll('label')).find(l => l.textContent.includes('Pilihan Hijab'));
+                markInvalid(hijabLabel ? hijabLabel.nextElementSibling.querySelector('input') : null, 'Pilihan Hijab harus dibuat.');
+            } else if (selectedHijabRadio.id === 'hijab-no' && (!hairstyleSelect || !hairstyleSelect.value)) {
+                markInvalid(hairstyleSelect, 'Gaya Rambut harus dipilih jika Non Hijab.');
+            }
+            if (!bodyShapeSelect || !bodyShapeSelect.value) markInvalid(bodyShapeSelect, 'Bentuk Tubuh Model harus dipilih.'); 
+            if (!poseSetSelect || !poseSetSelect.value) markInvalid(poseSetSelect, 'Set Pose harus dipilih.');
+            if (!locationSetSelect || !locationSetSelect.value) markInvalid(locationSetSelect, 'Set Lokasi harus dipilih.');
+            if (!styleSelect || !styleSelect.value) markInvalid(styleSelect, 'Gaya Fotografi harus dipilih.');
+            if (!isValid && errorMessage) {
+                errorMessage.style.display = 'block';
+                if (!errorMessage.firstChild || errorMessage.firstChild.tagName !== 'P') {
+                    const pError = document.createElement('p');
+                    pError.style.fontWeight = 'bold';
+                    pError.style.marginBottom = '5px';
+                    pError.textContent = 'Harap perbaiki kesalahan berikut:';
+                    errorMessage.insertBefore(pError, errorMessage.firstChild);
+                }
+                if (firstInvalidField && typeof firstInvalidField.focus === 'function') {
+                    firstInvalidField.focus(); 
+                } else if (firstInvalidField && firstInvalidField.scrollIntoView) {
+                    firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' }); 
+                }
+            }
+            return isValid;
+        }
+
+        if(generatePromptBtn) {
+            generatePromptBtn.addEventListener('click', function() {
+                if (!validateForm()) {
+                    if(outputArea) outputArea.style.display = 'none'; 
+                    if(copyBtn) copyBtn.style.display = 'none'; 
+                    if(successMessage) successMessage.style.display = 'none';
+                    if(separatePromptsAreaContainer) separatePromptsAreaContainer.style.display = 'none';
+                    return;
+                }
+                const clothingStyleValue = clothingStyleSelect.value;
+                const hijabOrHairstyleInfo = getSelectedHijabOrHairstyle(); 
+                const headwearTextForPrompt = hijabOrHairstyleInfo.text; 
+                const hairSkinDescriptionPart = hijabOrHairstyleInfo.hairDescription; 
+                const bodyTypeAndPersonality = bodyShapeSelect.value; 
+                const ethnicityOrNationality = "Indonesian"; 
+                const skinTone = "very fair, Natural White Indonesian Skin"; 
+                const selectedPoseSet = poseSetSelect.value;
+                const posesArray = selectedPoseSet.split(',').map(p => p.trim());
+                const pose1 = posesArray[0] || "elegant pose";
+                const pose2 = posesArray[1] || "natural stance";
+                const pose3 = posesArray[2] || "graceful movement";
+                const selectedLocationSet = locationSetSelect.value; 
+                const locationsArray = selectedLocationSet.split(/, and |, | and |,/i).map(l => l.trim()).filter(l => l);
+                const location1 = locationsArray[0] || "a beautiful place";
+                const location2 = locationsArray[1] || "another scenic spot";
+                const location3 = locationsArray[2] || "a unique setting";
+                const photoResolution = "stunning 4K quality"; 
+                const photographyStyle = styleSelect.value; 
+                const motifChoiceValue = document.querySelector('input[name="motifChoice"]:checked').value;
+                let topClothingDesc = "";
+                let bottomClothingDesc = "";
+                let singleOutfitFullDesc = "";
+                function buildPartDescription(type, fabricVal, colorVal, motifVal, accentVal, isMotifSelected) {
+                    let desc = `a ${type}`;
+                    if (fabricVal) desc += ` made of ${fabricVal}`;
+                    if (colorVal) desc += ` in ${colorVal}`;
+                    if (isMotifSelected && motifVal && motifVal !== "solid color (no pattern)") {
+                         desc += ` with ${motifVal}`;
+                    }
+                    if (accentVal) desc += ` featuring ${accentVal}`;
+                    return desc.replace(/\s+/g, ' ').trim();
+                }
+                if (clothingStyleValue === 'direct') {
+                    singleOutfitFullDesc = buildPartDescription(
+                        directOutfitSelect.value,
+                        singleFabricSelect.value,
+                        colorSelect.value,
+                        singleMotifSelect.value,
+                        accentSelect.value,
+                        motifChoiceValue === 'yes'
+                    );
+                } else if (clothingStyleValue === 'separate') {
+                    topClothingDesc = buildPartDescription(
+                        topSelect.value,
+                        topFabricSelect.value,
+                        topColorSelect.value,
+                        topMotifSelect.value,
+                        topAccentSelect.value,
+                        motifChoiceValue === 'yes'
+                    );
+                    bottomClothingDesc = buildPartDescription(
+                        bottomSelect.value,
+                        bottomFabricSelect.value,
+                        bottomColorSelect.value,
+                        bottomMotifSelect.value,
+                        bottomAccentSelect.value,
+                        motifChoiceValue === 'yes'
+                    );
+                }
+                const masterFullClothing = clothingStyleValue === 'direct' ? singleOutfitFullDesc : `${topClothingDesc} and ${bottomClothingDesc}`;
+                const masterPromptText = `A ${bodyTypeAndPersonality} ${ethnicityOrNationality} model, confident, and highly realistic with ${skinTone}, ${headwearTextForPrompt} and ${masterFullClothing}. She poses gracefully near ${location1}, ${location2}, and ${location3}. She has an elegant silhouette with gentle curves, including a well-defined bust, hips, and waist. ${hairSkinDescriptionPart}, and her glowing skin emits a healthy radiance. The backgrounds in ${location1}, ${location2}, and ${location3} feature soft, neutral tones, adding a subtle sense of refinement. The atmosphere is calm and welcoming, celebrating body confidence and natural beauty, captured in ${photoResolution} with ${photographyStyle}. The outfits are tasteful and complement her figure. Each prompt must include: 'a well-defined bust, hips, and waist, elegant pose, as well as soft & bright lighting, with different poses: ${pose1}, ${pose2}, ${pose3}'.`.replace(/\s+/g, ' ').trim();
+                if(promptOutput) promptOutput.value = masterPromptText;
+                if(outputArea) {
+                    outputArea.classList.remove('hidden-field'); 
+                    outputArea.style.display = 'block';
+                }
+                if(copyBtn) copyBtn.style.display = 'inline-block'; 
+                if(successMessage) successMessage.style.display = 'none'; 
+                if(errorMessage) errorMessage.style.display = 'none'; 
+                if(separatePromptsArea) separatePromptsArea.innerHTML = ''; 
+                const scenePrompts = [];
+                const combinedClothingForScene = clothingStyleValue === 'direct' 
+                    ? singleOutfitFullDesc 
+                    : (bottomClothingDesc ? `${topClothingDesc} with ${bottomClothingDesc}` : topClothingDesc);
+                if (locationsArray.length > 0) {
+                    scenePrompts.push(
+                        `A ${bodyTypeAndPersonality} ${ethnicityOrNationality} model, confident, and highly realistic with ${skinTone}, ${headwearTextForPrompt} and ${combinedClothingForScene}. She poses gracefully in ${location1}. Her posture is ${pose1}, showing elegance and softly accentuating her well-defined bust, hips, and waist. ${hairSkinDescriptionPart}, and her glowing skin emits a healthy radiance. The background features the characteristic elements and tones of ${location1}, adding a refined touch. Lighting is soft and bright. Captured in ${photoResolution} using ${photographyStyle}, this scene blends modest fashion with confident body language.`.replace(/\s+/g, ' ').trim()
+                    );
+                }
+                if (locationsArray.length > 1) {
+                    scenePrompts.push(
+                        `A ${bodyTypeAndPersonality} ${ethnicityOrNationality} model, confident, and highly realistic with ${skinTone}, ${headwearTextForPrompt} and ${combinedClothingForScene}. She poses gracefully in ${location2}. Captured in ${pose2}, she stands naturally with a relaxed yet elegant presence, highlighting her well-defined bust, hips, and waist. The setting in ${location2} features its unique characteristics, enhanced by soft & bright lighting. Photographed in ${photoResolution} with ${photographyStyle}, the scene radiates calm, confidence, and refined beauty.`.replace(/\s+/g, ' ').trim()
+                    );
+                }
+                if (locationsArray.length > 2) {
+                    scenePrompts.push(
+                        `A ${bodyTypeAndPersonality} ${ethnicityOrNationality} model, confident, and highly realistic with ${skinTone}, ${headwearTextForPrompt} and ${combinedClothingForScene}. She poses gracefully in ${location3}. Captured in a ${pose3}, this close-up or medium shot focuses on her expression, the texture of her outfit, and her glowing skin. Her elegant figure with a well-defined bust, hips, and waist is subtly framed. The soft, bright lighting enhances the neutral tones of ${location3}. Captured in ${photoResolution} using ${photographyStyle}, this moment celebrates quiet strength, modest fashion, and timeless beauty.`.replace(/\s+/g, ' ').trim()
+                    );
+                }
+                if(separatePromptsArea){
+                    scenePrompts.forEach((promptText, index) => {
+                        const sceneLocation = locationsArray[index] || `Scene ${index + 1} Location`;
+                        const promptDiv = document.createElement('div');
+                        promptDiv.style.marginBottom = '20px';
+                        promptDiv.style.paddingBottom = '15px';
+                        promptDiv.style.borderBottom = '1px solid #e9ecef';
+                        const label = document.createElement('label');
+                        label.htmlFor = `promptOutputScene${index + 1}`;
+                        label.textContent = `Prompt untuk Scene ${index + 1} (${sceneLocation}):`;
+                        label.style.display = 'block';
+                        label.style.marginBottom = '5px';
+                        label.style.fontSize = '1em';
+                        label.style.color = '#34495e';
+                        const newTextArea = document.createElement('textarea');
+                        newTextArea.id = `promptOutputScene${index + 1}`;
+                        newTextArea.value = promptText;
+                        newTextArea.readOnly = true;
+                        newTextArea.style.minHeight = '120px'; 
+                        newTextArea.style.marginTop = '5px';
+                        const newCopyBtn = document.createElement('button');
+                        newCopyBtn.type = 'button';
+                        newCopyBtn.className = 'copyBtn'; 
+                        newCopyBtn.id = `copyBtnScene${index + 1}`;
+                        newCopyBtn.textContent = `Salin Prompt Scene ${index + 1}`;
+                        newCopyBtn.style.display = 'inline-block'; 
+                        newCopyBtn.style.fontSize = '0.85em'; 
+                        newCopyBtn.style.padding = '8px 15px'; 
+                        newCopyBtn.addEventListener('click', function() {
+                            copyToClipboard(newTextArea, `Prompt Scene ${index + 1} disalin!`, `Gagal menyalin Scene ${index + 1}.`);
+                        });
+                        promptDiv.appendChild(label);
+                        promptDiv.appendChild(newTextArea);
+                        promptDiv.appendChild(newCopyBtn);
+                        separatePromptsArea.appendChild(promptDiv);
+                    });
+                    if(separatePromptsArea.lastChild && separatePromptsArea.lastChild.style) {
+                        separatePromptsArea.lastChild.style.borderBottom = 'none';
+                        separatePromptsArea.lastChild.style.paddingBottom = '0px';
+                    }
+                }
+                if (separatePromptsAreaContainer) {
+                    if (scenePrompts.length > 0) { 
+                        separatePromptsAreaContainer.classList.remove('hidden-field');
+                        separatePromptsAreaContainer.style.display = 'block';
+                    } else {
+                        separatePromptsAreaContainer.classList.add('hidden-field');
+                        separatePromptsAreaContainer.style.display = 'none';
+                    }
+                }
+            });
+        }
+
+        if(copyBtn) {
+            copyBtn.addEventListener('click', function() {
+                copyToClipboard(promptOutput, 'Prompt gabungan disalin!', 'Gagal menyalin prompt gabungan.');
+            });
+        }
+
+        function copyToClipboard(textAreaElement, successMsgText, errorMsgText) {
+            if(!textAreaElement || !successMessage) return;
+
+            const textToCopy = textAreaElement.value;
+            if (!textToCopy) return;
+
+            textAreaElement.select();
+            textAreaElement.setSelectionRange(0, 99999); 
+            try {
+                const successful = document.execCommand('copy');
+                successMessage.style.display = 'block'; 
+                if (successful) {
+                    successMessage.textContent = successMsgText;
+                    successMessage.classList.remove('error-message'); 
+                    successMessage.classList.add('success-message'); 
+                    successMessage.style.background = '#d1fae5'; successMessage.style.color = '#065f46'; successMessage.style.border = '1px solid #a7f3d0';
+                } else {
+                    successMessage.textContent = errorMsgText;
+                    successMessage.classList.remove('success-message');
+                    successMessage.classList.add('error-message');
+                    successMessage.style.background = '#fee2e2'; successMessage.style.color = '#991b1b'; successMessage.style.border = '1px solid #fecaca';
+                }
+            } catch (err) {
+                console.error('Clipboard copy failed: ', err);
+                successMessage.style.display = 'block';
+                successMessage.textContent = errorMsgText;
+                successMessage.classList.remove('success-message');
+                successMessage.classList.add('error-message');
+                successMessage.style.background = '#fee2e2'; successMessage.style.color = '#991b1b'; successMessage.style.border = '1px solid #fecaca';
+            }
+            successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            setTimeout(() => { successMessage.style.display = 'none'; }, 4000);
+            
+            if (window.getSelection) { 
+                window.getSelection().removeAllRanges();
+            } else if (document.selection) { 
+                document.selection.empty();
+            }
+        }
+    </script>
+</body>
+</html>
