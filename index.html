@@ -13,7 +13,7 @@
     <!-- Header -->
     <header>
         <div class="container header-container">
-            <a href="index.html#home" class="logo">
+            <a href="#home" class="logo">
                 <!-- GANTI DENGAN LOGO ANDA -->
                 <img src="images/logo.png" alt="Logo IMAJINASI LOKAL" class="logo-image" onerror="this.onerror=null;this.src='https://placehold.co/150x40/3498db/ffffff?text=LOGO';this.style.height='40px';"> 
                 <span class="logo-text">IMAJINASI LOKAL</span>
@@ -23,8 +23,8 @@
                 <ul>
                     <li><a href="#home">Beranda</a></li>
                     <li><a href="#ai-tools">AI Tools</a></li>
-                    <li><a href="galeri-halaman.html">Galeri</a></li>
-                    <li><a href="toko.html">Produk</a></li>
+                    <!-- Tautan Baru Ditambahkan -->
+                    <li><a href="#other-features">Fitur Lain</a></li>
                     <li><a href="#contact">Kontak</a></li>
                 </ul>
             </nav>
@@ -37,8 +37,7 @@
             <h1>Buat imajinasimu menjadi Sesuatu Yang Nyata</h1>
             <p>Berbagai Tools dan Referensi Tersedia untuk anda</p>
             <div class="hero-btns">
-                <a href="galeri-halaman.html" class="btn">LIHAT GALERI</a> 
-                <a href="#ai-tools" class="btn btn-accent">PROMPT TOOLS</a>
+                <a href="#ai-tools" class="btn btn-accent">JELAJAHI AI TOOLS</a>
             </div>
         </div>
     </section>
@@ -73,73 +72,43 @@
         </div>
     </section>
 
-    <!-- Galeri Konten Section (Cuplikan) -->
-    <section class="section galeri" id="galeri-cuplikan"> 
+    <!-- BAGIAN BARU: FITUR LAIN -->
+    <section class="section" id="other-features" style="background-color: #f0f4f8;">
         <div class="container">
             <div class="section-title">
-                <h2>Cuplikan Galeri</h2> 
-                <p>Beberapa contoh kreasi. Kunjungi halaman Galeri kami untuk lebih banyak inspirasi!</p>
+                <h2>Fitur Lain</h2> 
+                <p>Jelajahi berbagai fitur dan tautan bermanfaat lainnya yang kami sediakan.</p> 
             </div>
-            <div class="galeri-grid">
-                <div class="galeri-item-card" data-prompt="Sebuah lukisan surealis kucing oranye dengan topi penyihir, duduk di atas bulan sabit, dengan latar belakang galaksi nebula berwarna-warni, gaya Van Gogh. --ar 16:9 --style raw">
-                    <img src="images/galeri/kucing-surealis-placeholder.jpg" alt="Kucing Penyihir Surealis" onerror="this.onerror=null;this.src='https://placehold.co/300x200/3498db/ffffff?text=Surealis+Kucing';">
-                    <h3>Kucing Penyihir Surealis</h3>
+            
+            <div class="ai-tools-grid"> 
+                <!-- Contoh Fitur 1 -->
+                <div class="ai-tool-item">
+                    <h3>Judul Fitur A</h3>
+                    <p>Deskripsi singkat mengenai fitur A. Anda dapat menjelaskan apa kegunaan dari tautan ini atau layanan yang ditawarkan.</p>
+                    <!-- Ganti tanda '#' dengan link tujuan Anda -->
+                    <a href="#" class="btn btn-primary">Kunjungi Fitur A</a>
                 </div>
-                <div class="galeri-item-card" data-prompt="Desain interior ruang tamu gaya Japandi, palet warna netral (putih, krem, abu-abu muda, aksen kayu oak terang), furnitur minimalis, pencahayaan alami melimpah, tanaman hias indoor, tekstur lembut. --ar 4:3 --v 5.2">
-                     <img src="images/galeri/ruang-tamu-japandi-placeholder.jpg" alt="Ruang Tamu Japandi" onerror="this.onerror=null;this.src='https://placehold.co/300x200/2ecc71/ffffff?text=Ruang+Tamu+Japandi';">
-                    <h3>Ruang Tamu Japandi</h3>
-                </div>
-                <div class="galeri-item-card" data-prompt="Pola geometris abstrak berwarna emas dan biru tua, terinspirasi dari motif Art Deco, dengan efek kilau metalik, untuk wallpaper mewah. --tile --ar 1:1">
-                    <img src="images/galeri/pola-art-deco-placeholder.jpg" alt="Pola Abstrak Art Deco" onerror="this.onerror=null;this.src='https://placehold.co/300x200/e74c3c/ffffff?text=Pola+Art+Deco';">
-                    <h3>Pola Abstrak Art Deco</h3>
-                </div>
-            </div>
-             <div style="text-align: center; margin-top: 30px;">
-                <a href="galeri-halaman.html" class="btn btn-accent">Lihat Semua Galeri</a>
-            </div>
-        </div>
-    </section>
 
-    <!-- Produk Section (Cuplikan di halaman utama) -->
-    <section class="section" id="produk"> 
-        <div class="container">
-            <div class="section-title">
-                <h2>Produk Unggulan Kami</h2> 
-                <p>Temukan produk-produk digital inovatif dari IMAJINASI LOKAL yang siap membantu Anda.</p>
-            </div>
-            <div class="produk-grid">
-                <div class="produk-item-card">
-                    <a href="LINK_TOKO_PRODUK_1_ANDA" target="_blank" rel="noopener noreferrer">
-                        <img src="images/produk/produk-a-placeholder.jpg" alt="Paket Template Prompt Eksklusif" onerror="this.onerror=null;this.src='https://placehold.co/280x180/f39c12/ffffff?text=Produk+A';">
-                        <h3>Paket Template Prompt Eksklusif</h3>
-                        <p>Kumpulan template prompt premium untuk berbagai kebutuhan kreatif Anda.</p>
-                        <span class="btn-lihat-produk">Lihat di Toko</span>
-                    </a>
+                <!-- Contoh Fitur 2 -->
+                <div class="ai-tool-item">
+                    <h3>Judul Fitur B</h3>
+                    <p>Deskripsi singkat mengenai fitur B. Ini bisa berupa link ke halaman partner, sumber daya, atau halaman informasi lain.</p>
+                    <!-- Ganti tanda '#' dengan link tujuan Anda -->
+                    <a href="#" class="btn btn-primary">Kunjungi Fitur B</a>
                 </div>
-                <div class="produk-item-card">
-                     <a href="LINK_TOKO_PRODUK_2_ANDA" target="_blank" rel="noopener noreferrer">
-                        <img src="images/produk/produk-b-placeholder.jpg" alt="Panduan Master AI Art" onerror="this.onerror=null;this.src='https://placehold.co/280x180/9b59b6/ffffff?text=Produk+B';">
-                        <h3>Panduan Master AI Art</h3>
-                        <p>Ebook lengkap untuk menguasai seni menghasilkan gambar dengan AI.</p>
-                         <span class="btn-lihat-produk">Lihat di Toko</span>
-                    </a>
+                
+                <!-- Contoh Fitur 3 -->
+                <div class="ai-tool-item">
+                    <h3>Judul Fitur C</h3>
+                    <p>Deskripsi singkat mengenai fitur C. Sesuaikan konten ini sesuai dengan kebutuhan fitur atau link yang akan Anda tambahkan.</p>
+                     <!-- Ganti tanda '#' dengan link tujuan Anda -->
+                    <a href="#" class="btn btn-primary">Kunjungi Fitur C</a>
                 </div>
-                <div class="produk-item-card">
-                    <a href="LINK_TOKO_PRODUK_3_ANDA" target="_blank" rel="noopener noreferrer">
-                        <img src="images/produk/produk-c-placeholder.jpg" alt="Konsultasi Kreasi AI" onerror="this.onerror=null;this.src='https://placehold.co/280x180/1abc9c/ffffff?text=Produk+C';">
-                        <h3>Konsultasi Kreasi AI</h3>
-                        <p>Sesi konsultasi personal untuk proyek kreatif berbasis AI Anda.</p>
-                        <span class="btn-lihat-produk">Lihat di Toko</span>
-                    </a>
-                </div>
-            </div>
-            <div style="text-align: center; margin-top: 30px;">
-                <a href="toko.html" class="btn">Kunjungi Toko Lengkap Kami</a>
             </div>
         </div>
     </section>
     
-    <!-- Modal untuk Prompt -->
+    <!-- Modal untuk Prompt (Tetap ada untuk fungsionalitas di halaman lain jika dibutuhkan) -->
     <div id="promptModal" class="modal">
         <div class="modal-content">
             <span class="modal-close" id="modalCloseButton">&times;</span>
@@ -150,7 +119,7 @@
         </div>
     </div>
     
-    <!-- Modal untuk Password -->
+    <!-- Modal untuk Password (Tetap ada karena dibutuhkan oleh AI Tools) -->
     <div id="passwordModal" class="modal">
         <div class="modal-content" style="max-width: 400px; text-align: center;">
             <span class="modal-close" id="passwordModalCloseButton">&times;</span>
@@ -175,8 +144,8 @@
                     <ul class="footer-links">
                         <li><a href="#home">Beranda</a></li>
                         <li><a href="#ai-tools">AI Tools</a></li>
-                        <li><a href="galeri-halaman.html">Galeri</a></li> 
-                        <li><a href="toko.html">Produk</a></li> 
+                        <!-- Tautan Baru Ditambahkan -->
+                        <li><a href="#other-features">Fitur Lain</a></li>
                         <li><a href="#">Blog</a></li> 
                     </ul>
                 </div>
