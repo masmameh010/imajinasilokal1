@@ -1,6 +1,14 @@
 // --- BAGIAN KONFIGURASI PASSWORD ---
-// PENTING: Ganti password ini dengan password yang Anda inginkan.
-const PROTECTED_CONTENT_PASSWORD = "Bananakost@0000"; // Password Anda
+// PENTING: Ganti password untuk setiap tool di sini.
+// Key (misal, 'prompt-fashion-wanita.html') harus cocok dengan nilai 'data-target-page' pada link di index.html
+const toolPasswords = {
+  'prompt-fashion-wanita.html': 'wanitaKreatif',
+  'prompt-fashion-pria.html': 'priaModern',
+  'ai-prompt-generator-template.html': 'templateCanggih',
+  'copy-prompt-gallery': 'salinInspirasi' // Password khusus untuk menyalin prompt dari galeri
+};
+// -------------------------------------
+
 
 // --- Elemen-elemen DOM ---
 const mobileMenu = document.querySelector('.mobile-menu');
@@ -17,51 +25,69 @@ const copyFeedback = document.getElementById("copy-feedback");
 // --- Elemen Modal Password ---
 const passwordModal = document.getElementById("passwordModal");
 const passwordModalCloseButton = document.getElementById("passwordModalCloseButton");
+const passwordModalMessage = document.getElementById("passwordModalMessage");
 const passwordInput = document.getElementById("passwordInput");
 const submitPasswordButton = document.getElementById("submitPasswordButton");
 const passwordError = document.getElementById("passwordError");
 
-// --- Variabel untuk Menyimpan Aksi Setelah Password Benar ---
-let pendingAction = null;
+// --- Variabel untuk Menyimpan Konteks Aksi yang Tertunda ---
+// Ini akan menyimpan target (tool mana yang diklik) dan aksi apa yang harus dilakukan setelah password benar
+let passwordContext = {
+    target: null,
+    onSuccess: null
+};
 
 
 // --- FUNGSI UTAMA UNTUK PASSWORD ---
 
-// Fungsi untuk meminta password
-function requestPassword(onSuccessCallback) {
-    if (passwordModal && passwordInput && passwordError) {
-        pendingAction = onSuccessCallback;
-        passwordInput.value = ""; 
-        passwordError.style.display = 'none'; 
-        passwordModal.style.display = "block"; 
+/**
+ * Meminta password dengan menampilkan modal.
+ * @param {string} targetIdentifier - Kunci unik untuk tool yang diproteksi (misal, nama file atau 'copy-prompt-gallery').
+ * @param {string} toolName - Nama tool yang akan ditampilkan di pesan modal.
+ * @param {function} onSuccessCallback - Fungsi yang akan dijalankan jika password benar.
+ */
+function requestPassword(targetIdentifier, toolName, onSuccessCallback) {
+    if (passwordModal && passwordInput && passwordError && passwordModalMessage) {
+        // Menyimpan konteks
+        passwordContext.target = targetIdentifier;
+        passwordContext.onSuccess = onSuccessCallback;
+
+        // Reset dan tampilkan modal
+        passwordModalMessage.textContent = `Fitur "${toolName}" dilindungi. Masukkan password untuk melanjutkan.`;
+        passwordInput.value = "";
+        passwordError.style.display = 'none';
+        passwordModal.style.display = "block";
         passwordInput.focus();
     } else {
         console.error("Elemen modal password tidak ditemukan. Pastikan HTML modal password ada di halaman.");
-        // Jika modal password tidak ada, langsung jalankan aksi (atau beri error, tergantung kebutuhan)
-        if (typeof onSuccessCallback === 'function') {
-            //  onSuccessCallback(); // Hati-hati: ini akan bypass password jika modal tidak ada.
-            alert("Komponen password tidak ditemukan. Tidak bisa melanjutkan.");
-        }
+        alert("Komponen password tidak ditemukan. Tidak bisa melanjutkan.");
     }
 }
 
 // Fungsi untuk menangani submit password
 if (submitPasswordButton && passwordModal && passwordInput && passwordError) {
-    submitPasswordButton.addEventListener('click', () => {
-        if (passwordInput.value === PROTECTED_CONTENT_PASSWORD) {
+    const handlePasswordSubmit = () => {
+        const enteredPassword = passwordInput.value;
+        const correctPassword = toolPasswords[passwordContext.target]; // Dapatkan password yang benar berdasarkan target
+
+        if (enteredPassword === correctPassword) {
             passwordModal.style.display = "none";
-            if (typeof pendingAction === 'function') {
-                pendingAction(); 
+            if (typeof passwordContext.onSuccess === 'function') {
+                passwordContext.onSuccess();
             }
-            pendingAction = null; 
+            // Reset konteks setelah berhasil
+            passwordContext.target = null;
+            passwordContext.onSuccess = null;
         } else {
             passwordError.textContent = "Password salah. Silakan coba lagi.";
             passwordError.style.display = 'block';
         }
-    });
+    };
+
+    submitPasswordButton.addEventListener('click', handlePasswordSubmit);
     passwordInput.addEventListener('keyup', (event) => {
         if (event.key === "Enter") {
-            submitPasswordButton.click();
+            handlePasswordSubmit();
         }
     });
 }
@@ -70,7 +96,9 @@ if (submitPasswordButton && passwordModal && passwordInput && passwordError) {
 if (passwordModalCloseButton && passwordModal) {
     passwordModalCloseButton.onclick = function() {
         passwordModal.style.display = "none";
-        pendingAction = null; 
+        // Reset konteks jika modal ditutup
+        passwordContext.target = null;
+        passwordContext.onSuccess = null;
     }
 }
 
@@ -98,13 +126,16 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             const targetId = href;
             const targetElement = document.querySelector(targetId);
             if (targetElement) {
-                let headerOffset = 0; 
-                if(header && getComputedStyle(header).position === 'fixed') {
-                   headerOffset = header.offsetHeight; 
+                let headerOffset = 0;
+                if (header && getComputedStyle(header).position === 'fixed') {
+                    headerOffset = header.offsetHeight;
                 }
                 const elementPosition = targetElement.getBoundingClientRect().top;
                 const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
                 if (navMenu && navMenu.classList.contains('active') && this.closest('nav')) {
                     navMenu.classList.remove('active');
                     if (mobileMenu) {
@@ -117,7 +148,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 }
             }
         } else if (href === '#') {
-             e.preventDefault(); 
+            e.preventDefault();
         }
     });
 });
@@ -141,15 +172,18 @@ if (currentYearEl) {
     currentYearEl.textContent = new Date().getFullYear();
 }
 
-// --- LOGIKA PROTEKSI KONTEN ---
+// --- LOGIKA PROTEKSI KONTEN DENGAN PASSWORD BERBEDA ---
 
-// 1. Proteksi untuk link Tools (tetap sama)
+// 1. Proteksi untuk link Tools
 document.querySelectorAll('.protected-link').forEach(link => {
     link.addEventListener('click', function(e) {
-        e.preventDefault(); 
+        e.preventDefault();
         const targetPage = this.dataset.targetPage;
+        const toolItem = this.closest('.ai-tool-item');
+        const toolName = toolItem ? toolItem.querySelector('h3').textContent : 'Fitur';
+
         if (targetPage) {
-            requestPassword(() => {
+            requestPassword(targetPage, toolName, () => {
                 window.location.href = targetPage;
             });
         }
@@ -183,18 +217,20 @@ window.onclick = function(event) {
     }
     if (passwordModal && event.target == passwordModal) {
         passwordModal.style.display = "none";
-        pendingAction = null; 
+        // Reset konteks jika modal ditutup
+        passwordContext.target = null;
+        passwordContext.onSuccess = null;
     }
 }
 
-// Tombol Salin Prompt di Modal Prompt (DENGAN PROTEKSI PASSWORD)
+// Tombol Salin Prompt di Modal Prompt Galeri (DENGAN PROTEKSI PASSWORD KHUSUS)
 if (copyPromptButton && modalPromptText && copyFeedback) {
     copyPromptButton.addEventListener("click", function() {
         const textToCopy = modalPromptText.textContent;
         if (!textToCopy) return;
 
-        // Minta password SEBELUM menyalin
-        requestPassword(() => {
+        // Minta password SEBELUM menyalin, menggunakan identifier 'copy-prompt-gallery'
+        requestPassword('copy-prompt-gallery', 'Salin Prompt', () => {
             try {
                 const textArea = document.createElement("textarea");
                 textArea.value = textToCopy;
@@ -210,7 +246,9 @@ if (copyPromptButton && modalPromptText && copyFeedback) {
                 console.error('Gagal menyalin teks: ', err);
                 copyFeedback.textContent = "Gagal menyalin.";
             }
-            setTimeout(() => { copyFeedback.textContent = ""; }, 2000); 
+            setTimeout(() => {
+                if (copyFeedback) copyFeedback.textContent = "";
+            }, 2000);
         });
     });
 }
