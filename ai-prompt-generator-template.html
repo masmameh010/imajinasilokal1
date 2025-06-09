@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Prompt Generator (Gemini) - IMAJINASI LOKAL</title>
+    <title>AI Prompt Generator (Google Gemini) - IMAJINASI LOKAL</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
     <style>
@@ -385,10 +385,8 @@
     </footer>
 
     <script>
-                // --- Elemen DOM ---
+        // --- Elemen DOM (tetap sama) ---
         const baseIdeaEl = document.getElementById('baseIdea');
-        const aiModelSelectEl = document.getElementById('aiModelSelect'); // Diabaikan karena kita langsung ke Gemini
-        
         const pakemSettingEl = document.getElementById('pakemSetting');
         const pakemPakaianEl = document.getElementById('pakemPakaian');
         const pakemAksiPoseEl = document.getElementById('pakemAksiPose');
@@ -397,7 +395,6 @@
         const pakemKomposisiEl = document.getElementById('pakemKomposisi');
         const pakemParameterAREl = document.getElementById('pakemParameterAR');
         const pakemParameterLainEl = document.getElementById('pakemParameterLain');
-
         const generateAiPromptBtn = document.getElementById('generateAiPromptBtn');
         const aiGeneratedPromptEl = document.getElementById('aiGeneratedPrompt');
         const aiOutputArea = document.getElementById('aiOutputArea');
@@ -405,42 +402,36 @@
         const loadingIndicator = document.getElementById('loadingIndicator');
         const aiGeneratorMessage = document.getElementById('aiGeneratorMessage');
 
-        // --- Fungsi Bantuan ---
+        // --- Fungsi Bantuan (tetap sama) ---
         function showMessage(message, type = 'success') {
             if (!aiGeneratorMessage) return;
             aiGeneratorMessage.textContent = message;
-            aiGeneratorMessage.className = 'message-area'; 
+            aiGeneratorMessage.className = 'message-area';
             if (type === 'success') {
                 aiGeneratorMessage.classList.add('success-message');
             } else if (type === 'error') {
                 aiGeneratorMessage.classList.add('error-message');
-            } else { 
-                aiGeneratorMessage.style.background = '#e0f2fe'; 
-                aiGeneratorMessage.style.color = '#0c5464';    
+            } else {
+                aiGeneratorMessage.style.background = '#e0f2fe';
+                aiGeneratorMessage.style.color = '#0c5464';
                 aiGeneratorMessage.style.border = '1px solid #bee0f0';
             }
             aiGeneratorMessage.style.display = 'block';
             setTimeout(() => {
-                if(aiGeneratorMessage) aiGeneratorMessage.style.display = 'none';
-            }, 6000); 
+                if (aiGeneratorMessage) aiGeneratorMessage.style.display = 'none';
+            }, 6000);
         }
 
-        // --- Event Listener Utama ---
+        // --- Event Listener Utama (INI YANG DIPERBARUI) ---
         if (generateAiPromptBtn) {
             generateAiPromptBtn.addEventListener('click', async () => {
-                if (!baseIdeaEl) {
-                    console.error("Elemen baseIdea tidak ditemukan");
-                    return;
-                }
-                const baseIdea = baseIdeaEl.value.trim();
-
-                if (!baseIdea) {
+                if (!baseIdeaEl || !baseIdeaEl.value.trim()) {
                     showMessage('Mohon masukkan ide dasar prompt Anda.', 'error');
                     baseIdeaEl.focus();
                     return;
                 }
                 
-                // Membangun template dari pilihan dropdown
+                // Membangun template dari pilihan dropdown (logika ini tetap sama)
                 let constructedOutputTemplate = "";
                 const pakemElements = [
                     { el: pakemSettingEl, label: "Setting/Location", placeholder: "[DETAILED_SETTING_LOCATION]" },
@@ -452,12 +443,11 @@
                 ];
                 let hasSelectedPakem = false;
                 pakemElements.forEach(item => {
-                    if (item.el && item.el.value) { 
+                    if (item.el && item.el.value) {
                         constructedOutputTemplate += `${item.label}: ${item.placeholder} (based on user selection: ${item.el.value})\n`;
                         hasSelectedPakem = true;
                     }
                 });
-                
                 let parameterString = "";
                 if (pakemParameterAREl && pakemParameterAREl.value) parameterString += `${pakemParameterAREl.value} `;
                 if (pakemParameterLainEl && pakemParameterLainEl.value) parameterString += `${pakemParameterLainEl.value} `;
@@ -465,22 +455,22 @@
                      constructedOutputTemplate += `Parameters: ${parameterString.trim()}\n`;
                      hasSelectedPakem = true;
                 }
-
                 if (!hasSelectedPakem) {
                      constructedOutputTemplate = "Image Description: [A comprehensive, detailed, and vivid description generated from the user's base idea]\n";
                 }
 
-                if(loadingIndicator) loadingIndicator.style.display = 'block';
-                if(aiOutputArea) aiOutputArea.style.display = 'none';
-                if(generateAiPromptBtn) generateAiPromptBtn.disabled = true;
+                // Tampilkan loading & nonaktifkan tombol
+                if (loadingIndicator) loadingIndicator.style.display = 'block';
+                if (aiOutputArea) aiOutputArea.style.display = 'none';
+                if (generateAiPromptBtn) generateAiPromptBtn.disabled = true;
 
                 const dataUntukBackend = {
-                    baseIdea: baseIdea,
+                    baseIdea: baseIdeaEl.value.trim(),
                     constructedOutputTemplate: constructedOutputTemplate.trim(),
-                    // Kita tidak perlu mengirim model, karena backend sudah tahu akan menggunakan Gemini
                 };
 
-                // URL ke Vercel Serverless Function Anda
+                // === PERUBAHAN UTAMA DI SINI ===
+                // URL sekarang mengarah ke proxy function kita, bukan ke Google
                 const backendProxyUrl = "/api/generateAIPrompt";
 
                 try {
@@ -496,42 +486,36 @@
                         throw new Error(result.error || `Gagal menghubungi server. Status: ${response.status}`);
                     }
                     
-                    const cleanText = result.generatedPrompt.replace(/^Structured Prompt Output:\s*/im, '').trim();
-
-                    if(aiGeneratedPromptEl) aiGeneratedPromptEl.value = cleanText;
-                    if(aiOutputArea) aiOutputArea.style.display = 'block';
-                    if(copyAiGeneratedPromptBtn) copyAiGeneratedPromptBtn.style.display = 'inline-block';
+                    if (aiGeneratedPromptEl) aiGeneratedPromptEl.value = result.generatedPrompt.trim();
+                    if (aiOutputArea) aiOutputArea.style.display = 'block';
+                    if (copyAiGeneratedPromptBtn) copyAiGeneratedPromptBtn.style.display = 'inline-block';
                     showMessage('Prompt berhasil digenerate oleh AI!', 'success');
 
                 } catch (error) {
                     console.error('Error saat generate prompt:', error);
                     showMessage(`Terjadi kesalahan: ${error.message}`, 'error');
-                    if(aiGeneratedPromptEl) aiGeneratedPromptEl.value = "Gagal menghasilkan prompt. Silakan coba lagi.";
-                    if(aiOutputArea) aiOutputArea.style.display = 'block';
+                    if (aiGeneratedPromptEl) aiGeneratedPromptEl.value = "Gagal menghasilkan prompt. Silakan coba lagi.";
+                    if (aiOutputArea) aiOutputArea.style.display = 'block';
                 } finally {
-                    if(loadingIndicator) loadingIndicator.style.display = 'none';
-                    if(generateAiPromptBtn) generateAiPromptBtn.disabled = false;
+                    if (loadingIndicator) loadingIndicator.style.display = 'none';
+                    if (generateAiPromptBtn) generateAiPromptBtn.disabled = false;
                 }
             });
         }
-        
-        // Kode untuk copy button tetap sama
+
+        // Kode untuk copy button tetap sama, menggunakan API Clipboard modern
         if (copyAiGeneratedPromptBtn) {
             copyAiGeneratedPromptBtn.addEventListener('click', () => {
-                if(!aiGeneratedPromptEl) return;
+                if (!aiGeneratedPromptEl) return;
                 const textToCopy = aiGeneratedPromptEl.value;
                 if (!textToCopy) {
                     showMessage('Tidak ada prompt untuk disalin.', 'error');
                     return;
                 }
                 try {
-                    const textArea = document.createElement("textarea");
-                    textArea.value = textToCopy;
-                    document.body.appendChild(textArea);
-                    textArea.select();
-                    document.execCommand('copy');
-                    document.body.removeChild(textArea);
-                    showMessage('Prompt berhasil disalin ke clipboard!', 'success');
+                    navigator.clipboard.writeText(textToCopy).then(() => {
+                        showMessage('Prompt berhasil disalin ke clipboard!', 'success');
+                    });
                 } catch (err) {
                     console.error('Gagal menyalin:', err);
                     showMessage('Gagal menyalin prompt. Coba salin manual.', 'error');
