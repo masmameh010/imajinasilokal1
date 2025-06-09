@@ -2,10 +2,10 @@
 // PENTING: Ganti password untuk setiap tool di sini.
 // Key (misal, 'prompt-fashion-wanita.html') harus cocok dengan nilai 'data-target-page' pada link di index.html
 const toolPasswords = {
-  'prompt-fashion-wanita.html': 'wanitaKreatif',
-  'prompt-fashion-pria.html': 'priaModern',
-  'ai-prompt-generator-template.html': 'templateCanggih',
-  'copy-prompt-gallery': 'salinInspirasi' // Password khusus untuk menyalin prompt dari galeri
+  'prompt-fashion-wanita.html': 'wanitakreatif',
+  'prompt-fashion-pria.html': 'priamodern',
+  'ai-prompt-generator-template.html': 'templatecanggih',
+  'copy-prompt-gallery': 'salinprompt' // Password khusus untuk menyalin prompt dari galeri
 };
 // -------------------------------------
 
