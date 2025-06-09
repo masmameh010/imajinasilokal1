@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitur Lain - IMAJINASI LOKAL</title>
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Tautan ke File CSS Utama -->
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* CSS Tambahan Khusus untuk Halaman Ini */
+        .feature-page-header {
+            background-color: var(--secondary);
+            padding: 15px 0;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+        }
+        .feature-page-header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .feature-page-header .logo-image {
+            height: 40px;
+            margin-right: 10px;
+        }
+        .feature-page-header .logo-text {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .back-to-home {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1em;
+            padding: 8px 15px;
+            border: 2px solid var(--primary);
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+        .back-to-home:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        /* Menggunakan kembali style galeri tapi pastikan linknya berfungsi baik */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 20px; 
+        }
+
+        .feature-card {
+            display: block; /* Membuat seluruh kartu bisa diklik */
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: center;
+            text-decoration: none; /* Menghilangkan garis bawah dari link */
+            color: var(--text); /* Mengambil warna teks default */
+        }
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        .feature-card img {
+            width: 100%;
+            height: 200px; 
+            object-fit: cover; 
+        }
+        .feature-card h3 {
+            font-size: 1.3rem;
+            color: var(--secondary);
+            padding: 20px 15px; /* Memberi padding agar tidak terlalu mepet */
+        }
+
+        @media (max-width: 768px) {
+            .feature-page-header .logo-image { height: 35px; }
+            .feature-page-header .logo-text { font-size: 1.4rem; }
+            .back-to-home { font-size: 0.9em; padding: 6px 12px;}
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Halaman Fitur -->
+    <header class="feature-page-header">
+        <div class="container">
+            <a href="index.html#home" class="logo">
+                <img src="images/logo.png" alt="Logo IMAJINASI LOKAL" class="logo-image" onerror="this.onerror=null;this.src='https://placehold.co/150x40/3498db/ffffff?text=LOGO';this.style.height='40px';"> 
+                <span class="logo-text">IMAJINASI LOKAL</span>
+            </a>
+            <a href="index.html" class="back-to-home">
+                <i class="fas fa-arrow-left"></i> Kembali ke Beranda
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <section class="section">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Jelajahi Fitur Lainnya</h2>
+                    <p>Temukan berbagai layanan, sumber daya, dan tautan bermanfaat yang kami kurasi untuk Anda.</p>
+                </div>
+                
+                <div class="feature-grid">
+
+                    <!-- PETUNJUK: Salin seluruh blok <a class="feature-card" ... </a> di bawah ini untuk menambah item baru. -->
+
+                    <!-- Item Fitur 1 -->
+                    <a href="https://LINK-TUJUAN-ANDA-1.com" target="_blank" rel="noopener noreferrer" class="feature-card">
+                        <!-- Ganti 'images/fitur/fitur-1.jpg' dengan path gambar Anda -->
+                        <img src="https://placehold.co/400x250/3498db/ffffff?text=Gambar+Fitur+1" alt="Deskripsi Gambar Fitur 1" onerror="this.onerror=null;this.src='https://placehold.co/400x250/3498db/ffffff?text=Gambar+Fitur+1';">
+                        <!-- Ganti 'Nama Fitur 1' dengan judul Anda -->
+                        <h3>Nama Fitur 1</h3>
+                    </a>
+
+                    <!-- Item Fitur 2 -->
+                    <a href="https://LINK-TUJUAN-ANDA-2.com" target="_blank" rel="noopener noreferrer" class="feature-card">
+                         <!-- Ganti 'images/fitur/fitur-2.jpg' dengan path gambar Anda -->
+                        <img src="https://placehold.co/400x250/2ecc71/ffffff?text=Gambar+Fitur+2" alt="Deskripsi Gambar Fitur 2" onerror="this.onerror=null;this.src='https://placehold.co/400x250/2ecc71/ffffff?text=Gambar+Fitur+2';">
+                        <!-- Ganti 'Nama Fitur 2' dengan judul Anda -->
+                        <h3>Nama Fitur 2</h3>
+                    </a>
+
+                    <!-- Item Fitur 3 -->
+                    <a href="https://LINK-TUJUAN-ANDA-3.com" target="_blank" rel="noopener noreferrer" class="feature-card">
+                         <!-- Ganti 'images/fitur/fitur-3.jpg' dengan path gambar Anda -->
+                        <img src="https://placehold.co/400x250/e74c3c/ffffff?text=Gambar+Fitur+3" alt="Deskripsi Gambar Fitur 3" onerror="this.onerror=null;this.src='https://placehold.co/400x250/e74c3c/ffffff?text=Gambar+Fitur+3';">
+                        <!-- Ganti 'Nama Fitur 3' dengan judul Anda -->
+                        <h3>Nama Fitur 3</h3>
+                    </a>
+                    
+                    <!-- Item Fitur 4 -->
+                    <a href="https://LINK-TUJUAN-ANDA-4.com" target="_blank" rel="noopener noreferrer" class="feature-card">
+                         <!-- Ganti 'images/fitur/fitur-4.jpg' dengan path gambar Anda -->
+                        <img src="https://placehold.co/400x250/f1c40f/ffffff?text=Gambar+Fitur+4" alt="Deskripsi Gambar Fitur 4" onerror="this.onerror=null;this.src='https://placehold.co/400x250/f1c40f/ffffff?text=Gambar+Fitur+4';">
+                        <!-- Ganti 'Nama Fitur 4' dengan judul Anda -->
+                        <h3>Nama Fitur 4</h3>
+                    </a>
+                    
+                    <!-- Item Fitur 5 -->
+                    <a href="https://LINK-TUJUAN-ANDA-5.com" target="_blank" rel="noopener noreferrer" class="feature-card">
+                         <!-- Ganti 'images/fitur/fitur-5.jpg' dengan path gambar Anda -->
+                        <img src="https://placehold.co/400x250/9b59b6/ffffff?text=Gambar+Fitur+5" alt="Deskripsi Gambar Fitur 5" onerror="this.onerror=null;this.src='https://placehold.co/400x250/9b59b6/ffffff?text=Gambar+Fitur+5';">
+                        <!-- Ganti 'Nama Fitur 5' dengan judul Anda -->
+                        <h3>Nama Fitur 5</h3>
+                    </a>
+                    
+                    <!-- Item Fitur 6 -->
+                    <a href="https://LINK-TUJUAN-ANDA-6.com" target="_blank" rel="noopener noreferrer" class="feature-card">
+                         <!-- Ganti 'images/fitur/fitur-6.jpg' dengan path gambar Anda -->
+                        <img src="https://placehold.co/400x250/1abc9c/ffffff?text=Gambar+Fitur+6" alt="Deskripsi Gambar Fitur 6" onerror="this.onerror=null;this.src='https://placehold.co/400x250/1abc9c/ffffff?text=Gambar+Fitur+6';">
+                        <!-- Ganti 'Nama Fitur 6' dengan judul Anda -->
+                        <h3>Nama Fitur 6</h3>
+                    </a>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer style="background: var(--secondary); color: rgba(255,255,255,0.8); text-align: center; padding: 30px 0; margin-top: 40px;">
+        <div class="container">
+            <p class="copyright" style="border-top: none; padding-top:0;">&copy; <span id="currentYear"></span> IMAJINASI LOKAL. Hak Cipta Dilindungi.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Script sederhana untuk mengatur tahun copyright secara otomatis
+        const yearSpan = document.getElementById("currentYear");
+        if (yearSpan) {
+            yearSpan.textContent = new Date().getFullYear();
+        }
+    </script>
+</body>
+</html>
