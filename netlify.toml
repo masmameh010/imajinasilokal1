@@ -1,0 +1,15 @@
+# File: netlify.toml
+# Lokasi: Folder utama proyek Anda
+
+[build]
+  # Direktori tempat fungsi serverless Anda berada
+  functions = "netlify/functions"
+
+# Aturan rewrite untuk membuat URL API lebih bersih dan berfungsi sebagai proxy
+[[redirects]]
+  # URL yang akan dipanggil dari JavaScript Anda
+  from = "/api/*"
+  # URL fungsi sebenarnya di Netlify yang akan menangani permintaan
+  to = "/.netlify/functions/:splat"
+  # Kode status 200 berarti ini adalah rewrite, bukan redirect
+  status = 200
