@@ -24,7 +24,9 @@ exports.handler = async function(event, context) {
     // Membangun prompt akhir untuk dikirim ke Gemini
     const finalPrompt = `Based on the user's base idea and their selected template options, create a detailed and vivid image generation prompt. The user's base idea is: "${requestBody.baseIdea}". The user has also selected the following structural elements, which you should elaborate on and integrate naturally into a single, cohesive prompt in ENGLISH:\n\n${requestBody.constructedOutputTemplate}\n\nCombine everything into one powerful and effective final prompt.`;
     
-    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${GEMINI_API_KEY}`;
+    // === PERUBAHAN UTAMA DI SINI ===
+    // Mengganti nama model menjadi 'gemini-2.0-flash' sesuai permintaan
+    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`;
     
     const payload = {
       contents: [{
@@ -45,10 +47,19 @@ exports.handler = async function(event, context) {
     if (!response.ok) {
         const errorData = await response.json();
         console.error("Error dari Gemini API:", errorData);
-        throw new Error(`Gemini API error: ${errorData.error.message}`);
+        // Mengambil pesan error yang lebih spesifik jika tersedia
+        const errorMessage = errorData.error?.message || 'Unknown Gemini API error';
+        throw new Error(`Gemini API error: ${errorMessage}`);
     }
 
     const data = await response.json();
+    
+    // Menambahkan pengecekan untuk memastikan respons memiliki format yang diharapkan
+    if (!data.candidates || !data.candidates[0] || !data.candidates[0].content || !data.candidates[0].content.parts || !data.candidates[0].content.parts[0].text) {
+        console.error("Struktur respons dari Gemini tidak valid:", data);
+        throw new Error("Menerima respons tidak valid dari Gemini API.");
+    }
+
     const generatedText = data.candidates[0].content.parts[0].text;
     
     // Mengirim kembali hasil yang sukses ke browser
