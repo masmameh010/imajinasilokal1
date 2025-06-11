@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generator Prompt AI - Imajinasi Lokal</title>
+    
+    <!-- Memuat Tailwind CSS untuk styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Konfigurasi custom untuk Tailwind CSS, termasuk font 'Inter' -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        }
+                    },
+                },
+            },
+        }
+    </script>
+    
+    <!-- Memuat Google AI JavaScript SDK (untuk Gemini) -->
+    <script type="module">
+        import { GoogleGenerativeAI } from "https://esm.run/@google/generative-ai";
+    </script>
+    
+    <!-- Memuat ikon untuk tombol (Heroicons) -->
+    <script src="https://unpkg.com/heroicons@2.1.3/24/outline/dist/index.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+
+    <style>
+        /* Style dasar untuk body */
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+        }
+        .dark body {
+            background: linear-gradient(135deg, #0c4a6e 0%, #075985 100%);
+        }
+
+        /* Style untuk placeholder text area agar lebih kontras */
+        .custom-placeholder::placeholder {
+            color: #9ca3af; /* gray-400 */
+        }
+        .dark .custom-placeholder::placeholder {
+            color: #4b5563; /* gray-600 */
+        }
+
+        /* Animasi untuk loader */
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .loader {
+            animation: spin 1s linear infinite;
+        }
+        
+        /* Animasi untuk feedback */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+        
+        /* Efek untuk area drag & drop */
+        .drop-area {
+            transition: all 0.2s ease;
+        }
+        .drop-area.drag-over {
+            background-color: #dbeafe;
+            border-color: #3b82f6;
+        }
+        .dark .drop-area.drag-over {
+            background-color: #1e3a8a;
+            border-color: #60a5fa;
+        }
+        
+        /* Efek untuk kartu */
+        .card {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        
+        /* Tampilan history */
+        .history-item {
+            transition: all 0.2s ease;
+        }
+        .history-item:hover {
+            background-color: #f1f5f9;
+        }
+        .dark .history-item:hover {
+            background-color: #1e293b;
+        }
+        
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .dark ::-webkit-scrollbar-track {
+            background: #1e293b;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #475569;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 font-sans transition-colors duration-300 py-8">
+
+    <div class="container mx-auto px-4 md:px-8 max-w-4xl">
+
+        <!-- Header dan Tombol Ganti Tema -->
+        <header class="flex justify-between items-center mb-8">
+            <div>
+                <div class="flex items-center gap-3 mb-2">
+                    <div class="bg-primary-600 text-white p-2 rounded-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z" />
+                        </svg>
+                    </div>
+                    <h1 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">Prompt Generator IMAJINASI LOKAL</h1>
+                </div>
+                <p class="text-gray-500 dark:text-gray-400 ml-1">Wujudkan imajinasimu menjadi prompt sempurna dari teks atau gambar.</p>
+            </div>
+            <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                <!-- Ikon akan diisi oleh JavaScript -->
+            </button>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2">
+                <!-- Input API Key -->
+                <div class="mb-6 p-4 bg-white dark:bg-gray-800 rounded-lg shadow-md card">
+                    <label for="api-key" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        1. Masukkan Google Gemini API Key Anda
+                    </label>
+                    <div class="relative">
+                        <input type="password" id="api-key" placeholder="API Key akan tersimpan otomatis di browser..." class="w-full px-3 py-2 pr-10 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500">
+                        <button id="clear-api-key-btn" class="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer hidden" title="Hapus API Key">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-gray-400 hover:text-red-500">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </button>
+                    </div>
+                    <p class="text-xs text-gray-400 dark:text-gray-500 mt-2">Kunci API Anda hanya digunakan di browser ini dan tidak pernah dikirim ke server kami.</p>
+                </div>
+
+                <!-- Konten Utama -->
+                <main class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 md:p-6 card">
+                    <p class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">2. Pilih Mode & Gaya</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                        <div class="flex border-b border-gray-200 dark:border-gray-700">
+                            <button id="image-mode-btn" class="tab-btn active px-4 py-2 text-sm font-semibold border-b-2 border-primary-500 text-primary-600 dark:text-primary-400">Gambar ke Prompt</button>
+                            <button id="text-mode-btn" class="tab-btn px-4 py-2 text-sm font-semibold text-gray-500 hover:text-gray-700 dark:hover:text-gray-300">Teks ke Prompt</button>
+                        </div>
+                        <div>
+                            <select id="template-selector" class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500">
+                                <option value="narrative">Gaya Naratif (Seimbang)</option>
+                                <option value="keywords">Gaya Kata Kunci Rinci</option>
+                                <option value="cinematic">Gaya Sinematik</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="content-area">
+                        <div id="image-mode">
+                            <label id="drop-area" for="image-upload" class="drop-area flex flex-col items-center justify-center w-full h-48 border-2 border-gray-300 dark:border-gray-600 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
+                                <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                    <svg class="w-10 h-10 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/></svg>
+                                    <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Klik untuk mengunggah</span> atau seret gambar</p>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">PNG, JPG, WEBP (Maks. 5MB)</p>
+                                </div>
+                                <input id="image-upload" type="file" class="hidden" accept="image/png, image/jpeg, image/webp" />
+                            </label>
+                            <div id="image-preview-container" class="mt-4 text-center"></div>
+                        </div>
+
+                        <div id="text-mode" class="hidden">
+                            <textarea id="text-input" rows="6" class="w-full p-3 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 custom-placeholder" placeholder="Tulis ide prompt Anda di sini..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 text-center">
+                        <button id="generate-btn" class="w-full md:w-auto bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-8 rounded-lg transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-primary-500/50 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center mx-auto">
+                            <span id="btn-text">Buat Prompt</span>
+                            <div id="loader" class="hidden loader w-5 h-5 border-2 border-white border-t-transparent rounded-full ml-3"></div>
+                        </button>
+                    </div>
+
+                    <div id="result-container" class="hidden mt-8 p-4 bg-gray-100 dark:bg-gray-900 rounded-lg fade-in">
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Hasil Prompt:</h3>
+                            <button id="copy-btn" class="text-sm flex items-center gap-1 text-gray-500 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m9.75 0h-3.25a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H21a1.125 1.125 0 0 1 1.125 1.125v5.25a1.125 1.125 0 0 1-1.125 1.125z" /></svg>
+                                Salin
+                            </button>
+                        </div>
+                        <pre class="whitespace-pre-wrap break-words bg-white dark:bg-gray-800 p-3 rounded-md text-sm max-h-64 overflow-auto"><code id="result-text"></code></pre>
+                    </div>
+                    
+                    <div id="error-message" class="hidden mt-6 p-3 text-sm text-red-800 bg-red-100 dark:text-red-200 dark:bg-red-900/50 rounded-lg text-center fade-in"></div>
+                </main>
+            </div>
+            
+            <!-- Panel History -->
+            <div class="lg:col-span-1">
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 md:p-6 card h-full">
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-xl font-bold text-gray-900 dark:text-white">History Prompt</h2>
+                        <button id="clear-history" class="text-sm text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div id="history-container" class="space-y-3 max-h-[500px] overflow-y-auto pr-2">
+                        <div class="text-center py-8 text-gray-500 dark:text-gray-400" id="empty-history">
+                            <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                            </svg>
+                            <h3 class="mt-2 text-sm font-medium">Belum ada history</h3>
+                            <p class="mt-1 text-sm">Prompt yang Anda hasilkan akan muncul di sini</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer class="text-center mt-8">
+            <p class="text-xs text-gray-400 dark:text-gray-500">DIBUAT OLEH IMAJINASI LOKAL DENGAN SEPENUH HATI</p>
+        </footer>
+    </div>
+
+    <script type="module">
+        import { GoogleGenerativeAI } from "https://esm.run/@google/generative-ai";
+
+        // === DOM Elements ===
+        const apiKeyInput = document.getElementById('api-key');
+        const clearApiKeyBtn = document.getElementById('clear-api-key-btn');
+        const imageModeBtn = document.getElementById('image-mode-btn');
+        const textModeBtn = document.getElementById('text-mode-btn');
+        const templateSelector = document.getElementById('template-selector');
+        const imageModeDiv = document.getElementById('image-mode');
+        const textModeDiv = document.getElementById('text-mode');
+        const imageUploadInput = document.getElementById('image-upload');
+        const imagePreviewContainer = document.getElementById('image-preview-container');
+        const textInput = document.getElementById('text-input');
+        const generateBtn = document.getElementById('generate-btn');
+        const btnText = document.getElementById('btn-text');
+        const loader = document.getElementById('loader');
+        const resultContainer = document.getElementById('result-container');
+        const resultText = document.getElementById('result-text');
+        const copyBtn = document.getElementById('copy-btn');
+        const errorMessageDiv = document.getElementById('error-message');
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const historyContainer = document.getElementById('history-container');
+        const emptyHistory = document.getElementById('empty-history');
+        const clearHistoryBtn = document.getElementById('clear-history');
+        const dropArea = document.getElementById('drop-area');
+
+        // === App State ===
+        let currentMode = 'image';
+        let uploadedFile = null;
+        let promptHistory = [];
+
+        // === Prompt Template Bank (Disempurnakan untuk Hasil Lebih Detail) ===
+        const TEMPLATES = {
+            image: {
+                narrative: `**PERAN**: Anda adalah seorang direktur seni dan seniman prompt kelas dunia dengan pemahaman mendalam tentang kebijakan konten AI.
+**TUJUAN**: Menciptakan sebuah prompt yang tidak bisa dibedakan dari yang dibuat oleh seniman prompt manusia papan atas. Output harus berupa satu kalimat naratif yang koheren, mengalir, **100% aman untuk dilihat (SFW) dan profesional secara artistik**.
+**VISI PENGGUNA**: Sebuah gambar yang diunggah.
+**PROTOKOL WAJIB**:
+1.  **Analisis Sadar Konteks**: Langkah pertama Anda adalah menganalisis gambar untuk menentukan mediumnya (misal, 'photograph', 'oil painting', 'pencil sketch', '3D render', 'anime'). Semua kata kunci teknis berikutnya HARUS sesuai dengan medium yang telah ditentukan.
+2.  **Pembukaan Dinamis**: Berdasarkan medium, buatlah kalimat pembuka yang pas. Untuk foto, "A breathtakingly realistic photograph of...". Untuk lukisan, "A masterful oil painting of...". Ini harus dinamis.
+3.  **Keamanan & Profesionalisme**: Tafsirkan ekspresi secara profesional (misal, 'confident', 'serene', 'thoughtful'). Generalisasikan lokasi sensitif (misal, "on the front of the garment").
+**METODOLOGI**:
+1.  Terapkan semua protokol wajib.
+2.  Buat kalimat naratif yang kaya mendeskripsikan subjek, ekspresi yang telah disanitasi, pakaian, tindakan, dan lokasi.
+3.  Simpulkan dan deskripsikan secara puitis **suasana dan atmosfer** dari adegan tersebut (misal, 'serene', 'melancholic', 'energetic', 'mysterious').
+4.  Jelaskan secara puitis bagaimana **cahaya dan bayangan berinteraksi** dalam adegan.
+5.  Tambahkan detail teknis yang koheren dan **spesifik untuk mediumnya** (misal, jenis lensa untuk foto, gaya kuas untuk lukisan).
+6.  Akhiri dengan peningkat kualitas universal.
+**INSTRUKSI OUTPUT FINAL**: Hasilkan SATU kalimat naratif tunggal dalam bahasa Inggris yang mengalir dan dipisahkan koma. Output HANYA berupa prompt itu sendiri. Tanpa teks atau penjelasan tambahan.`,
+                keywords: `**PERAN**: Anda adalah seorang analis teknis yang sangat teliti untuk pembuatan gambar.
+**TUGAS**: Uraikan gambar yang diberikan menjadi daftar kata kunci bahasa Inggris yang sangat detail, komprehensif, aman, dan efektif, dipisahkan dengan koma.
+**METODOLOGI**:
+1.  **Tentukan Medium**: Pertama, identifikasi mediumnya (misal, photograph, painting, 3D).
+2.  **Kategorikan dan Daftar**: Buat daftar kata kunci bahasa Inggris yang detail untuk setiap kategori:
+    * **Subjek**: (misal, '1 woman', 'expressive face', 'looking at viewer').
+    * **Pakaian/Detail**: (misal, 'wearing a black t-shirt', 'intricate necklace').
+    * **Komposisi/Framing**: (misal, 'medium close-up shot', 'rule of thirds').
+    * **Sudut Kamera**: (misal, 'eye-level', 'low angle').
+    * **Lokasi/Lingkungan**: (misal, 'minimalist studio background', 'outdoors, lush forest').
+    * **Pengaturan Pencahayaan**: (misal, 'soft studio lighting', 'Rembrandt lighting', 'golden hour sunlight').
+    * **Palet Warna**: (misal, 'monochromatic', 'warm tones', 'vibrant colors').
+    * **Gaya Keseluruhan**: (misal, 'hyperrealistic', 'impressionistic', 'anime style').
+3.  **Tambahkan Kata Kunci Spesifik Medium**: Tambahkan kata kunci yang HANYA relevan dengan medium yang teridentifikasi (misal, 'shallow depth of field, bokeh' untuk foto; 'visible brushstrokes, impasto' untuk lukisan).
+4.  **Peningkat Kualitas**: Tambahkan daftar akhir kata kunci kualitas universal (misal, 'masterpiece', 'high detail', 'professional').
+**INSTRUKSI OUTPUT FINAL**: Gabungkan semua kata kunci menjadi satu string kata kunci BAHASA INGGRIS yang komprehensif dan dipisahkan koma. Jadilah langsung, aman, dan sadar konteks. JANGAN gunakan kalimat atau judul.`,
+                cinematic: `**PERAN**: Anda adalah seorang Director of Photography (Sinematografer) berpengalaman yang sedang menganalisis sebuah visual.
+**TUGAS**: Analisis gambar seolah-olah itu adalah sebuah *still frame* dari film dan hasilkan prompt yang berfokus pada kualitas sinematik yang atmosferik.
+**METODOLOGI**:
+1.  **Pembukaan**: Selalu mulai dengan "Cinematic film still,".
+2.  **Analisis Teknis**: Definisikan jenis shot (misal, 'medium close-up'), sudut kamera, dan lensa yang sesuai yang Anda lihat di gambar (misal, 'shot on 85mm prime lens').
+3.  **Analisis Pencahayaan & Atmosfer**: Deskripsikan **kualitas dan mood pencahayaan** yang ada di gambar. Alih-alih menyebutkan peralatannya, jelaskan dampaknya. Contoh: 'dramatic chiaroscuro lighting creating a sense of mystery', 'soft, diffused morning light creating a serene and gentle mood', 'harsh top-down light indicating an interrogation'.
+4.  **Warna & Gaya**: Deskripsikan *color grading* (misal, 'moody teal and orange color grade') dan gaya visual keseluruhan ('evokes a noir film aesthetic').
+5.  **Detail Tambahan**: Sebutkan tekstur seperti 'subtle film grain' jika relevan.
+**INSTRUKSI OUTPUT FINAL**: Gabungkan menjadi paragraf deskriptif yang dipisahkan koma, berfokus pada istilah sinematik yang atmosferik dan interpretatif. Hindari deskripsi teknis yang kaku kecuali benar-benar jelas terlihat di gambar.`
+            },
+            text: {
+                narrative: (userInput) => `**PERAN**: Anda adalah seorang seniman prompt dan direktur seni kelas dunia. Proses berpikir Anda adalah layaknya seorang profesional yang menciptakan sebuah mahakarya.
+**TUJUAN**: Menciptakan sebuah prompt yang tidak bisa dibedakan dari yang dibuat oleh seniman prompt manusia papan atas. Output harus berupa satu kalimat naratif yang mengalir, aman, puitis, dan secara teknis koheren.
+**VISI PENGGUNA**: "${userInput}"
+**PROTOKOL INTI (WAJIB)**:
+1.  **Hukum Interaksi**: Anda HARUS mendeskripsikan bagaimana elemen-elemen berinteraksi. (misal, "bathed in the warm, golden light... casting long, soft shadows" BUKAN "golden hour lighting").
+2.  **Hukum Koherensi**: Medium menentukan istilah teknis. Jangan mencampur istilah fotografi dengan istilah lukisan kecuali diminta.
+3.  **Hukum Tanpa Halusinasi**: Anda DILARANG KERAS mengarang detail inti (pakaian, lokasi) jika pengguna tidak menyediakannya.
+4.  **Hukum Profesionalisme**: Anda HARUS mengubah bahasa yang berpotensi sensitif menjadi alternatif artistik yang profesional.
+**METODOLOGI**:
+1.  **Urai & Sanitasi**: Analisis visi pengguna, identifikasi medium yang tersirat, dan terapkan semua protokol keamanan.
+2.  **Elaborasi Artistik**: Kembangkan visi inti pengguna secara logis dan artistik. Jika visinya sederhana (misal, 'seorang ksatria di hutan'), bayangkan sebuah cerita: Ksatria seperti apa? Hutan macam apa? Apa yang sedang mereka lakukan? Bangun sebuah narasi mikro.
+3.  **Ciptakan Narasi Puitis & Sensoris**: Rangkai konsep yang telah dielaborasi menjadi satu kalimat yang kaya. Gunakan kata kerja yang kuat, kata sifat yang menggugah, dan bahasa yang menarik bagi berbagai indra. Deskripsikan atmosfer, tekstur, dan permainan cahaya dan bayangan.
+4.  **Tambahkan Detail Teknis yang Koheren**: Tambahkan hanya detail teknis yang sesuai dengan medium yang telah ditentukan.
+5.  **Polesan Akhir**: Akhiri dengan serangkaian peningkat kualitas universal yang ringkas.
+**INSTRUKSI OUTPUT FINAL**: Hasilkan SATU kalimat naratif tunggal dalam bahasa Inggris yang mengalir dan dipisahkan koma. Ini harus menjadi prompt tingkat profesional, aman, dan koheren. Output HANYA berupa prompt itu sendiri. Tanpa teks atau penjelasan tambahan.`,
+                keywords: (userInput) => `**PERAN**: Anda adalah ekstraktor kata kunci teknis yang teliti dan komprehensif. **HUKUM MUTLAK: TANPA HALUSINASI**. Jika detail seperti pakaian atau lokasi tidak ada dalam visi pengguna, jangan menambahkannya.
+**TUGAS**: Ubah konsep pengguna menjadi daftar kata kunci bahasa Inggris yang sangat detail, aman, dan efektif, dipisahkan dengan koma.
+**VISI PENGGUNA**: "${userInput}"
+**METODOLOGI**:
+1.  **Ekstrak & Sanitasi**: Identifikasi konsep inti dan terapkan transformasi keamanan.
+2.  **Tentukan Medium**: Identifikasi apakah itu foto, lukisan, dll., berdasarkan kata-kata pengguna.
+3.  **Terjemahkan ke Kata Kunci**: Ubah setiap konsep menjadi padanan kata kunci bahasa Inggrisnya.
+4.  **Tambahkan Teknis Komprehensif**: Tambahkan kata kunci teknis yang sadar konteks untuk Komposisi, Framing, Pencahayaan, Palet Warna, dan Gaya Seni/Medium.
+5.  **Tambahkan Spesifik-Medium**: Tambahkan kata kunci yang HANYA berlaku untuk medium yang ditentukan. Jangan mencampurnya.
+**INSTRUKSI OUTPUT FINAL**: Gabungkan semua kata kunci menjadi satu string kata kunci BAHASA INGGRIS yang komprehensif dan dipisahkan koma. Jadilah langsung, aman, dan sadar konteks.`,
+                cinematic: (userInput) => `**PERAN**: Anda adalah seorang Sutradara Film yang sedang menerjemahkan sebuah ide menjadi sebuah adegan visual.
+**TUGAS**: Ubah visi pengguna menjadi prompt sinematik yang atmosferik dan imajinatif.
+**VISI PENGGUNA**: "${userInput}"
+**PROTOKOL UTAMA: SUASANA DI ATAS SEGALANYA.**
+- **Pencahayaan harus sesuai dengan konteks.** Lupakan tentang 'three-point lighting' kecuali jika pengguna secara spesifik meminta 'adegan studio film'.
+- **Berpikirlah secara visual dan puitis.** Deskripsikan bagaimana cahaya membentuk adegan dan karakter.
+**METODOLOGI**:
+1.  **Tetapkan Adegan**: Mulai dengan "Cinematic film still," dan definisikan shot kamera yang paling efektif untuk visi pengguna (misal, 'wide shot', 'intimate close-up').
+2.  **Bangun Dunia**: Berdasarkan input pengguna, **bayangkan dan deskripsikan pencahayaan yang paling atmosferik.**
+    * Jika inputnya "seorang penyihir di perpustakaan kuno", hasilnya bisa berupa: "illuminated by magical, glowing runes on bookshelves and the soft, cool light of the moon filtering through a large gothic window, casting long, eerie shadows."
+    * Jika inputnya "pasangan di kafe saat hujan", hasilnya bisa: "warm, soft light from the cafe interior contrasts with the cool, blue tones of the rain-streaked window, reflections of city lights blurring on the glass."
+3.  **Tambahkan Detail Sinematik**: Masukkan istilah seperti lensa (misal, 'anamorphic lens for a wide, epic feel'), *color grading* (misal, 'a desaturated color palette with deep blacks for a noir look'), dan tekstur ('subtle film grain').
+**INSTRUKSI OUTPUT FINAL**: Hasilkan satu paragraf deskriptif tunggal, dipisahkan koma, dalam bahasa Inggris. Fokus untuk menciptakan gambar yang hidup dan penuh mood di benak pembaca.`
+            }
+        };
+
+        // === App Functions ===
+        
+        function switchMode(mode) {
+            currentMode = mode;
+            const isImageMode = mode === 'image';
+            imageModeBtn.classList.toggle('active', isImageMode);
+            imageModeBtn.classList.toggle('border-primary-500', isImageMode);
+            imageModeBtn.classList.toggle('text-primary-600', isImageMode);
+            imageModeBtn.classList.toggle('dark:text-primary-400', isImageMode);
+            imageModeBtn.classList.toggle('text-gray-500', !isImageMode);
+
+            textModeBtn.classList.toggle('active', !isImageMode);
+            textModeBtn.classList.toggle('border-primary-500', !isImageMode);
+            textModeBtn.classList.toggle('text-primary-600', !isImageMode);
+            textModeBtn.classList.toggle('dark:text-primary-400', !isImageMode);
+            textModeBtn.classList.toggle('text-gray-500', isImageMode);
+            
+            imageModeDiv.classList.toggle('hidden', !isImageMode);
+            textModeDiv.classList.toggle('hidden', isImageMode);
+
+            hideResult();
+            hideError();
+        }
+
+        async function handleImageUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            // Validasi ukuran file (maks 5MB)
+            if (file.size > 5 * 1024 * 1024) {
+                showError("Ukuran file terlalu besar. Maksimal 5MB.");
+                return;
+            }
+            
+            imagePreviewContainer.innerHTML = '';
+            const preview = document.createElement('img');
+            preview.src = URL.createObjectURL(file);
+            preview.className = 'max-h-40 rounded-lg mx-auto';
+            preview.onload = () => URL.revokeObjectURL(preview.src);
+            
+            // Tambahkan tombol hapus
+            const previewWrapper = document.createElement('div');
+            previewWrapper.className = 'relative inline-block';
+            
+            const deleteBtn = document.createElement('button');
+            deleteBtn.className = 'absolute top-2 right-2 bg-red-500 hover:bg-red-600 text-white rounded-full p-1 shadow-md';
+            deleteBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>`;
+            deleteBtn.onclick = () => {
+                imagePreviewContainer.innerHTML = '';
+                uploadedFile = null;
+                imageUploadInput.value = '';
+            };
+            
+            previewWrapper.appendChild(preview);
+            previewWrapper.appendChild(deleteBtn);
+            imagePreviewContainer.appendChild(previewWrapper);
+            
+            const base64 = await fileToBase64(file);
+            uploadedFile = { mimeType: file.type, data: base64 };
+        }
+
+        function fileToBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result.split(',')[1]);
+                reader.onerror = error => reject(error);
+            });
+        }
+
+        function showLoader(isLoading) {
+            btnText.classList.toggle('hidden', isLoading);
+            loader.classList.toggle('hidden', !isLoading);
+            generateBtn.disabled = isLoading;
+        }
+
+        function showResult(text) {
+            resultText.textContent = text.trim();
+            resultContainer.classList.remove('hidden');
+            
+            // Tambahkan ke history
+            addToHistory(text.trim());
+        }
+
+        function hideResult() {
+            resultContainer.classList.add('hidden');
+            resultText.textContent = '';
+        }
+
+        function showError(message) {
+            errorMessageDiv.textContent = message;
+            errorMessageDiv.classList.remove('hidden');
+            
+            // Sembunyikan setelah 5 detik
+            setTimeout(() => {
+                hideError();
+            }, 5000);
+        }
+
+        function hideError() {
+            errorMessageDiv.classList.add('hidden');
+            errorMessageDiv.textContent = '';
+        }
+
+        async function handleGenerate() {
+            const apiKey = apiKeyInput.value.trim();
+            if (!apiKey) {
+                showError("API Key tidak boleh kosong.");
+                return;
+            }
+            
+            hideResult();
+            hideError();
+            showLoader(true);
+
+            try {
+                const genAI = new GoogleGenerativeAI(apiKey);
+                const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
+                
+                let promptTemplate;
+                let result;
+                if (currentMode === 'image') {
+                    if (!uploadedFile) {
+                        throw new Error("Silakan unggah gambar.");
+                    }
+                    promptTemplate = TEMPLATES.image[templateSelector.value] || TEMPLATES.image.narrative;
+                    const parts = [
+                        { text: promptTemplate },
+                        { inlineData: uploadedFile }
+                    ];
+                    result = await model.generateContent({ contents: [{ role: "user", parts }] });
+                    showResult(result.response.text());
+                } else {
+                    const userInput = textInput.value.trim();
+                    if (!userInput) {
+                        throw new Error("Silakan masukkan ide prompt.");
+                    }
+                    promptTemplate = TEMPLATES.text[templateSelector.value] || TEMPLATES.text.narrative;
+                    result = await model.generateContent(promptTemplate(userInput));
+                    showResult(result.response.text());
+                }
+
+            } catch (error) {
+                console.error("Error:", error);
+                showError(`Terjadi kesalahan: ${error.message}.`);
+            } finally {
+                showLoader(false);
+            }
+        }
+        
+        function copyToClipboard() {
+            const textToCopy = resultText.textContent;
+            if (!textToCopy) return;
+
+            const textArea = document.createElement("textarea");
+            textArea.value = textToCopy;
+            textArea.style.position = "fixed";
+            textArea.style.top = "-9999px";
+            document.body.appendChild(textArea);
+            textArea.select();
+
+            try {
+                document.execCommand('copy');
+                const originalHTML = copyBtn.innerHTML;
+                copyBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 text-green-500"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>Disalin!`;
+                setTimeout(() => { copyBtn.innerHTML = originalHTML; }, 2000);
+            } catch (err) {
+                showError('Gagal menyalin teks.');
+            }
+            document.body.removeChild(textArea);
+        }
+        
+        function addToHistory(promptText) {
+            if (!promptText) return;
+            
+            // Tambahkan ke array history
+            promptHistory.unshift({
+                text: promptText,
+                timestamp: new Date().toLocaleString(),
+                mode: currentMode,
+                template: templateSelector.value
+            });
+            
+            // Simpan ke localStorage
+            localStorage.setItem('promptHistory', JSON.stringify(promptHistory));
+            
+            // Render history
+            renderHistory();
+        }
+        
+        function renderHistory() {
+            if (promptHistory.length === 0) {
+                emptyHistory.classList.remove('hidden');
+                historyContainer.innerHTML = '';
+                historyContainer.appendChild(emptyHistory); // Re-append it
+                return;
+            }
+            
+            emptyHistory.classList.add('hidden');
+            
+            // Render history items
+            historyContainer.innerHTML = '';
+            promptHistory.forEach((item, index) => {
+                const historyItem = document.createElement('div');
+                historyItem.className = 'history-item bg-gray-50 dark:bg-gray-700/50 p-3 rounded-lg cursor-pointer';
+                historyItem.innerHTML = `
+                    <div class="flex justify-between items-start">
+                        <div class="flex-1 min-w-0">
+                            <p class="text-sm font-medium text-gray-900 dark:text-white truncate">${item.text.substring(0, 80)}${item.text.length > 80 ? '...' : ''}</p>
+                            <div class="flex items-center mt-1 text-xs text-gray-500 dark:text-gray-400">
+                                <span class="bg-${item.mode === 'image' ? 'primary' : 'indigo'}-100 dark:bg-${item.mode === 'image' ? 'primary' : 'indigo'}-900/50 text-${item.mode === 'image' ? 'primary' : 'indigo'}-800 dark:text-${item.mode === 'image' ? 'primary' : 'indigo'}-200 px-2 py-0.5 rounded mr-2 capitalize">${item.template}</span>
+                                <span>${item.timestamp}</span>
+                            </div>
+                        </div>
+                        <button class="history-copy text-gray-400 hover:text-primary-500 p-1" data-index="${index}" title="Salin Prompt">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                            </svg>
+                        </button>
+                    </div>
+                `;
+                
+                historyItem.addEventListener('click', (e) => {
+                    if (e.target.closest('.history-copy')) return; // Jangan trigger jika tombol copy diklik
+                    resultText.textContent = item.text;
+                    resultContainer.classList.remove('hidden');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+                
+                const copyBtn = historyItem.querySelector('.history-copy');
+                copyBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const textToCopy = promptHistory[index].text;
+                    
+                    navigator.clipboard.writeText(textToCopy).then(() => {
+                        copyBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>`;
+                        setTimeout(() => {
+                            copyBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" /></svg>`;
+                        }, 2000);
+                    });
+                });
+                
+                historyContainer.appendChild(historyItem);
+            });
+        }
+        
+        function clearHistory() {
+            promptHistory = [];
+            localStorage.removeItem('promptHistory');
+            renderHistory();
+        }
+
+        const sunIcon = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.95-4.243l-1.591 1.591M5.25 12H3m4.243-4.95l-1.591-1.591M12 4.5A7.5 7.5 0 0119.5 12a7.5 7.5 0 01-7.5 7.5A7.5 7.5 0 014.5 12a7.5 7.5 0 017.5-7.5z" /></svg>`;
+        const moonIcon = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25c0 5.385 4.365 9.75 9.75 9.75 2.572 0 4.92-.99 6.697-2.648z" /></svg>`;
+
+        function updateTheme() {
+            const isDark = localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
+            document.documentElement.classList.toggle('dark', isDark);
+            themeToggleBtn.innerHTML = isDark ? sunIcon : moonIcon;
+        }
+        
+        function toggleTheme() {
+            localStorage.theme = document.documentElement.classList.contains('dark') ? 'light' : 'dark';
+            updateTheme();
+        }
+
+        function toggleClearButton() {
+            clearApiKeyBtn.classList.toggle('hidden', apiKeyInput.value.trim() === '');
+        }
+        
+        // === Drag and Drop Functions ===
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        
+        function highlight() {
+            dropArea.classList.add('drag-over');
+        }
+        
+        function unhighlight() {
+            dropArea.classList.remove('drag-over');
+        }
+        
+        function handleDrop(e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            
+            if (files.length) {
+                imageUploadInput.files = files;
+                const event = new Event('change', { bubbles: true });
+                imageUploadInput.dispatchEvent(event);
+            }
+            
+            unhighlight();
+        }
+
+        // === Event Listeners ===
+        document.addEventListener('DOMContentLoaded', () => {
+            switchMode('image');
+            updateTheme();
+            
+            // Load saved API key
+            const savedApiKey = localStorage.getItem('geminiApiKey');
+            if (savedApiKey) apiKeyInput.value = savedApiKey;
+            toggleClearButton();
+            
+            // Load history
+            const savedHistory = localStorage.getItem('promptHistory');
+            if (savedHistory) {
+                promptHistory = JSON.parse(savedHistory);
+            }
+            renderHistory();
+            
+            // Setup drag and drop
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, preventDefaults, false);
+            });
+            
+            ['dragenter', 'dragover'].forEach(eventName => {
+                dropArea.addEventListener(eventName, highlight, false);
+            });
+            
+            ['dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, unhighlight, false);
+            });
+            
+            dropArea.addEventListener('drop', handleDrop, false);
+        });
+
+        apiKeyInput.addEventListener('input', () => {
+            localStorage.setItem('geminiApiKey', apiKeyInput.value);
+            toggleClearButton();
+        });
+
+        clearApiKeyBtn.addEventListener('click', () => {
+            apiKeyInput.value = '';
+            localStorage.removeItem('geminiApiKey');
+            toggleClearButton();
+            apiKeyInput.focus();
+        });
+
+        imageModeBtn.addEventListener('click', () => switchMode('image'));
+        textModeBtn.addEventListener('click', () => switchMode('text'));
+        imageUploadInput.addEventListener('change', handleImageUpload);
+        generateBtn.addEventListener('click', handleGenerate);
+        copyBtn.addEventListener('click', copyToClipboard);
+        themeToggleBtn.addEventListener('click', toggleTheme);
+        clearHistoryBtn.addEventListener('click', clearHistory);
+    </script>
+</body>
+</ht
