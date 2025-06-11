@@ -4,39 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IMAJINASI LOKAL - Wujudkan Imajinasimu</title>
-    
     <!-- Font Awesome CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Memuat Tailwind CSS untuk Generator V2 -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Google Fonts: Inter (untuk Generator V2) -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
-    
-    <!-- Konfigurasi custom untuk Tailwind CSS -->
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                    colors: {
-                        primary: {
-                            50: '#f0f9ff', 100: '#e0f2fe', 200: '#bae6fd',
-                            300: '#7dd3fc', 400: '#38bdf8', 500: '#0ea5e9',
-                            600: '#0284c7', 700: '#0369a1', 800: '#075985',
-                            900: '#0c4a6e',
-                        }
-                    },
-                },
-            },
-        }
-    </script>
-
-    <!-- CSS Internal dari file style.css -->
+    <!-- CSS Internal -->
     <style>
         /* Reset & Base Styles */
         * {
@@ -71,7 +41,7 @@
         .btn-accent:hover { background: #c0392b; }
         .btn-primary { background: var(--primary); }
         .btn-primary:hover { background: #2980b9; }
-        .main-section { padding: 80px 0; }
+        .section { padding: 80px 0; }
         .section-title { text-align: center; margin-bottom: 50px; }
         .section-title h2 {
             font-size: 2.5rem; color: var(--secondary); margin-bottom: 15px;
@@ -168,19 +138,6 @@
         }
         .modal-close:hover, .modal-close:focus { color: black; text-decoration: none; cursor: pointer; }
         .modal h3 { margin-top: 0; color: var(--secondary); margin-bottom: 15px; font-size: 1.5rem; }
-        .modal-prompt-text {
-            background-color: #f0f4f8; border: 1px solid #dfe6ec; padding: 15px; border-radius: 5px;
-            margin-bottom: 20px; white-space: pre-wrap; word-wrap: break-word; max-height: 250px;
-            overflow-y: auto; font-family: 'Courier New', Courier, monospace; font-size: 0.9em;
-            line-height: 1.5; color: #2c3e50;
-        }
-        .modal-copy-button {
-            background-color: var(--primary); color: white; padding: 10px 20px;
-            border: none; border-radius: 5px; cursor: pointer; font-size: 1em;
-            transition: background-color 0.3s ease; display: flex; align-items: center; justify-content: center;
-        }
-        .modal-copy-button:hover { background-color: #2980b9; }
-        #copy-feedback { display: inline-block; margin-left: 15px; color: green; font-size: 0.9em; font-style: italic; }
         footer { background: var(--secondary); color: white; padding: 70px 0 20px; }
         .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-bottom: 50px; }
         .footer-col { margin-bottom: 20px; }
@@ -201,17 +158,6 @@
         }
         .social-links a:hover { background: var(--primary); transform: translateY(-5px); }
         .copyright { text-align: center; padding-top: 30px; border-top: 1px solid rgba(255, 255, 255, 0.1); font-size: 0.9rem; color: rgba(255, 255, 255, 0.6); }
-        .hidden { display: none; }
-        
-        /* Gaya untuk Generator V2 - Menggunakan Tailwind, namun beberapa override mungkin diperlukan */
-        #generator-v2-section .card {
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-        }
-        #generator-v2-section .card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        }
         
         @media (max-width: 768px) { 
             .mobile-menu { display: block; }
@@ -236,7 +182,7 @@
             .hero h1 { font-size: 2.4rem; } .hero p { font-size: 1.1rem; }
             .hero-btns { flex-direction: column; align-items: center; gap: 15px;}
             .hero-btns .btn { width: 80%; max-width: 300px;}
-            .main-section { padding: 60px 0; }
+            .section { padding: 60px 0; }
             .header-container { padding: 10px 0; }
             .logo-image { height: 35px; } .logo-text { font-size: 1.4rem; }
             .footer-grid { grid-template-columns: 1fr; text-align: center; }
@@ -246,195 +192,144 @@
     </style>
 </head>
 <body>
-    <main id="main-content">
-        <!-- Header -->
-        <header>
-            <div class="container header-container">
-                <a href="#" id="home-link" class="logo">
-                    <img src="images/logo.png" alt="Logo IMAJINASI LOKAL" class="logo-image" onerror="this.onerror=null;this.src='https://placehold.co/150x40/3498db/ffffff?text=LOGO';this.style.height='40px';"> 
-                    <span class="logo-text">IMAJINASI LOKAL</span>
-                </a>
-                <div class="mobile-menu"> <i class="fas fa-bars"></i> </div>
-                <nav>
-                    <ul>
-                        <li><a href="#" class="page-link" data-target="home-sections">Beranda</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="page-link dropdown-toggle" data-target="ai-tools">AI Tools <i class="fas fa-chevron-down"></i></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#" class="page-link" data-target="generator-v2-section">Generator Prompt (V2)</a></li>
-                                <li><a href="#" class="protected-link" data-target-page="prompt-fashion-wanita.html">Generator Fashion (Wanita)</a></li>
-                                <li><a href="#" class="protected-link" data-target-page="prompt-fashion-pria.html">Generator Fashion (Pria)</a></li>
-                                <li><a href="#" class="protected-link" data-target-page="ai-prompt-generator-template.html">Generator Template (Lama)</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#" class="page-link" data-target="other-features">Fitur Lain</a></li>
-                        <li><a href="#" class="page-link" data-target="contact">Kontak</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </header>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <img src="images/logo.png" alt="Logo IMAJINASI LOKAL" class="logo-image" onerror="this.onerror=null;this.src='https://placehold.co/150x40/3498db/ffffff?text=LOGO';this.style.height='40px';"> 
+                <span class="logo-text">IMAJINASI LOKAL</span>
+            </a>
+            <div class="mobile-menu"> <i class="fas fa-bars"></i> </div>
+            <nav>
+                <ul>
+                    <li><a href="#hero">Beranda</a></li>
+                    <li class="dropdown">
+                        <a href="#ai-tools" class="dropdown-toggle">AI Tools <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="prompt-generator-v2.html" class="protected-link" data-target-page="prompt-generator-v2.html">Generator Prompt (V2)</a></li>
+                            <li><a href="prompt-fashion-wanita.html" class="protected-link" data-target-page="prompt-fashion-wanita.html">Generator Fashion (Wanita)</a></li>
+                            <li><a href="prompt-fashion-pria.html" class="protected-link" data-target-page="prompt-fashion-pria.html">Generator Fashion (Pria)</a></li>
+                            <li><a href="ai-prompt-generator-template.html" class="protected-link" data-target-page="ai-prompt-generator-template.html">Generator Template (Lama)</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#other-features">Fitur Lain</a></li>
+                    <li><a href="#contact">Kontak</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-        <!-- Hero Section -->
-        <section class="main-section" id="hero">
-            <div class="hero">
-                <div class="hero-content">
-                    <h1>Buat imajinasimu menjadi Sesuatu Yang Nyata</h1>
-                    <p>Berbagai Tools dan Referensi Tersedia untuk anda</p>
-                    <div class="hero-btns">
-                        <a href="#ai-tools" id="jelajahi-btn" class="btn btn-accent">JELAJAHI AI TOOLS</a>
-                    </div>
-                </div>
+    <!-- Hero Section -->
+    <section class="section hero" id="hero">
+        <div class="hero-content">
+            <h1>Buat imajinasimu menjadi Sesuatu Yang Nyata</h1>
+            <p>Berbagai Tools dan Referensi Tersedia untuk anda</p>
+            <div class="hero-btns">
+                <a href="#ai-tools" class="btn btn-accent">JELAJAHI AI TOOLS</a>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- AI Tools Section -->
-        <section class="main-section" id="ai-tools">
-            <div class="container">
-                <div class="section-title">
-                    <h2>AI Tools Unggulan</h2> 
-                    <p>Temukan alat AI yang akan memicu kreativitas dan mewujudkan ide-ide Anda.</p> 
-                </div>
-                
-                <div class="ai-tools-grid"> 
-                    <div class="ai-tool-item">
-                        <div class="tool-icon"><i class="fas fa-wand-magic-sparkles"></i></div>
-                        <h3>Generator Prompt AI (V2)</h3>
-                        <p>Wujudkan imajinasimu menjadi prompt sempurna dari teks atau gambar menggunakan Google Gemini.</p>
-                        <a href="#" class="btn btn-accent page-link" data-target="generator-v2-section">Coba Generator V2</a>
-                    </div>
-                    <div class="ai-tool-item">
-                         <div class="tool-icon"><i class="fas fa-female"></i></div>
-                        <h3>Generator Fashion (Wanita)</h3>
-                        <p>Ciptakan konsep busana wanita yang elegan dan trendi dengan templat siap pakai.</p>
-                        <a href="#" class="btn protected-link" data-target-page="prompt-fashion-wanita.html">Mulai Kreasi</a>
-                    </div>
-                    <div class="ai-tool-item">
-                        <div class="tool-icon"><i class="fas fa-male"></i></div>
-                        <h3>Generator Fashion (Pria)</h3>
-                        <p>Rancang gaya busana pria yang modern dan berkarakter dari berbagai pilihan.</p>
-                        <a href="#" class="btn protected-link" data-target-page="prompt-fashion-pria.html">Mulai Kreasi</a>
-                    </div>
-                    <div class="ai-tool-item">
-                         <div class="tool-icon"><i class="fas fa-layer-group"></i></div>
-                        <h3>Generator Template (Lama)</h3>
-                        <p>Susun struktur prompt AI Anda dengan memilih elemen pakem dari dropdown.</p>
-                        <a href="#" class="btn protected-link" data-target-page="ai-prompt-generator-template.html">Coba AI Generator Ini</a>
-                    </div>
-                </div>
+    <!-- AI Tools Section -->
+    <section class="section" id="ai-tools">
+        <div class="container">
+            <div class="section-title">
+                <h2>AI Tools Unggulan</h2> 
+                <p>Temukan alat AI yang akan memicu kreativitas dan mewujudkan ide-ide Anda.</p> 
             </div>
-        </section>
-
-        <!-- Other Features Section -->
-        <section class="main-section" id="other-features">
-             <div class="container">
-                <div class="section-title">
-                    <h2>Fitur Lain</h2> 
-                    <p>Jelajahi berbagai fitur dan tautan bermanfaat lainnya yang kami sediakan.</p> 
+            
+            <div class="ai-tools-grid"> 
+                <div class="ai-tool-item">
+                    <div class="tool-icon"><i class="fas fa-wand-magic-sparkles"></i></div>
+                    <h3>Generator Prompt AI (V2)</h3>
+                    <p>Wujudkan imajinasimu menjadi prompt sempurna dari teks atau gambar menggunakan Google Gemini.</p>
+                    <a href="prompt-generator-v2.html" class="btn btn-accent protected-link" data-target-page="prompt-generator-v2.html">Coba Generator V2</a>
                 </div>
-                <div class="ai-tools-grid"> 
-                    <div class="ai-tool-item">
-                        <div class="tool-icon"><i class="fas fa-link"></i></div>
-                        <h3>Galeri Fitur & Tautan</h3>
-                        <p>Kumpulan tautan, layanan, dan sumber daya bermanfaat lainnya yang telah kami siapkan.</p>
-                        <a href="fitur-lain.html" class="btn btn-primary">Lihat Selengkapnya</a>
-                    </div>
-                    <div class="ai-tool-item">
-                        <div class="tool-icon"><i class="fas fa-shopping-cart"></i></div>
-                        <h3>PRODUK IMAJINASI LOKAL</h3>
-                        <p>Temukan Produk Digital Yang Sesuai Denganmu Disini.</p>
-                        <a href="https://lynk.id/masmameh" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Kunjungi Toko</a>
-                    </div>
-                    <div class="ai-tool-item">
-                        <div class="tool-icon"><i class="fas fa-images"></i></div>
-                        <h3>GALERI PROMPT</h3>
-                        <p>Galeri Prompt Beserta Hasil Gambar yang sudah Digenerate.</p>
-                        <a href="https://www.canva.com/design/DAGpv726L38/FHyMAisxDFhq8KvmewBYnw/view" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Kunjungi Galeri</a>
-                    </div>
+                <div class="ai-tool-item">
+                     <div class="tool-icon"><i class="fas fa-female"></i></div>
+                    <h3>Generator Fashion (Wanita)</h3>
+                    <p>Ciptakan konsep busana wanita yang elegan dan trendi dengan templat siap pakai.</p>
+                    <a href="prompt-fashion-wanita.html" class="btn protected-link" data-target-page="prompt-fashion-wanita.html">Mulai Kreasi</a>
                 </div>
-            </div>
-        </section>
-
-        <!-- Footer -->
-        <footer class="main-section" id="contact"> 
-            <div class="container">
-                <div class="footer-grid">
-                     <div class="footer-col">
-                        <h3>Tentang Kami</h3>
-                        <p>Di IMAJINASI LOKAL, kami percaya setiap gagasan 'LOKAL' memiliki potensi global. Kami hadir untuk membekali Anda dengan alat dan inspirasi.</p>
-                    </div>
-                    <div class="footer-col">
-                         <h3>Hubungi Kami</h3>
-                         <form id="contact-form">
-                            <input type="text" name="name" placeholder="Nama Anda" required style="width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 5px; border: 1px solid #7f8c8d; background: #3e5771; color: white;">
-                            <input type="email" name="email" placeholder="Email Anda" required style="width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 5px; border: 1px solid #7f8c8d; background: #3e5771; color: white;">
-                            <textarea name="message" placeholder="Pesan Anda..." required style="width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 5px; border: 1px solid #7f8c8d; background: #3e5771; color: white; min-height: 80px;"></textarea>
-                            <button type="submit" class="btn btn-primary" style="width: 100%;">Kirim Pesan</button>
-                         </form>
-                         <p id="form-feedback" style="margin-top: 10px; text-align: center;"></p>
-                    </div>
-                    <div class="footer-col">
-                        <h3>Media Sosial</h3> 
-                        <div class="social-links">
-                            <a href="https://www.facebook.com/profile.php?id=61574077473784&locale=id_ID" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
-                            <a href="https://www.threads.net/@imajinasi.lokal?hl=en" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-threads"></i></a>
-                            <a href="https://www.instagram.com/imajinasi.lokal/" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
-                            <a href="https://t.me/imajinasilokal" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-telegram"></i></a>
-                        </div>
-                    </div>
+                <div class="ai-tool-item">
+                    <div class="tool-icon"><i class="fas fa-male"></i></div>
+                    <h3>Generator Fashion (Pria)</h3>
+                    <p>Rancang gaya busana pria yang modern dan berkarakter dari berbagai pilihan.</p>
+                    <a href="prompt-fashion-pria.html" class="btn protected-link" data-target-page="prompt-fashion-pria.html">Mulai Kreasi</a>
                 </div>
-                <div class="copyright">
-                    <p>&copy; <span id="currentYear"></span> IMAJINASI LOKAL. Hak Cipta Dilindungi.</p>
-                </div>
-            </div>
-        </footer>
-    </main>
-
-    <!-- PERUBAHAN: Konten dari Generator V2, sekarang menjadi bagian dari halaman utama -->
-    <section id="generator-v2-section" class="hidden bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 py-8 min-h-screen">
-        <div class="container mx-auto px-4 md:px-8 max-w-4xl">
-             <header class="flex justify-between items-center mb-8">
-                <div>
-                    <div class="flex items-center gap-3 mb-2">
-                        <div class="bg-primary-600 text-white p-2 rounded-lg">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z" /></svg>
-                        </div>
-                        <h1 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">Prompt Generator V2</h1>
-                    </div>
-                    <p class="text-gray-500 dark:text-gray-400 ml-1">Wujudkan imajinasimu dari teks atau gambar via Google Gemini.</p>
-                </div>
-                <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"></button>
-            </header>
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <div class="lg:col-span-2">
-                    <div class="mb-6 p-4 bg-white dark:bg-gray-800 rounded-lg shadow-md card">
-                        <label for="api-key" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">1. Masukkan Google Gemini API Key Anda</label>
-                        <div class="relative"><input type="password" id="api-key" placeholder="API Key akan tersimpan otomatis di browser..." class="w-full px-3 py-2 pr-10 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"><button id="clear-api-key-btn" class="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer hidden" title="Hapus API Key"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-gray-400 hover:text-red-500"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></button></div>
-                        <p class="text-xs text-gray-400 dark:text-gray-500 mt-2">Kunci API Anda hanya digunakan di browser ini dan tidak dikirim ke server kami.</p>
-                    </div>
-                    <main class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 md:p-6 card">
-                        <p class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">2. Pilih Mode & Gaya</p>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                            <div class="flex border-b border-gray-200 dark:border-gray-700"><button id="image-mode-btn" class="px-4 py-2 text-sm font-semibold border-b-2 border-primary-500 text-primary-600 dark:text-primary-400">Gambar ke Prompt</button><button id="text-mode-btn" class="px-4 py-2 text-sm font-semibold text-gray-500 hover:text-gray-700 dark:hover:text-gray-300">Teks ke Prompt</button></div>
-                            <div><select id="template-selector" class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"><option value="narrative">Gaya Naratif (Seimbang)</option><option value="keywords">Gaya Kata Kunci Rinci</option><option value="cinematic">Gaya Sinematik</option></select></div>
-                        </div>
-                        <div id="content-area">
-                            <div id="image-mode"><label id="drop-area" for="image-upload" class="flex flex-col items-center justify-center w-full h-48 border-2 border-gray-300 dark:border-gray-600 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors"><div class="flex flex-col items-center justify-center pt-5 pb-6"><svg class="w-10 h-10 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/></svg><p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Klik untuk mengunggah</span> atau seret gambar</p><p class="text-xs text-gray-500 dark:text-gray-400">PNG, JPG, WEBP (Maks. 5MB)</p></div><input id="image-upload" type="file" class="hidden" accept="image/png, image/jpeg, image/webp" /></label><div id="image-preview-container" class="mt-4 text-center"></div></div>
-                            <div id="text-mode" class="hidden"><textarea id="text-input" rows="6" class="w-full p-3 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500" placeholder="Tulis ide prompt Anda di sini..."></textarea></div>
-                        </div>
-                        <div class="mt-6 text-center"><button id="generate-btn" class="w-full md:w-auto bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-8 rounded-lg transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-primary-500/50 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center mx-auto"><span id="btn-text">Buat Prompt</span><div id="loader" class="hidden w-5 h-5 border-2 border-white border-t-transparent rounded-full ml-3" style="animation: spin 1s linear infinite;"></div></button></div>
-                        <div id="result-container" class="hidden mt-8 p-4 bg-gray-100 dark:bg-gray-900 rounded-lg"><div class="flex justify-between items-center mb-2"><h3 class="text-lg font-semibold text-gray-900 dark:text-white">Hasil Prompt:</h3><button id="copy-btn" class="text-sm flex items-center gap-1 text-gray-500 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m9.75 0h-3.25a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H21a1.125 1.125 0 0 1 1.125 1.125v5.25a1.125 1.125 0 0 1-1.125 1.125z" /></svg>Salin</button></div><pre class="whitespace-pre-wrap break-words bg-white dark:bg-gray-800 p-3 rounded-md text-sm max-h-64 overflow-auto"><code id="result-text"></code></pre></div>
-                        <div id="error-message" class="hidden mt-6 p-3 text-sm text-red-800 bg-red-100 dark:text-red-200 dark:bg-red-900/50 rounded-lg text-center"></div>
-                    </main>
-                </div>
-                <div class="lg:col-span-1">
-                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 md:p-6 card h-full">
-                        <div class="flex items-center justify-between mb-4"><h2 class="text-xl font-bold text-gray-900 dark:text-white">History Prompt</h2><button id="clear-history" class="text-sm text-gray-500 hover:text-primary-600 dark:hover:text-primary-400"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" /></svg></button></div>
-                        <div id="history-container" class="space-y-3 max-h-[500px] overflow-y-auto pr-2"><div class="text-center py-8 text-gray-500 dark:text-gray-400" id="empty-history"><svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg><h3 class="mt-2 text-sm font-medium">Belum ada history</h3><p class="mt-1 text-sm">Prompt yang Anda hasilkan akan muncul di sini</p></div></div>
-                    </div>
+                <div class="ai-tool-item">
+                     <div class="tool-icon"><i class="fas fa-layer-group"></i></div>
+                    <h3>Generator Template (Lama)</h3>
+                    <p>Susun struktur prompt AI Anda dengan memilih elemen pakem dari dropdown.</p>
+                    <a href="ai-prompt-generator-template.html" class="btn protected-link" data-target-page="ai-prompt-generator-template.html">Coba AI Generator Ini</a>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- Other Features Section -->
+    <section class="section" id="other-features" style="background-color: #f0f4f8;">
+         <div class="container">
+            <div class="section-title">
+                <h2>Fitur Lain</h2> 
+                <p>Jelajahi berbagai fitur dan tautan bermanfaat lainnya yang kami sediakan.</p> 
+            </div>
+            <div class="ai-tools-grid"> 
+                <div class="ai-tool-item">
+                    <div class="tool-icon"><i class="fas fa-link"></i></div>
+                    <h3>Galeri Fitur & Tautan</h3>
+                    <p>Kumpulan tautan, layanan, dan sumber daya bermanfaat lainnya yang telah kami siapkan.</p>
+                    <a href="fitur-lain.html" class="btn btn-primary">Lihat Selengkapnya</a>
+                </div>
+                <div class="ai-tool-item">
+                    <div class="tool-icon"><i class="fas fa-shopping-cart"></i></div>
+                    <h3>PRODUK IMAJINASI LOKAL</h3>
+                    <p>Temukan Produk Digital Yang Sesuai Denganmu Disini.</p>
+                    <a href="https://lynk.id/masmameh" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Kunjungi Toko</a>
+                </div>
+                <div class="ai-tool-item">
+                    <div class="tool-icon"><i class="fas fa-images"></i></div>
+                    <h3>GALERI PROMPT</h3>
+                    <p>Galeri Prompt Beserta Hasil Gambar yang sudah Digenerate.</p>
+                    <a href="https://www.canva.com/design/DAGpv726L38/FHyMAisxDFhq8KvmewBYnw/view" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Kunjungi Galeri</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="section" id="contact"> 
+        <div class="container">
+            <div class="footer-grid">
+                 <div class="footer-col">
+                    <h3>Tentang Kami</h3>
+                    <p>Di IMAJINASI LOKAL, kami percaya setiap gagasan 'LOKAL' memiliki potensi global. Kami hadir untuk membekali Anda dengan alat dan inspirasi.</p>
+                </div>
+                <div class="footer-col">
+                     <h3>Hubungi Kami</h3>
+                     <form id="contact-form">
+                        <input type="text" name="name" placeholder="Nama Anda" required style="width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 5px; border: 1px solid #7f8c8d; background: #3e5771; color: white;">
+                        <input type="email" name="email" placeholder="Email Anda" required style="width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 5px; border: 1px solid #7f8c8d; background: #3e5771; color: white;">
+                        <textarea name="message" placeholder="Pesan Anda..." required style="width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 5px; border: 1px solid #7f8c8d; background: #3e5771; color: white; min-height: 80px;"></textarea>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Kirim Pesan</button>
+                     </form>
+                     <p id="form-feedback" style="margin-top: 10px; text-align: center;"></p>
+                </div>
+                <div class="footer-col">
+                    <h3>Media Sosial</h3> 
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/profile.php?id=61574077473784&locale=id_ID" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.threads.net/@imajinasi.lokal?hl=en" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-threads"></i></a>
+                        <a href="https://www.instagram.com/imajinasi.lokal/" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                        <a href="https://t.me/imajinasilokal" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-telegram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; <span id="currentYear"></span> IMAJINASI LOKAL. Hak Cipta Dilindungi.</p>
+            </div>
+        </div>
+    </footer>
 
     <!-- Modal untuk Password -->
     <div id="passwordModal" class="modal">
@@ -448,56 +343,14 @@
         </div>
     </div>
     
-    <!-- Toast Notification -->
-    <div id="toast-notification" class="hidden fixed bottom-5 right-5 bg-green-500 text-white py-2 px-4 rounded-lg shadow-lg" style="transition: all 0.5s ease;">
-        Pesan Disalin!
-    </div>
-
-
-    <script type="module">
-        // Memuat Gemini SDK
-        import { GoogleGenerativeAI } from "https://esm.run/@google/generative-ai";
-
-        // ===========================================
-        // === BAGIAN UTAMA & NAVIGASI SITUS WEB ===
-        // ===========================================
-
+    <!-- JavaScript Internal -->
+    <script>
+        // === KONFIGURASI & VARIABEL GLOBAL ===
         const mobileMenu = document.querySelector('.mobile-menu');
         const navMenu = document.querySelector('nav ul');
         const header = document.querySelector('header');
-        const pageLinks = document.querySelectorAll('.page-link');
-        const homeLink = document.getElementById('home-link');
-        const jelajahiBtn = document.getElementById('jelajahi-btn');
-        
-        function showSection(targetId) {
-            document.querySelectorAll('.main-section').forEach(s => s.classList.add('hidden'));
-            document.getElementById('generator-v2-section').classList.add('hidden');
-            
-            if (targetId === 'home-sections') {
-                document.querySelectorAll('.main-section').forEach(s => s.classList.remove('hidden'));
-            } else {
-                const sectionToShow = document.getElementById(targetId);
-                if (sectionToShow) sectionToShow.classList.remove('hidden');
-            }
-            window.scrollTo(0, 0);
-        }
-        
-        pageLinks.forEach(link => {
-            link.addEventListener('click', e => {
-                e.preventDefault();
-                const targetId = link.dataset.target;
-                if (link.closest('.dropdown-toggle') && window.innerWidth <= 768) return;
-                showSection(targetId);
-                if (navMenu.classList.contains('active')) {
-                    navMenu.classList.remove('active');
-                    mobileMenu.querySelector('i').classList.replace('fa-times', 'fa-bars');
-                }
-            });
-        });
-        
-        homeLink.addEventListener('click', e => { e.preventDefault(); showSection('home-sections'); });
-        jelajahiBtn.addEventListener('click', e => { e.preventDefault(); document.getElementById('ai-tools').scrollIntoView({ behavior: 'smooth' }); });
-        
+
+        // === FUNGSI NAVIGASI ===
         if (mobileMenu) {
             mobileMenu.addEventListener('click', () => {
                 navMenu.classList.toggle('active');
@@ -516,6 +369,22 @@
             });
         });
         
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href.length > 1) {
+                    e.preventDefault();
+                    const targetElement = document.querySelector(href);
+                    if (targetElement) {
+                        let headerOffset = header ? header.offsetHeight : 0;
+                        const elementPosition = targetElement.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                        window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+                    }
+                }
+            });
+        });
+        
         window.addEventListener('scroll', () => {
             if (header) {
                 header.style.backgroundColor = window.scrollY > 100 ? 'rgba(255, 255, 255, 0.98)' : 'rgba(255, 255, 255, 0.95)';
@@ -526,20 +395,16 @@
         const currentYearEl = document.getElementById("currentYear");
         if (currentYearEl) currentYearEl.textContent = new Date().getFullYear();
 
-        // ===========================================
-        // === LOGIKA PASSWORD UNTUK TOOL LAMA ===
-        // ===========================================
-
+        // === LOGIKA PASSWORD ===
         const passwordModal = document.getElementById("passwordModal");
         const passwordModalCloseButton = document.getElementById("passwordModalCloseButton");
         const passwordModalMessage = document.getElementById("passwordModalMessage");
         const passwordInput = document.getElementById("passwordInput");
         const submitPasswordButton = document.getElementById("submitPasswordButton");
         const passwordError = document.getElementById("passwordError");
-        const protectedLinks = document.querySelectorAll('.protected-link');
-
-        // PERBAIKAN: Menggunakan objek password dari file script.js Anda
+        
         const toolPasswords = {
+            'prompt-generator-v2.html': 'kreasilokal',
             'prompt-fashion-wanita.html': 'wanitakreatif',
             'prompt-fashion-pria.html': 'priamodern',
             'ai-prompt-generator-template.html': 'templatecanggih',
@@ -574,274 +439,18 @@
         if (passwordInput) passwordInput.addEventListener('keyup', (event) => { if (event.key === "Enter") handlePasswordSubmit(); });
         if (passwordModalCloseButton) passwordModalCloseButton.onclick = () => { passwordModal.style.display = "none"; passwordContext = { target: null, onSuccess: null }; };
         
-        protectedLinks.forEach(link => {
+        document.querySelectorAll('.protected-link').forEach(link => {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
                 const targetPage = this.dataset.targetPage;
                 const toolItem = this.closest('.ai-tool-item');
-                const toolName = toolItem ? toolItem.querySelector('h3').textContent : 'Fitur';
+                const toolName = toolItem ? toolItem.querySelector('h3').textContent : this.textContent.trim();
                 if (targetPage) {
                     requestPassword(targetPage, toolName, () => { window.location.href = targetPage; });
                 }
             });
         });
         
-        // ===========================================
-        // === LOGIKA UNTUK GENERATOR V2 ===
-        // ===========================================
-        
-        const generatorV2Section = document.getElementById('generator-v2-section');
-        const apiKeyInput = document.getElementById('api-key');
-        const clearApiKeyBtn = document.getElementById('clear-api-key-btn');
-        const imageModeBtn = document.getElementById('image-mode-btn');
-        const textModeBtn = document.getElementById('text-mode-btn');
-        const templateSelector = document.getElementById('template-selector');
-        const imageModeDiv = document.getElementById('image-mode');
-        const textModeDiv = document.getElementById('text-mode');
-        const imageUploadInput = document.getElementById('image-upload');
-        const imagePreviewContainer = document.getElementById('image-preview-container');
-        const textInput = document.getElementById('text-input');
-        const generateBtn = document.getElementById('generate-btn');
-        const btnText = document.getElementById('btn-text');
-        const loader = document.getElementById('loader');
-        const resultContainer = document.getElementById('result-container');
-        const resultText = document.getElementById('result-text');
-        const copyBtn = document.getElementById('copy-btn');
-        const errorMessageDiv = document.getElementById('error-message');
-        const themeToggleBtn = document.getElementById('theme-toggle');
-        const historyContainer = document.getElementById('history-container');
-        const emptyHistory = document.getElementById('empty-history');
-        const clearHistoryBtn = document.getElementById('clear-history');
-        const dropArea = document.getElementById('drop-area');
-        const toastNotification = document.getElementById('toast-notification');
-
-        let genV2_currentMode = 'image';
-        let genV2_uploadedFile = null;
-        let promptHistory = [];
-        
-        const TEMPLATES = {
-            image: {
-                narrative: `**PERAN**: Anda adalah seorang direktur seni dan seniman prompt kelas dunia. **TUJUAN**: Menciptakan sebuah prompt naratif yang koheren, mengalir, 100% aman (SFW), dan profesional dari gambar yang diunggah. **METODOLOGI**: Analisis medium (foto, lukisan, dll.), buat pembukaan dinamis, deskripsikan subjek, pakaian, tindakan, dan lokasi secara profesional. Simpulkan suasana, interaksi cahaya/bayangan, dan tambahkan detail teknis yang relevan dengan medium. **OUTPUT**: Satu kalimat naratif tunggal dalam bahasa Inggris, dipisahkan koma, tanpa teks tambahan.`,
-                keywords: `**PERAN**: Anda adalah seorang analis teknis yang teliti. **TUGAS**: Uraikan gambar menjadi daftar kata kunci bahasa Inggris yang detail, aman, dan efektif, dipisahkan koma. **METODOLOGI**: Identifikasi medium. Buat daftar kata kunci untuk: Subjek, Pakaian/Detail, Komposisi/Framing, Sudut Kamera, Lokasi/Lingkungan, Pencahayaan, Palet Warna, dan Gaya. Tambahkan kata kunci spesifik medium dan peningkat kualitas universal. **OUTPUT**: Satu string kata kunci bahasa Inggris yang komprehensif, dipisahkan koma. Tanpa kalimat atau judul.`,
-                cinematic: `**PERAN**: Anda adalah seorang Sinematografer. **TUGAS**: Analisis gambar seolah-olah sebuah *still frame* dari film dan hasilkan prompt sinematik yang atmosferik. **METODOLOGI**: Mulai dengan "Cinematic film still,". Definisikan jenis shot, sudut, dan lensa. Deskripsikan kualitas dan mood pencahayaan, color grading, dan gaya visual. Sebutkan tekstur seperti 'film grain' jika relevan. **OUTPUT**: Satu paragraf deskriptif bahasa Inggris, dipisahkan koma, fokus pada istilah sinematik.`,
-            },
-            text: {
-                narrative: (userInput) => `**PERAN**: Anda adalah seorang seniman prompt kelas dunia. **TUJUAN**: Mengubah visi pengguna "${userInput}" menjadi satu kalimat prompt naratif yang puitis, aman, dan koheren secara teknis. **METODOLOGI**: Analisis visi pengguna, elaborasi secara artistik (bangun narasi mikro), rangkai menjadi kalimat sensoris yang mendeskripsikan atmosfer dan interaksi cahaya/bayangan, tambahkan detail teknis yang sesuai medium, dan akhiri dengan peningkat kualitas. **HUKUM**: Jangan mengarang detail inti. **OUTPUT**: Satu kalimat naratif tunggal dalam bahasa Inggris, dipisahkan koma.`,
-                keywords: (userInput) => `**PERAN**: Anda adalah ekstraktor kata kunci teknis. **TUGAS**: Ubah konsep pengguna "${userInput}" menjadi daftar kata kunci bahasa Inggris yang detail, aman, dan komprehensif, dipisahkan koma. **METODOLOGI**: Ekstrak konsep inti, terjemahkan ke kata kunci, tambahkan detail teknis untuk Komposisi, Pencahayaan, Warna, dan Gaya. **HUKUM**: Jangan mengarang detail jika tidak ada di input. **OUTPUT**: Satu string kata kunci bahasa Inggris, dipisahkan koma.`,
-                cinematic: (userInput) => `**PERAN**: Anda adalah seorang Sutradara Film. **TUGAS**: Ubah visi pengguna "${userInput}" menjadi prompt sinematik yang atmosferik. **METODOLOGI**: Mulai dengan "Cinematic film still," dan definisikan shot kamera. Bayangkan dan deskripsikan pencahayaan yang paling atmosferik sesuai konteks (misal, untuk 'penyihir di perpustakaan', hasilnya bisa 'diterangi oleh rune magis yang bersinar dan cahaya bulan yang dingin'). Tambahkan detail lensa, color grading, dan tekstur. **OUTPUT**: Satu paragraf deskriptif bahasa Inggris, dipisahkan koma.`,
-            }
-        };
-
-        function showToast(message, isError = false) {
-            toastNotification.textContent = message;
-            toastNotification.classList.remove('hidden', 'bg-green-500', 'bg-red-500');
-            toastNotification.classList.add(isError ? 'bg-red-500' : 'bg-green-500');
-            setTimeout(() => { toastNotification.classList.add('hidden'); }, 3000);
-        }
-
-        function genV2_switchMode(mode) {
-            genV2_currentMode = mode;
-            const isImageMode = mode === 'image';
-            imageModeBtn.classList.toggle('border-primary-500', isImageMode);
-            imageModeBtn.classList.toggle('text-primary-600', isImageMode);
-            imageModeBtn.classList.toggle('dark:text-primary-400', isImageMode);
-            imageModeBtn.classList.toggle('text-gray-500', !isImageMode);
-            textModeBtn.classList.toggle('border-primary-500', !isImageMode);
-            textModeBtn.classList.toggle('text-primary-600', !isImageMode);
-            textModeBtn.classList.toggle('dark:text-primary-400', !isImageMode);
-            textModeBtn.classList.toggle('text-gray-500', isImageMode);
-            imageModeDiv.classList.toggle('hidden', !isImageMode);
-            textModeDiv.classList.toggle('hidden', isImageMode);
-            genV2_hideResult();
-            genV2_hideError();
-        }
-
-        async function genV2_handleImageUpload(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-            if (file.size > 5 * 1024 * 1024) { genV2_showError("Ukuran file terlalu besar. Maksimal 5MB."); return; }
-            
-            imagePreviewContainer.innerHTML = '';
-            const previewWrapper = document.createElement('div');
-            previewWrapper.className = 'relative inline-block';
-            const preview = document.createElement('img');
-            preview.src = URL.createObjectURL(file);
-            preview.className = 'max-h-40 rounded-lg mx-auto';
-            preview.onload = () => URL.revokeObjectURL(preview.src);
-            const deleteBtn = document.createElement('button');
-            deleteBtn.className = 'absolute top-2 right-2 bg-red-500 hover:bg-red-600 text-white rounded-full p-1 shadow-md';
-            deleteBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>`;
-            deleteBtn.onclick = () => { imagePreviewContainer.innerHTML = ''; genV2_uploadedFile = null; imageUploadInput.value = ''; };
-            
-            previewWrapper.appendChild(preview);
-            previewWrapper.appendChild(deleteBtn);
-            imagePreviewContainer.appendChild(previewWrapper);
-            
-            const base64 = await genV2_fileToBase64(file);
-            genV2_uploadedFile = { mimeType: file.type, data: base64 };
-        }
-
-        function genV2_fileToBase64(file) {
-            return new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.readAsDataURL(file);
-                reader.onload = () => resolve(reader.result.split(',')[1]);
-                reader.onerror = error => reject(error);
-            });
-        }
-
-        function genV2_showLoader(isLoading) {
-            btnText.classList.toggle('hidden', isLoading);
-            loader.classList.toggle('hidden', !isLoading);
-            generateBtn.disabled = isLoading;
-        }
-
-        function genV2_showResult(text) {
-            resultText.textContent = text.trim();
-            resultContainer.classList.remove('hidden');
-            genV2_addToHistory(text.trim());
-        }
-
-        function genV2_hideResult() { resultContainer.classList.add('hidden'); resultText.textContent = ''; }
-        function genV2_showError(message) { errorMessageDiv.textContent = message; errorMessageDiv.classList.remove('hidden'); setTimeout(() => { genV2_hideError(); }, 5000); }
-        function genV2_hideError() { errorMessageDiv.classList.add('hidden'); errorMessageDiv.textContent = ''; }
-
-        async function genV2_handleGenerate() {
-            const apiKey = apiKeyInput.value.trim();
-            if (!apiKey) { genV2_showError("API Key tidak boleh kosong."); return; }
-            
-            genV2_hideResult();
-            genV2_hideError();
-            genV2_showLoader(true);
-
-            try {
-                const genAI = new GoogleGenerativeAI(apiKey);
-                const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
-                
-                let promptTemplate, result;
-                if (genV2_currentMode === 'image') {
-                    if (!genV2_uploadedFile) throw new Error("Silakan unggah gambar.");
-                    promptTemplate = TEMPLATES.image[templateSelector.value];
-                    result = await model.generateContent({ contents: [{ role: "user", parts: [{ text: promptTemplate }, { inlineData: genV2_uploadedFile }] }] });
-                } else {
-                    const userInput = textInput.value.trim();
-                    if (!userInput) throw new Error("Silakan masukkan ide prompt.");
-                    promptTemplate = TEMPLATES.text[templateSelector.value];
-                    result = await model.generateContent(promptTemplate(userInput));
-                }
-                genV2_showResult(result.response.text());
-            } catch (error) {
-                console.error("Error:", error);
-                genV2_showError(`Terjadi kesalahan: ${error.message}.`);
-            } finally {
-                genV2_showLoader(false);
-            }
-        }
-        
-        function genV2_copyToClipboard() {
-            const textToCopy = resultText.textContent;
-            if (!textToCopy) return;
-            navigator.clipboard.writeText(textToCopy).then(() => {
-                showToast("Prompt disalin!");
-            }, () => {
-                showToast("Gagal menyalin.", true);
-            });
-        }
-        
-        function genV2_addToHistory(promptText) {
-            if (!promptText) return;
-            promptHistory.unshift({ text: promptText, timestamp: new Date().toLocaleString(), mode: genV2_currentMode, template: templateSelector.value });
-            localStorage.setItem('promptHistory', JSON.stringify(promptHistory));
-            genV2_renderHistory();
-        }
-        
-        function genV2_renderHistory() {
-            historyContainer.innerHTML = '';
-            if (promptHistory.length === 0) {
-                historyContainer.appendChild(emptyHistory);
-                emptyHistory.classList.remove('hidden');
-                return;
-            }
-            emptyHistory.classList.add('hidden');
-            
-            promptHistory.forEach((item, index) => {
-                const historyItem = document.createElement('div');
-                historyItem.className = 'history-item bg-gray-50 dark:bg-gray-700/50 p-3 rounded-lg cursor-pointer transition-all hover:bg-gray-100 dark:hover:bg-gray-700';
-                historyItem.innerHTML = `
-                    <div class="flex justify-between items-start gap-2">
-                        <div class="flex-1 min-w-0">
-                            <p class="text-sm font-medium text-gray-900 dark:text-white truncate">${item.text}</p>
-                            <span class="text-xs text-gray-500 dark:text-gray-400">${item.timestamp}</span>
-                        </div>
-                        <button class="history-copy text-gray-400 hover:text-primary-500 p-1 flex-shrink-0" data-index="${index}" title="Salin Prompt"><i class="fas fa-copy"></i></button>
-                    </div>`;
-                historyItem.addEventListener('click', (e) => {
-                    if (e.target.closest('.history-copy')) return;
-                    resultText.textContent = item.text;
-                    resultContainer.classList.remove('hidden');
-                    generatorV2Section.scrollIntoView({ behavior: 'smooth' });
-                });
-                historyItem.querySelector('.history-copy').addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    navigator.clipboard.writeText(item.text).then(() => showToast("History disalin!"));
-                });
-                historyContainer.appendChild(historyItem);
-            });
-        }
-        
-        function genV2_clearHistory() {
-            promptHistory = [];
-            localStorage.removeItem('promptHistory');
-            genV2_renderHistory();
-        }
-
-        const sunIcon = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.95-4.243l-1.591 1.591M5.25 12H3m4.243-4.95l-1.591-1.591M12 4.5A7.5 7.5 0 0119.5 12a7.5 7.5 0 01-7.5 7.5A7.5 7.5 0 014.5 12a7.5 7.5 0 017.5-7.5z" /></svg>`;
-        const moonIcon = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25c0 5.385 4.365 9.75 9.75 9.75 2.572 0 4.92-.99 6.697-2.648z" /></svg>`;
-        function genV2_updateTheme() {
-            const isDark = localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
-            document.documentElement.classList.toggle('dark', isDark);
-            themeToggleBtn.innerHTML = isDark ? sunIcon : moonIcon;
-        }
-        function genV2_toggleTheme() { localStorage.theme = document.documentElement.classList.contains('dark') ? 'light' : 'dark'; genV2_updateTheme(); }
-        function genV2_toggleClearButton() { clearApiKeyBtn.classList.toggle('hidden', apiKeyInput.value.trim() === ''); }
-        
-        function genV2_handleDrop(e) {
-            e.preventDefault(); e.stopPropagation();
-            dropArea.classList.remove('border-primary-500');
-            if (e.dataTransfer.files.length) {
-                imageUploadInput.files = e.dataTransfer.files;
-                const event = new Event('change', { bubbles: true });
-                imageUploadInput.dispatchEvent(event);
-            }
-        }
-        
-        // === Event Listeners (Dipanggil saat DOM siap) ===
-        document.addEventListener('DOMContentLoaded', () => {
-            showSection('home-sections');
-            genV2_switchMode('image');
-            genV2_updateTheme();
-            const savedApiKey = localStorage.getItem('geminiApiKey');
-            if (savedApiKey) apiKeyInput.value = savedApiKey;
-            genV2_toggleClearButton();
-            const savedHistory = localStorage.getItem('promptHistory');
-            if (savedHistory) promptHistory = JSON.parse(savedHistory);
-            genV2_renderHistory();
-            
-            ['dragenter', 'dragover'].forEach(e => dropArea.addEventListener(e, (ev) => { ev.preventDefault(); ev.stopPropagation(); dropArea.classList.add('border-primary-500'); }));
-            ['dragleave', 'drop'].forEach(e => dropArea.addEventListener(e, (ev) => { ev.preventDefault(); ev.stopPropagation(); dropArea.classList.remove('border-primary-500'); }));
-            dropArea.addEventListener('drop', genV2_handleDrop);
-        });
-
-        apiKeyInput.addEventListener('input', () => { localStorage.setItem('geminiApiKey', apiKeyInput.value); genV2_toggleClearButton(); });
-        clearApiKeyBtn.addEventListener('click', () => { apiKeyInput.value = ''; localStorage.removeItem('geminiApiKey'); genV2_toggleClearButton(); apiKeyInput.focus(); });
-        imageModeBtn.addEventListener('click', () => genV2_switchMode('image'));
-        textModeBtn.addEventListener('click', () => genV2_switchMode('text'));
-        imageUploadInput.addEventListener('change', genV2_handleImageUpload);
-        generateBtn.addEventListener('click', genV2_handleGenerate);
-        copyBtn.addEventListener('click', genV2_copyToClipboard);
-        themeToggleBtn.addEventListener('click', genV2_toggleTheme);
-        clearHistoryBtn.addEventListener('click', genV2_clearHistory);
-
         window.onclick = function(event) {
             if (event.target == passwordModal) { 
                 passwordModal.style.display = "none"; 
