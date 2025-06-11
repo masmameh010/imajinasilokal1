@@ -2,6 +2,7 @@
 // PENTING: Ganti password untuk setiap tool di sini.
 // Key (misal, 'prompt-fashion-wanita.html') harus cocok dengan nilai 'data-target-page' pada link di index.html
 const toolPasswords = {
+  'prompt-generator-v2.html': 'kreasilokal',
   'prompt-fashion-wanita.html': 'wanitakreatif',
   'prompt-fashion-pria.html': 'priamodern',
   'ai-prompt-generator-template.html': 'templatecanggih',
