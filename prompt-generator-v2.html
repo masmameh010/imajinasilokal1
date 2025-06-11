@@ -152,9 +152,20 @@
                 </div>
                 <p class="text-gray-500 dark:text-gray-400 ml-1">Wujudkan imajinasimu menjadi prompt sempurna dari teks atau gambar.</p>
             </div>
-            <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
-                <!-- Ikon akan diisi oleh JavaScript -->
-            </button>
+            <!-- PERUBAHAN: Menambahkan div untuk menampung tombol-tombol -->
+            <div class="flex items-center gap-2">
+                <!-- Tombol Kembali -->
+                <a href="index.html" class="flex items-center gap-2 text-sm bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 font-semibold py-2 px-4 rounded-lg transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+                    </svg>
+                    <span>Kembali</span>
+                </a>
+                <!-- Tombol Ganti Tema -->
+                <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                    <!-- Ikon akan diisi oleh JavaScript -->
+                </button>
+            </div>
         </header>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
